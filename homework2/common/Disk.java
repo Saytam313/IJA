@@ -1,7 +1,7 @@
 package ija.ija2018.homework2.common;
 
 import ija.ija2018.homework2.game.Board;
-//chleba
+//rohlik
 public class Disk extends java.lang.Object implements Figure{
     private final int typ;
     private final boolean isWhite;
