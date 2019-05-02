@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="900.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Board_GUI.BoardController">
+    <children>
+      <Button fx:id="field12" layoutX="141.0" layoutY="763.0" onAction="#field12click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+        <Button fx:id="field11" layoutX="41.0" layoutY="763.0" onAction="#field11click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+      <Button fx:id="field21" layoutX="41.0" layoutY="663.0" onAction="#field21click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+      <Button fx:id="field22" layoutX="141.0" layoutY="663.0" onAction="#field22click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+      <Button fx:id="field31" layoutX="41.0" layoutY="564.0" onAction="#field31click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+      <Button fx:id="field13" layoutX="241.0" layoutY="763.0" onAction="#field13click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+      <Button fx:id="field14" layoutX="341.0" layoutY="763.0" onAction="#field14click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+      <Button fx:id="field15" layoutX="438.0" layoutY="763.0" onAction="#field15click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+      <Button fx:id="field16" layoutX="538.0" layoutY="763.0" onAction="#field16click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+      <Button fx:id="field17" layoutX="638.0" layoutY="763.0" onAction="#field17click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+      <Button fx:id="field18" layoutX="738.0" layoutY="763.0" onAction="#field18click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+      <ImageView layoutX="638.0" layoutY="763.0" mouseTransparent="true">
+         <image>
+            <Image url="@../assets/Black/pesak.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="141.0" layoutY="763.0" mouseTransparent="true">
+         <image>
+            <Image url="@../assets/White/kralovna.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="341.0" layoutY="763.0" mouseTransparent="true">
+         <image>
+            <Image url="@../assets/White/kun.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="538.0" layoutY="763.0" mouseTransparent="true">
+         <image>
+            <Image url="@../assets/White/pesak.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="41.0" layoutY="763.0" mouseTransparent="true">
+         <image>
+            <Image url="@../assets/White/strelec.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="738.0" layoutY="763.0" mouseTransparent="true">
+         <image>
+            <Image url="@../assets/Black/strelec.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="141.0" layoutY="564.0" mouseTransparent="true">
+         <image>
+            <Image url="@../assets/Black/vez.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="41.0" layoutY="663.0" mouseTransparent="true">
+         <image>
+            <Image url="@../assets/Black/kral.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="141.0" layoutY="663.0" mouseTransparent="true">
+         <image>
+            <Image url="@../assets/Black/kralovna.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="41.0" layoutY="564.0" mouseTransparent="true">
+         <image>
+            <Image url="@../assets/Black/kun.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="438.0" layoutY="763.0" mouseTransparent="true">
+         <image>
+            <Image url="@../assets/White/vez.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="241.0" layoutY="763.0" mouseTransparent="true">
+         <image>
+            <Image url="@../assets/White/kral.png" />
+         </image>
+      </ImageView>
+    </children>
+</AnchorPane>
