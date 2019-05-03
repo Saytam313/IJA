@@ -9,16 +9,22 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.*;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 
 /**
  *
  * @author Šimon
  */
 public class BoardController implements Initializable {
-    
-    
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        //tabPanel.getTabs().add(new Tab("Tab 1"));
+    }  
+        
     @FXML
     private void handleButtonAction(ActionEvent event) {
         System.out.println("[1,1]");
@@ -279,9 +285,33 @@ public class BoardController implements Initializable {
     private void field88click(ActionEvent event) {
         System.out.println("[8,8]");
     }
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+    @FXML
+    private void addTab(ActionEvent event) {
+        System.out.println("addTab");
+    }
+    @FXML
+    private void resetGame(ActionEvent event) {
+        System.out.println("resetGame");
+    }
+    @FXML
+    private void nahraniZaznamu(ActionEvent event) {
+        System.out.println("nahraniZaznamu");
+    }
+    @FXML
+    private void zpetButton(ActionEvent event) {
+        System.out.println("zpet");
+    }
+    @FXML
+    private void vpredButton(ActionEvent event) {
+        System.out.println("vpred");
+    }
+    @FXML
+    private void stopButton(ActionEvent event) {
+        System.out.println("stop");
+    }
+    @FXML
+    private void playButton(ActionEvent event) {
+        System.out.println("play");
+    }
     
 }
