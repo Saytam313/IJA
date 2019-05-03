@@ -9,12 +9,12 @@ https://wis.fit.vutbr.cz/FIT/st/cwk.php.cs?title=Zad%E1n%ED_projektu&csid=670528
 - ~Figurky~  
 - ~Tlacitka pro ovladani zaznamu~  
 - Pridavani novych tabu  
-- ~Kostry funkci tlacitek~  
-- Funkce tlacitek  
+- ~Kostry funkci tlacitek~ 
 - Zapis zaznamu  
 #### Kod  
 - Spojit kod z homeworku2 s GUI  
-- Pohyb Figurek  
+- Pohyb Figurek   
+- Funkce tlacitek  
 - Tvorba zaznamu  
 - Nahrani zaznamu  
 - Ukladani zaznamu  
