@@ -18,126 +18,126 @@
          <content>
             <AnchorPane id="AnchorPane" prefHeight="883.0" prefWidth="1082.0">
                <children>
-                  <Button fx:id="field12" layoutX="148.0" layoutY="731.0" onAction="#field12click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field11" layoutX="48.0" layoutY="731.0" onAction="#field11click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field21" layoutX="48.0" layoutY="631.0" onAction="#field21click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field22" layoutX="148.0" layoutY="631.0" onAction="#field22click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field31" layoutX="48.0" layoutY="531.0" onAction="#field31click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field13" layoutX="248.0" layoutY="731.0" onAction="#field13click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field14" layoutX="348.0" layoutY="731.0" onAction="#field14click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field15" layoutX="448.0" layoutY="731.0" onAction="#field15click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field16" layoutX="548.0" layoutY="731.0" onAction="#field16click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field17" layoutX="648.0" layoutY="731.0" onAction="#field17click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field18" layoutX="748.0" layoutY="731.0" onAction="#field18click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field27" layoutX="648.0" layoutY="631.0" onAction="#field27click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field25" layoutX="448.0" layoutY="631.0" onAction="#field25click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field23" layoutX="248.0" layoutY="631.0" onAction="#field23click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field32" layoutX="148.0" layoutY="531.0" onAction="#field32click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field28" layoutX="748.0" layoutY="631.0" onAction="#field28click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field26" layoutX="548.0" layoutY="631.0" onAction="#field26click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field24" layoutX="348.0" layoutY="631.0" onAction="#field24click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field33" layoutX="248.0" layoutY="531.0" onAction="#field33click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field35" layoutX="448.0" layoutY="531.0" onAction="#field35click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field37" layoutX="648.0" layoutY="531.0" onAction="#field37click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field34" layoutX="348.0" layoutY="531.0" onAction="#field34click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field36" layoutX="548.0" layoutY="531.0" onAction="#field36click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field38" layoutX="748.0" layoutY="531.0" onAction="#field38click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field51" layoutX="48.0" layoutY="331.0" onAction="#field51click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field52" layoutX="148.0" layoutY="331.0" onAction="#field52click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field53" layoutX="248.0" layoutY="331.0" onAction="#field53click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field55" layoutX="448.0" layoutY="331.0" onAction="#field55click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field57" layoutX="648.0" layoutY="331.0" onAction="#field57click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field54" layoutX="348.0" layoutY="331.0" onAction="#field54click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field56" layoutX="548.0" layoutY="331.0" onAction="#field56click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field58" layoutX="748.0" layoutY="331.0" onAction="#field58click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field41" layoutX="48.0" layoutY="431.0" onAction="#field41click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field42" layoutX="148.0" layoutY="431.0" onAction="#field42click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field47" layoutX="648.0" layoutY="431.0" onAction="#field47click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field45" layoutX="448.0" layoutY="431.0" onAction="#field45click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field43" layoutX="248.0" layoutY="431.0" onAction="#field43click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field48" layoutX="748.0" layoutY="431.0" onAction="#field48click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field46" layoutX="548.0" layoutY="431.0" onAction="#field46click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field44" layoutX="348.0" layoutY="431.0" onAction="#field44click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field71" layoutX="48.0" layoutY="131.0" onAction="#field71click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field72" layoutX="148.0" layoutY="131.0" onAction="#field72click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field73" layoutX="248.0" layoutY="131.0" onAction="#field73click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field75" layoutX="448.0" layoutY="131.0" onAction="#field75click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field77" layoutX="648.0" layoutY="131.0" onAction="#field77click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field74" layoutX="348.0" layoutY="131.0" onAction="#field74click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field76" layoutX="548.0" layoutY="131.0" onAction="#field76click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field78" layoutX="748.0" layoutY="131.0" onAction="#field78click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field61" layoutX="48.0" layoutY="231.0" onAction="#field61click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field62" layoutX="148.0" layoutY="231.0" onAction="#field62click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field67" layoutX="648.0" layoutY="231.0" onAction="#field67click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field65" layoutX="448.0" layoutY="231.0" onAction="#field65click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field63" layoutX="248.0" layoutY="231.0" onAction="#field63click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field68" layoutX="748.0" layoutY="231.0" onAction="#field68click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field66" layoutX="548.0" layoutY="231.0" onAction="#field66click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field64" layoutX="348.0" layoutY="231.0" onAction="#field64click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field81" layoutX="48.0" layoutY="31.0" onAction="#field81click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field82" layoutX="148.0" layoutY="31.0" onAction="#field82click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field87" layoutX="648.0" layoutY="31.0" onAction="#field87click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field85" layoutX="448.0" layoutY="31.0" onAction="#field85click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field83" layoutX="248.0" layoutY="31.0" onAction="#field83click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field88" layoutX="748.0" layoutY="31.0" onAction="#field88click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field86" layoutX="548.0" layoutY="31.0" onAction="#field86click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <Button fx:id="field84" layoutX="348.0" layoutY="31.0" onAction="#field84click" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
-                  <ImageView layoutX="148.0" layoutY="231.0" mouseTransparent="true">
+                  <Button fx:id="field12" layoutX="148.0" layoutY="731.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field11" layoutX="48.0" layoutY="731.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field21" layoutX="48.0" layoutY="631.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field22" layoutX="148.0" layoutY="631.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field31" layoutX="48.0" layoutY="531.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field13" layoutX="248.0" layoutY="731.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field14" layoutX="348.0" layoutY="731.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field15" layoutX="448.0" layoutY="731.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field16" layoutX="548.0" layoutY="731.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field17" layoutX="648.0" layoutY="731.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field18" layoutX="748.0" layoutY="731.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field27" layoutX="648.0" layoutY="631.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field25" layoutX="448.0" layoutY="631.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field23" layoutX="248.0" layoutY="631.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field32" layoutX="148.0" layoutY="531.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field28" layoutX="748.0" layoutY="631.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field26" layoutX="548.0" layoutY="631.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field24" layoutX="348.0" layoutY="631.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field33" layoutX="248.0" layoutY="531.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field35" layoutX="448.0" layoutY="531.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field37" layoutX="648.0" layoutY="531.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field34" layoutX="348.0" layoutY="531.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field36" layoutX="548.0" layoutY="531.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field38" layoutX="748.0" layoutY="531.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field51" layoutX="48.0" layoutY="331.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field52" layoutX="148.0" layoutY="331.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field53" layoutX="248.0" layoutY="331.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field55" layoutX="448.0" layoutY="331.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field57" layoutX="648.0" layoutY="331.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field54" layoutX="348.0" layoutY="331.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field56" layoutX="548.0" layoutY="331.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field58" layoutX="748.0" layoutY="331.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field41" layoutX="48.0" layoutY="431.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field42" layoutX="148.0" layoutY="431.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field47" layoutX="648.0" layoutY="431.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field45" layoutX="448.0" layoutY="431.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field43" layoutX="248.0" layoutY="431.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field48" layoutX="748.0" layoutY="431.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field46" layoutX="548.0" layoutY="431.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field44" layoutX="348.0" layoutY="431.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field71" layoutX="48.0" layoutY="131.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field72" layoutX="148.0" layoutY="131.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field73" layoutX="248.0" layoutY="131.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field75" layoutX="448.0" layoutY="131.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field77" layoutX="648.0" layoutY="131.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field74" layoutX="348.0" layoutY="131.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field76" layoutX="548.0" layoutY="131.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field78" layoutX="748.0" layoutY="131.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field61" layoutX="48.0" layoutY="231.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field62" layoutX="148.0" layoutY="231.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field67" layoutX="648.0" layoutY="231.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field65" layoutX="448.0" layoutY="231.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field63" layoutX="248.0" layoutY="231.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field68" layoutX="748.0" layoutY="231.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field66" layoutX="548.0" layoutY="231.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field64" layoutX="348.0" layoutY="231.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field81" layoutX="48.0" layoutY="31.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field82" layoutX="148.0" layoutY="31.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field87" layoutX="648.0" layoutY="31.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field85" layoutX="448.0" layoutY="31.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field83" layoutX="248.0" layoutY="31.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field88" layoutX="748.0" layoutY="31.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field86" layoutX="548.0" layoutY="31.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field84" layoutX="348.0" layoutY="31.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <ImageView layoutX="148.0" layoutY="731.0" mouseTransparent="true">
                      <image>
                         <Image url="@../assets/Black/pesak.png" />
                      </image>
                   </ImageView>
-                  <ImageView layoutX="148.0" layoutY="531.0" mouseTransparent="true">
+                  <ImageView layoutX="748.0" layoutY="632.0" mouseTransparent="true">
                      <image>
                         <Image url="@../assets/White/kralovna.png" />
                      </image>
                   </ImageView>
-                  <ImageView layoutX="448.0" layoutY="231.0" mouseTransparent="true">
+                  <ImageView layoutX="548.0" layoutY="232.0" mouseTransparent="true">
                      <image>
                         <Image url="@../assets/White/kun.png" />
                      </image>
                   </ImageView>
-                  <ImageView layoutX="148.0" layoutY="331.0" mouseTransparent="true">
+                  <ImageView layoutX="448.0" layoutY="331.0" mouseTransparent="true">
                      <image>
                         <Image url="@../assets/White/pesak.png" />
                      </image>
                   </ImageView>
-                  <ImageView layoutX="548.0" layoutY="631.0" mouseTransparent="true">
+                  <ImageView layoutX="748.0" layoutY="730.0" mouseTransparent="true">
                      <image>
                         <Image url="@../assets/White/strelec.png" />
                      </image>
                   </ImageView>
-                  <ImageView layoutX="548.0" layoutY="431.0" mouseTransparent="true">
+                  <ImageView layoutX="548.0" layoutY="731.0" mouseTransparent="true">
                      <image>
                         <Image url="@../assets/Black/strelec.png" />
                      </image>
                   </ImageView>
-                  <ImageView layoutX="548.0" layoutY="131.0" mouseTransparent="true">
+                  <ImageView layoutX="248.0" layoutY="232.0" mouseTransparent="true">
                      <image>
                         <Image url="@../assets/Black/vez.png" />
                      </image>
                   </ImageView>
-                  <ImageView layoutX="248.0" layoutY="331.0" mouseTransparent="true">
+                  <ImageView layoutX="648.0" layoutY="431.0" mouseTransparent="true">
                      <image>
                         <Image url="@../assets/Black/kral.png" />
                      </image>
                   </ImageView>
-                  <ImageView layoutX="348.0" layoutY="531.0" mouseTransparent="true">
+                  <ImageView layoutX="248.0" layoutY="432.0" mouseTransparent="true">
                      <image>
                         <Image url="@../assets/Black/kralovna.png" />
                      </image>
                   </ImageView>
-                  <ImageView layoutX="248.0" layoutY="631.0" mouseTransparent="true">
+                  <ImageView layoutX="48.0" layoutY="331.0" mouseTransparent="true">
                      <image>
                         <Image url="@../assets/Black/kun.png" />
                      </image>
                   </ImageView>
-                  <ImageView layoutX="748.0" layoutY="531.0" mouseTransparent="true">
+                  <ImageView layoutX="648.0" layoutY="632.0" mouseTransparent="true">
                      <image>
                         <Image url="@../assets/White/vez.png" />
                      </image>
                   </ImageView>
-                  <ImageView layoutX="348.0" layoutY="231.0" mouseTransparent="true">
+                  <ImageView layoutX="448.0" layoutY="532.0" mouseTransparent="true">
                      <image>
                         <Image url="@../assets/White/kral.png" />
                      </image>
