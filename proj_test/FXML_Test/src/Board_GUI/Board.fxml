@@ -11,7 +11,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-//tady se ted prodavaji hrusky
+//tady se ted prodavaji hrusky a uz i banany
 <TabPane prefHeight="911.0" prefWidth="1081.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Board_GUI.BoardController">
    <tabs>
       <Tab closable="false" text="Hra 1">
