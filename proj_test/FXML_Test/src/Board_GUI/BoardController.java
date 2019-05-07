@@ -28,6 +28,7 @@ public class BoardController implements Initializable {
     @FXML
     private void handleButtonAction(ActionEvent event) {
         System.out.println("[1,1]");
+        
     }
     @FXML
     private void field11click(ActionEvent event) {

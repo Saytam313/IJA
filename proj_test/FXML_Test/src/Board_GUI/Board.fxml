@@ -87,7 +87,7 @@
                         <Image url="@../assets/Black/pesak.png" />
                      </image>
                   </ImageView>
-                  <ImageView layoutX="148.0" layoutY="531.0" mouseTransparent="true">
+                  <ImageView layoutX="48.0" layoutY="631.0" mouseTransparent="true">
                      <image>
                         <Image url="@../assets/White/kralovna.png" />
                      </image>
