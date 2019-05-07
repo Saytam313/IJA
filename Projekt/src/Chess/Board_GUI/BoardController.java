@@ -3,16 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Board_GUI;
+package Chess.Board_GUI;
 
+import Chess.Game.GameFactory;
+import Chess.Game.common.Game;
+import Chess.Game.game.Board;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 
 /**
  *
@@ -22,21 +23,29 @@ public class BoardController implements Initializable {
 
     @FXML
     private static int VyberFigurky=0;
-    private static char VyberX; 
-    private static char VyberY;
+    private static int VyberX; 
+    private static int VyberY;
     private static Button VyberButton;
     private static String VyberButtonStyle;
+    private static Board board;
+    private static Game game;
+    
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
+    public void initialize(URL url, ResourceBundle rb) {   
+        board = new Board(8);
+        game = GameFactory.createChessGame(board);
     }  
         
 
     @FXML
     private void fieldClick(ActionEvent event) {
-        char x=event.getSource().toString().charAt(15);
-        char y=event.getSource().toString().charAt(16);
-        
+        int x=Character.getNumericValue(event.getSource().toString().charAt(15));
+        int y=Character.getNumericValue(event.getSource().toString().charAt(16));
+        if(!board.getField(x, y).isEmpty()){    
+            System.out.println(board.getField(x, y).get().getState());   
+        }else{  
+            System.out.println("prazdna pozice");   
+        }
         if(VyberFigurky==0){
             VyberButton=(Button) event.getSource();
             
