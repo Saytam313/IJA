@@ -7,9 +7,13 @@ public class Disk extends java.lang.Object implements Figure{
     private final boolean isWhite;
     public Field field;
     public Board board;
-    //typ:0 Vez
-    //typ:1 Pesak
-    //typ:2 Disk na damu
+    //typ:0 Pesak
+    //typ:1 Vez
+    //typ:2 Strelec
+    //typ:3 Kun
+    //typ:4 Kralovna
+    //typ:5 Kral
+    
     public Disk(int typ,Board board,boolean isWhite){
         this.board=board;
         this.typ=typ;
@@ -43,10 +47,10 @@ public class Disk extends java.lang.Object implements Figure{
         }
         switch (typ) {
             case 0:
-                type="V";
+                type="P";
                 break;
             case 1:
-                type="P";
+                type="V";
                 break;
             case 2:
                 type="S";
@@ -69,328 +73,435 @@ public class Disk extends java.lang.Object implements Figure{
     }
     
     public boolean move(Field moveTo){
-         
-        int diff =0;
-        int Col_diff=0;
-        int Row_diff=0;
-        char dir;
-        int tRow;
-        int tCol;
-        if(this.field==null){
-            return false;      
-        }else{
-            tRow=this.field.getRow();
-            tCol=this.field.getCol();
-        }
         
-        int mRow=moveTo.getRow();
-        int mCol=moveTo.getCol();
-
-        if(tRow!=mRow&&tCol!=mCol){
-            Col_diff=tCol-mCol;
-            Row_diff=tRow-mRow;
-            diff=Math.abs(Col_diff);
-            
-            if(Math.abs(Row_diff)!=Math.abs(Col_diff)){
+        if(this.typ == 0) {
+            if(this.field.getCol() == moveTo.getCol()) {
+                if((this.field.getRow() < moveTo.getRow()) && isWhite()) {
+                    if(Math.abs(this.field.getRow() - moveTo.getRow()) == 2 && (this.field.getRow() == 2) && moveTo.isEmpty()) {
+                        this.field.remove(this);
+                        this.field = moveTo;
+                        moveTo.put(this);
+                        return true;
+                    } else if((Math.abs(this.field.getRow() - moveTo.getRow()) == 1) && moveTo.isEmpty()) {
+                        this.field.remove(this);
+                        this.field = moveTo;
+                        moveTo.put(this);
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else if((this.field.getRow() > moveTo.getRow()) && !isWhite()) {
+                    if(Math.abs(this.field.getRow() - moveTo.getRow()) == 2 && (this.field.getRow() == 7) && moveTo.isEmpty()) {
+                        this.field.remove(this);
+                        this.field = moveTo;
+                        moveTo.put(this);
+                        return true;
+                    } else if((Math.abs(this.field.getRow() - moveTo.getRow()) == 1) && moveTo.isEmpty()) {
+                        this.field.remove(this);
+                        this.field = moveTo;
+                        moveTo.put(this);
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
                 return false;
             }
-            if(Col_diff>0){
-
-                if(Row_diff<0){
-                    dir='T';//T=RU                   
-                }else{
-                    dir='F';//F=RD
-                }
-            }else{
-                
-                if(Row_diff<0){
-                    dir='K';//K=LU                   
-                }else{
-                    dir='J';//J=LD
-                }
-            }
-        }else if(tRow!=mRow){
-            diff=tRow-mRow;
-            if(diff>=0){
-                dir='D';
-            }else{
-                diff=diff*(-1);
-                dir='U';
-            }
-        }else if(tCol!=mCol){
-            diff=tCol-mCol;
-            if(diff>0){
-                dir='L';
-            }else{
-                diff=diff*(-1);
-                dir='R';
-            }
-        }else{
-            return false;
-        }
-        Field nextfield=this.field;
-
-        
-        if(typ==0){   
-            while(diff!=0){
-                switch(dir){
-                    case 'D':
-                        nextfield=nextfield.nextField(Field.Direction.D);
-                        //diff--;
-                        break;
-                    case 'U':
-                        nextfield=nextfield.nextField(Field.Direction.U);
-                        //diff++;
-                        break;
-                    case 'L':
-                        nextfield=nextfield.nextField(Field.Direction.L);
-                        //diff--;
-                        break;
-                    case 'R':   
-                        nextfield=nextfield.nextField(Field.Direction.R);
-                        //diff++;
-                        break;
-                    }
-                    diff--;
-                
-                  
-                if(!nextfield.isEmpty()){
-                    if(nextfield.get().isWhite()!=this.isWhite){
-                        nextfield.remove(nextfield.get()); 
- 
-                                
-                    }else{
-                        return false;    
-                    }    
-                }
-            }
-            this.field.remove(this);
-            this.field=moveTo;
-            moveTo.put(this);
-            return true;
-        }else if(typ==1){       
             
-            if(dir=='U' && isWhite()){
-                if(diff==2&&tRow==2){
+        } else if(this.typ == 1) {
+            if(this.field.getCol() == moveTo.getCol()) {
+                if(this.field.getRow() > moveTo.getRow()) {
+                    Field next = moveTo;
+                    for(int x = this.field.getRow(); x > moveTo.getRow(); x--) {
+                        if(!next.isEmpty()) {
+                            return false;
+                        }
+                        next = next.nextField(Field.Direction.U);
+                    }
                     this.field.remove(this);
-                    this.field=moveTo;
+                    this.field = moveTo;
                     moveTo.put(this);
                     return true;
-                }else if(diff==1){
+                } else if(this.field.getRow() < moveTo.getRow()) {
+                    Field next = moveTo;
+                    for(int x = moveTo.getRow(); x > this.field.getRow(); x--) {
+                        if(!next.isEmpty()) {
+                            return false;
+                        }
+                        
+                        next = next.nextField(Field.Direction.D);
+                    }
                     this.field.remove(this);
-                    this.field=moveTo;
+                    this.field = moveTo;
                     moveTo.put(this);
-                    return true;   
-                }else{
+                    return true;
+                } else {
                     return false;
                 }
-            }else if(dir=='D' && !isWhite()){
-                
-                if(diff==2&&tRow==7){
+            } else if(this.field.getRow() == moveTo.getRow()) {
+                if(this.field.getCol() > moveTo.getCol()) {
+                    Field next = moveTo;
+                    for(int x = this.field.getCol(); x > moveTo.getCol(); x--) {
+                        if(!next.isEmpty()) {
+                            return false;
+                        }
+                        next = next.nextField(Field.Direction.R);
+                    }
                     this.field.remove(this);
-                    this.field=moveTo;
+                    this.field = moveTo;
                     moveTo.put(this);
-                    return true;  
-                
-                }else if(diff==1){
-                    
+                    return true;
+                } else if(this.field.getCol() < moveTo.getCol()) {
+                    Field next = moveTo;
+                    for(int x = moveTo.getCol(); x > this.field.getCol(); x--) {
+                        if(!next.isEmpty()) {
+                            return false;
+                        }
+                        next = next.nextField(Field.Direction.L);
+                    }
                     this.field.remove(this);
-                    this.field=moveTo;
+                    this.field = moveTo;
                     moveTo.put(this);
-                    return true;   
-                }else{
+                    return true;
+                } else {
                     return false;
                 }
-            }else{
-                return false;
-            } 
-        }else if(typ==2){
-
-            if(diff==1){
-                if(dir=='K'){
-                    nextfield=nextfield.nextField(Field.Direction.LU);   
-                }else if(dir=='T'){
-                    nextfield=nextfield.nextField(Field.Direction.RU);
-                }else{
-                    return false;
-                }
-                
-                  
-                if(!nextfield.isEmpty()){ 
-                        return false;    
-                    }    
-            }else{
+            } else {
                 return false;
             }
+           
+        } else if(this.typ == 2) {
+            if(Math.abs(this.field.getCol() - moveTo.getCol()) == Math.abs(this.field.getRow() - moveTo.getRow())) {
+                if(((this.field.getCol() - moveTo.getCol()) > 0) && ((this.field.getRow() - moveTo.getRow()) < 0)) {
+                    Field next = moveTo;
+                    for(int x = this.field.getRow(); x > moveTo.getRow(); x--) {
+                        if(!next.isEmpty()) {
+                            return false;
+                        }
+                        next = next.nextField(Field.Direction.LU);
+                    }
+                    this.field.remove(this);
+                    this.field = moveTo;
+                    moveTo.put(this);
+                    return true;
+                } else if(((this.field.getCol() - moveTo.getCol()) > 0) && ((this.field.getRow() - moveTo.getRow()) > 0)) {
+                    Field next = moveTo;
+                    for(int x = moveTo.getRow(); x > this.field.getRow(); x--) {
+                        if(!next.isEmpty()) {
+                            return false;
+                        }
+                        
+                        next = next.nextField(Field.Direction.LD);
+                    }
+                    this.field.remove(this);
+                    this.field = moveTo;
+                    moveTo.put(this);
+                    return true;
+                } else if(((this.field.getCol() - moveTo.getCol()) < 0) && ((this.field.getRow() - moveTo.getRow()) < 0)) {
+                    Field next = moveTo;
+                    for(int x = this.field.getCol(); x > moveTo.getCol(); x--) {
+                        if(!next.isEmpty()) {
+                            return false;
+                        }
+                        next = next.nextField(Field.Direction.RU);
+                    }
+                    this.field.remove(this);
+                    this.field = moveTo;
+                    moveTo.put(this);
+                    return true;
+                } else if(((this.field.getCol() - moveTo.getCol()) < 0) && ((this.field.getRow() - moveTo.getRow()) > 0)) {
+                    Field next = moveTo;
+                    for(int x = moveTo.getCol(); x > this.field.getCol(); x--) {
+                        if(!next.isEmpty()) {
+                            return false;
+                        }
+                        next = next.nextField(Field.Direction.LU);
+                    }
+                    this.field.remove(this);
+                    this.field = moveTo;
+                    moveTo.put(this);
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+            
+        } else if(this.typ == 3) {
+            if(((this.field.getCol() + 1) == moveTo.getCol()) && ((this.field.getRow() + 2) == moveTo.getRow())) {
+                this.field.remove(this);
+                this.field = moveTo;
+                moveTo.put(this);
+                return true;
+            } else if(((this.field.getCol() + 2) == moveTo.getCol()) && ((this.field.getRow() + 1) == moveTo.getRow())) {
+                this.field.remove(this);
+                this.field = moveTo;
+                moveTo.put(this);
+                return true;
+            } else if(((this.field.getCol() + 1) == moveTo.getCol()) && ((this.field.getRow() - 2) == moveTo.getRow())) {
+                this.field.remove(this);
+                this.field = moveTo;
+                moveTo.put(this);
+                return true;
+            } else if(((this.field.getCol() + 2) == moveTo.getCol()) && ((this.field.getRow() - 1) == moveTo.getRow())) {
+                this.field.remove(this);
+                this.field = moveTo;
+                moveTo.put(this);
+                return true;
+            } else if(((this.field.getCol() - 1) == moveTo.getCol()) && ((this.field.getRow() - 2) == moveTo.getRow())) {
+                this.field.remove(this);
+                this.field = moveTo;
+                moveTo.put(this);
+                return true;
+            } else if(((this.field.getCol() - 2) == moveTo.getCol()) && ((this.field.getRow() - 1) == moveTo.getRow())) {
+                this.field.remove(this);
+                this.field = moveTo;
+                moveTo.put(this);
+                return true;
+            } else if(((this.field.getCol() - 1) == moveTo.getCol()) && ((this.field.getRow() + 2) == moveTo.getRow())) {
+                this.field.remove(this);
+                this.field = moveTo;
+                moveTo.put(this);
+                return true;
+            } else if(((this.field.getCol() - 2) == moveTo.getCol()) && ((this.field.getRow() + 1) == moveTo.getRow())) {
+                this.field.remove(this);
+                this.field = moveTo;
+                moveTo.put(this);
+                return true;
+            } else {
+                return false;
+            }           
+        } else if(this.typ == 4) {
+            if(this.field.getCol() == moveTo.getCol()) {
+                if(this.field.getRow() > moveTo.getRow()) {
+                    Field next = moveTo;
+                    for(int x = this.field.getRow(); x > moveTo.getRow(); x--) {
+                        if(!next.isEmpty()) {
+                            return false;
+                        }
+                        next = next.nextField(Field.Direction.U);
+                    }
+                    this.field.remove(this);
+                    this.field = moveTo;
+                    moveTo.put(this);
+                    return true;
+                } else if(this.field.getRow() < moveTo.getRow()) {
+                    Field next = moveTo;
+                    for(int x = moveTo.getRow(); x > this.field.getRow(); x--) {
+                        if(!next.isEmpty()) {
+                            return false;
+                        }
+                        
+                        next = next.nextField(Field.Direction.D);
+                    }
+                    this.field.remove(this);
+                    this.field = moveTo;
+                    moveTo.put(this);
+                    return true;
+                } else {
+                    return false;
+                }
+            } else if(this.field.getRow() == moveTo.getRow()) {
+                if(this.field.getCol() > moveTo.getCol()) {
+                    Field next = moveTo;
+                    for(int x = this.field.getCol(); x > moveTo.getCol(); x--) {
+                        if(!next.isEmpty()) {
+                            return false;
+                        }
+                        next = next.nextField(Field.Direction.R);
+                    }
+                    this.field.remove(this);
+                    this.field = moveTo;
+                    moveTo.put(this);
+                    return true;
+                } else if(this.field.getCol() < moveTo.getCol()) {
+                    Field next = moveTo;
+                    for(int x = moveTo.getCol(); x > this.field.getCol(); x--) {
+                        if(!next.isEmpty()) {
+                            return false;
+                        }
+                        next = next.nextField(Field.Direction.L);
+                    }
+                    this.field.remove(this);
+                    this.field = moveTo;
+                    moveTo.put(this);
+                    return true;
+                } else {
+                    return false;
+                }
+            } else if(Math.abs(this.field.getCol() - moveTo.getCol()) == Math.abs(this.field.getRow() - moveTo.getRow())) {
+                if(((this.field.getCol() - moveTo.getCol()) > 0) && ((this.field.getRow() - moveTo.getRow()) < 0)) {
+                    Field next = moveTo;
+                    for(int x = this.field.getRow(); x > moveTo.getRow(); x--) {
+                        if(!next.isEmpty()) {
+                            return false;
+                        }
+                        next = next.nextField(Field.Direction.LU);
+                    }
+                    this.field.remove(this);
+                    this.field = moveTo;
+                    moveTo.put(this);
+                    return true;
+                } else if(((this.field.getCol() - moveTo.getCol()) > 0) && ((this.field.getRow() - moveTo.getRow()) > 0)) {
+                    Field next = moveTo;
+                    for(int x = moveTo.getRow(); x > this.field.getRow(); x--) {
+                        if(!next.isEmpty()) {
+                            return false;
+                        }
+                        
+                        next = next.nextField(Field.Direction.LD);
+                    }
+                    this.field.remove(this);
+                    this.field = moveTo;
+                    moveTo.put(this);
+                    return true;
+                } else if(((this.field.getCol() - moveTo.getCol()) < 0) && ((this.field.getRow() - moveTo.getRow()) < 0)) {
+                    Field next = moveTo;
+                    for(int x = this.field.getCol(); x > moveTo.getCol(); x--) {
+                        if(!next.isEmpty()) {
+                            return false;
+                        }
+                        next = next.nextField(Field.Direction.RU);
+                    }
+                    this.field.remove(this);
+                    this.field = moveTo;
+                    moveTo.put(this);
+                    return true;
+                } else if(((this.field.getCol() - moveTo.getCol()) < 0) && ((this.field.getRow() - moveTo.getRow()) > 0)) {
+                    Field next = moveTo;
+                    for(int x = moveTo.getCol(); x > this.field.getCol(); x--) {
+                        if(!next.isEmpty()) {
+                            return false;
+                        }
+                        next = next.nextField(Field.Direction.LU);
+                    }
+                    this.field.remove(this);
+                    this.field = moveTo;
+                    moveTo.put(this);
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else if(this.typ == 5) {
+            if((Math.abs(this.field.getCol() - moveTo.getCol()) <= 1) && (Math.abs(this.field.getRow() - moveTo.getRow()) <= 1)) {
+                this.field.remove(this);
+                this.field = moveTo;
+                moveTo.put(this);
+                return true;
+            } else {
+                return false;
+            }
+        }
+            
         this.field.remove(this);
-        this.field=moveTo;
+        this.field = moveTo;
         moveTo.put(this);
         return true;
-        }else{
-            return false;
-        }
     }
     
-    public boolean reverse_move(Field moveTo){
-         
-        int diff =0;
-        int Col_diff=0;
-        int Row_diff=0;
-        char dir;
-        int tRow;
-        int tCol;
-        if(this.field==null){
-            return false;      
-        }else{
-            tRow=this.field.getRow();
-            tCol=this.field.getCol();
-        }
-        
-        int mRow=moveTo.getRow();
-        int mCol=moveTo.getCol();
-
-        if(tRow!=mRow&&tCol!=mCol){
-            Col_diff=tCol-mCol;
-            Row_diff=tRow-mRow;
-            diff=Math.abs(Col_diff);
-            
-            if(Math.abs(Row_diff)!=Math.abs(Col_diff)){
-                return false;
-            }
-            if(Col_diff>0){
-
-                if(Row_diff<0){
-                    dir='T';//T=RU                   
-                }else{
-                    dir='F';//F=RD
-                }
-            }else{
-                
-                if(Row_diff<0){
-                    dir='K';//K=LU                   
-                }else{
-                    dir='J';//J=LD
-                }
-            }
-        }else if(tRow!=mRow){
-            diff=tRow-mRow;
-            if(diff>=0){
-                dir='D';
-            }else{
-                diff=diff*(-1);
-                dir='U';
-            }
-        }else if(tCol!=mCol){
-            diff=tCol-mCol;
-            if(diff>0){
-                dir='L';
-            }else{
-                diff=diff*(-1);
-                dir='R';
-            }
-        }else{
-            return false;
-        }
-        Field nextfield=this.field;
-
-        
-        if(typ==0){   
-            while(diff!=0){
-                switch(dir){
-                    case 'D':
-                        nextfield=nextfield.nextField(Field.Direction.D);
-                        //diff--;
-                        break;
-                    case 'U':
-                        nextfield=nextfield.nextField(Field.Direction.U);
-                        //diff++;
-                        break;
-                    case 'L':
-                        nextfield=nextfield.nextField(Field.Direction.L);
-                        //diff--;
-                        break;
-                    case 'R':   
-                        nextfield=nextfield.nextField(Field.Direction.R);
-                        //diff++;
-                        break;
+    public boolean reverse_move(Field moveTo) {
+        if(this.typ == 1) {
+            if(this.field.getCol() == moveTo.getCol()) {
+                if(this.field.getRow() >= moveTo.getRow()) {
+                    Field next = moveTo;
+                    for(int x = this.field.getRow(); x > moveTo.getRow(); x--) {
+                        if(!next.isEmpty()) {
+                            return false;
+                        }
+                        next = next.nextField(Field.Direction.R);
                     }
-                    diff--;
-                
-                  
-                if(!nextfield.isEmpty()){
-                    if(nextfield.get().isWhite()!=this.isWhite){
-                        nextfield.remove(nextfield.get()); 
- 
-                                
-                    }else{
-                        return false;    
-                    }    
-                }
-            }
-            this.field.remove(this);
-            this.field=moveTo;
-            moveTo.put(this);
-            return true;
-        }else if(typ==1){       
-            
-            if(dir=='D' && isWhite()){
-                if(diff==2&&tRow==2){
-                    this.field.remove(this);
-                    this.field=moveTo;
+                    next.remove(this);
                     moveTo.put(this);
                     return true;
-                }else if(diff==1){
-                    this.field.remove(this);
-                    this.field=moveTo;
+                } else if(this.field.getRow() < moveTo.getRow()) {
+                    Field next = moveTo;
+                    for(int x = moveTo.getRow(); x > this.field.getRow(); x--) {
+                        if(!next.isEmpty()) {
+                            return false;
+                        }
+                        next = next.nextField(Field.Direction.L);
+                    }
+                    next.remove(this);
                     moveTo.put(this);
-                    return true;   
-                }else{
+                    return true;
+                }
+        } else if(this.field.getRow() == moveTo.getRow()) {
+                if(this.field.getCol() >= moveTo.getCol()) {
+                    Field next = moveTo;
+                    for(int x = this.field.getCol(); x > moveTo.getCol(); x--) {
+                        if(!next.isEmpty()) {
+                            return false;
+                        }
+                        next = next.nextField(Field.Direction.U);
+                    }
+                    next.remove(this);
+                    moveTo.put(this);
+                    return true;
+                } else if(this.field.getCol() < moveTo.getCol()) {
+                    Field next = moveTo;
+                    for(int x = moveTo.getCol(); x > this.field.getCol(); x--) {
+                        if(!next.isEmpty()) {
+                            return false;
+                        }
+                        next = next.nextField(Field.Direction.D);
+                    }
+                    next.remove(this);
+                    moveTo.put(this);
+                    return true;
+                } else {
                     return false;
                 }
-            }else if(dir=='U' && !isWhite()){
-                
-                if(diff==2&&tRow==7){
-                    this.field.remove(this);
-                    this.field=moveTo;
-                    moveTo.put(this);
-                    return true;  
-                
-                }else if(diff==1){
-                    
-                    this.field.remove(this);
-                    this.field=moveTo;
-                    moveTo.put(this);
-                    return true;   
-                }else{
-                    return false;
-                }
-            }else{
-                return false;
-            } 
-        }else if(typ==2){
-
-            if(diff==1){
-                if(dir=='F'){
-                    nextfield=nextfield.nextField(Field.Direction.LU);   
-                }else if(dir=='J'){
-                    nextfield=nextfield.nextField(Field.Direction.RU);
-                }else{
-                    return false;
-                }
-                  
-                if(!nextfield.isEmpty()){ 
-                        return false;    
-                    }    
-            }else{
+            } else {
                 return false;
             }
+        } else if(this.typ == 0) {
+            if(this.field.getRow() == moveTo.getRow()) {
+                if((this.field.getCol() > moveTo.getCol()) && !isWhite()) {
+                    if(Math.abs(this.field.getCol() - moveTo.getCol()) == 2 && this.field.getRow() == 1) {
+                        Field next = moveTo;
+                        next.remove(this);
+                        moveTo.put(this);
+                        return true;
+                    } else if(Math.abs(this.field.getCol() - moveTo.getCol()) == 1) {
+                        Field next = moveTo;
+                        next.remove(this);
+                        moveTo.put(this);
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else if((this.field.getCol() < moveTo.getCol()) && isWhite()) {
+                    if(Math.abs(this.field.getCol() - moveTo.getCol()) == 2 && this.field.getRow() == 8) {
+                        Field next = moveTo;
+                        next.remove(this);
+                        moveTo.put(this);
+                        return true;
+                    } else if(Math.abs(this.field.getCol() - moveTo.getCol()) == 1) {
+                        Field next = moveTo;
+                        next.remove(this);
+                        moveTo.put(this);
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            } else {
+                return false;
+            }
+           
+        } 
+        
         this.field.remove(this);
-        this.field=moveTo;
+        this.field = moveTo;
         moveTo.put(this);
         return true;
-        }else{
-            return false;
-        }
     }
     
     @Override
