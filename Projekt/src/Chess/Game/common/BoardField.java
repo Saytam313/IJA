@@ -61,7 +61,7 @@ public class BoardField extends java.lang.Object implements Field{
    
     public boolean put(Figure disk){
         if(isEmpty()){
-            this.disk=disk;
+            this.disk = disk;
             disk.put(this);
             return true;
         }else{
