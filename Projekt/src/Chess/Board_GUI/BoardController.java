@@ -6,6 +6,8 @@
 package Chess.Board_GUI;
 
 import Chess.Game.GameFactory;
+import Chess.Game.common.Field;
+import Chess.Game.common.Figure;
 import Chess.Game.common.Game;
 import Chess.Game.game.Board;
 import java.net.URL;
@@ -23,12 +25,15 @@ public class BoardController implements Initializable {
 
     @FXML
     private static int VyberFigurky=0;
+    private static boolean StartMove=false;
     private static int VyberX; 
     private static int VyberY;
     private static Button VyberButton;
     private static String VyberButtonStyle;
     private static Board board;
     private static Game game;
+    private static Field fieldStart;
+    private static Figure figureStart;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {   
@@ -42,22 +47,31 @@ public class BoardController implements Initializable {
         int x=Character.getNumericValue(event.getSource().toString().charAt(15));
         int y=Character.getNumericValue(event.getSource().toString().charAt(16));
         if(!board.getField(x, y).isEmpty()){    
-            System.out.println(board.getField(x, y).get().getState());   
+            System.out.println(board.getField(x, y).get().getState());
+            StartMove=true;
         }else{  
-            System.out.println("prazdna pozice");   
+            //System.out.println("prazdna pozice");   
         }
-        if(VyberFigurky==0){
+        if(VyberFigurky==0 && StartMove){
+            fieldStart=board.getField(x,y);
+            figureStart=fieldStart.get();
             VyberButton=(Button) event.getSource();
-            
-            
             VyberButtonStyle=VyberButton.getStyle();
             VyberButton.setStyle(VyberButtonStyle+"-fx-border-color: #373737; -fx-border-width: 5px;");
             VyberFigurky=1;
             VyberX=x;
             VyberY=y;
-        }else{
+        }else if(StartMove){
             VyberFigurky=0;
-            System.out.println("Move z "+VyberX+VyberY+" na :"+x+y);
+            StartMove=false;
+            if(game.move(figureStart, board.getField(x, y))){
+                System.out.println("Move z "+VyberX+VyberY+" na :"+x+y+" probehl uspesne");
+            }
+            else
+            {  
+               
+                System.out.println("Move z "+VyberX+VyberY+" na :"+x+y+" failnul");
+            }
             VyberButton.setStyle(VyberButtonStyle);
             
         }

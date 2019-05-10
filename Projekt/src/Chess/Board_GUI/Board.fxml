@@ -18,8 +18,8 @@
          <content>
             <AnchorPane id="AnchorPane" prefHeight="883.0" prefWidth="1082.0">
                <children>
-                  <Button fx:id="field21" layoutX="148.0" layoutY="731.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
                   <Button fx:id="field11" layoutX="48.0" layoutY="731.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
+                  <Button fx:id="field21" layoutX="148.0" layoutY="731.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
                   <Button fx:id="field12" layoutX="48.0" layoutY="631.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 0;" text=" " />
                   <Button fx:id="field22" layoutX="148.0" layoutY="631.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
                   <Button fx:id="field13" layoutX="48.0" layoutY="531.0" onAction="#fieldClick" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #8c8c8c; -fx-background-radius: 0;" text=" " />
