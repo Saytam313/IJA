@@ -36,13 +36,33 @@ public class Disk extends java.lang.Object implements Figure{
         String type;
         if(isWhite()){
             color="W";
-        }else{
+        }else if(!isWhite()){
             color="B";
-        }
-        if(typ==0){
-            type="V";
         }else{
-            type="P";
+            color="E";
+        }
+        switch (typ) {
+            case 0:
+                type="V";
+                break;
+            case 1:
+                type="P";
+                break;
+            case 2:
+                type="S";
+                break;
+            case 3:
+                type="K";
+                break;
+            case 4:
+                type="Q";
+                break;
+            case 5:
+                type="Kr";
+                break;
+            default:
+                type="E";
+                break;
         }
        
         return type+"["+ color +"]" + this.field.getCol()+":"+this.field.getRow();

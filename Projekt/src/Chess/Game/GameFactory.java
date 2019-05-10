@@ -68,7 +68,7 @@ public abstract class GameFactory extends java.lang.Object
         
         //White strelec         
         sW1=new Disk(2,board,true); 
-        Field f=board.getField(3, 1);
+        f=board.getField(3, 1);
         hra.create(sW1,f);
         
         sW2=new Disk(2,board,true); 
@@ -88,7 +88,7 @@ public abstract class GameFactory extends java.lang.Object
         
         //White Kun         
         kW1=new Disk(3,board,true); 
-        Field f=board.getField(2, 1);
+        f=board.getField(2, 1);
         hra.create(kW1,f);
         
         kW2=new Disk(3,board,true); 
@@ -108,7 +108,7 @@ public abstract class GameFactory extends java.lang.Object
         
         //White Kralovna         
         qW1=new Disk(4,board,true); 
-        Field f=board.getField(4, 1);
+        f=board.getField(4, 1);
         hra.create(qW1,f);
         
         //Black Kralovna
@@ -120,7 +120,7 @@ public abstract class GameFactory extends java.lang.Object
         
         //White Kral         
         krW1=new Disk(5,board,true); 
-        Field f=board.getField(5, 1);
+        f=board.getField(5, 1);
         hra.create(krW1,f);
         
         //Black Kral
