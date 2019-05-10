@@ -36,31 +36,31 @@ public abstract class GameFactory extends java.lang.Object
         //vytvori a rozhaze figurky na boardu
         for(int i=0;i<board.getSize();i++){
             //White pesaci
-            pW[i]=new Disk(1,board,true);
+            pW[i]=new Disk(0,board,true);
             Field f=board.getField(i+1, 2);
             hra.create(pW[i],f);
             //Black pesaci
-            pB[i]=new Disk(1,board,false) {};
+            pB[i]=new Disk(0,board,false) {};
             f=board.getField(i+1,7);
             hra.create(pB[i],f);
         } 
         
         
         //White vez         
-        vW1=new Disk(0,board,true); 
+        vW1=new Disk(1,board,true); 
         Field f=board.getField(1, 1);
         hra.create(vW1,f);
         
-        vW2=new Disk(0,board,true); 
+        vW2=new Disk(1,board,true); 
         f=board.getField(8, 1);
         hra.create(vW2,f);
                 
         //Black vez
-        vB1=new Disk(0,board,false); 
+        vB1=new Disk(1,board,false); 
         f=board.getField(1, 8);
         hra.create(vB1,f);
         
-        vB2=new Disk(0,board,false); 
+        vB2=new Disk(1,board,false); 
         f=board.getField(8, 8);
         hra.create(vB2,f);
         
