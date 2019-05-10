@@ -32,6 +32,9 @@ public class Disk extends java.lang.Object implements Figure{
     public Board getBoard(){
         return this.board;
     }
+    public int getType(){
+        return this.typ;
+    }
     public void put(Field field){
         this.field=field;
     }
@@ -56,13 +59,13 @@ public class Disk extends java.lang.Object implements Figure{
                 type="S";
                 break;
             case 3:
-                type="K";
+                type="J";
                 break;
             case 4:
-                type="Q";
+                type="D";
                 break;
             case 5:
-                type="Kr";
+                type="K";
                 break;
             default:
                 type="E";

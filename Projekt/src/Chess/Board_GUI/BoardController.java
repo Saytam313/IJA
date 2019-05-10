@@ -9,6 +9,7 @@ import Chess.Game.GameFactory;
 import Chess.Game.common.Field;
 import Chess.Game.common.Figure;
 import Chess.Game.common.Game;
+import Chess.Game.common.GameClass;
 import Chess.Game.game.Board;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -51,7 +52,7 @@ public class BoardController implements Initializable {
         int x=Character.getNumericValue(event.getSource().toString().charAt(15));
         int y=Character.getNumericValue(event.getSource().toString().charAt(16));
         if(!board.getField(x, y).isEmpty()){    
-            System.out.println(board.getField(x, y).get().getState());
+            //System.out.println(board.getField(x, y).get().getState());
             StartMove=true;
         }else{
             //System.out.println("prazdna pozice");   
@@ -74,7 +75,8 @@ public class BoardController implements Initializable {
             VyberFigurky=0;
             StartMove=false;
             if(game.move(figureStart, board.getField(x, y))){
-                System.out.println("Move z "+VyberX+VyberY+" na :"+x+y+" probehl uspesne");
+                //System.out.println(GameClass.zapisCreator(figureStart,board.getField(x, y)));
+                //System.out.println("Move z "+VyberX+VyberY+" na :"+x+y+" probehl uspesne");
                 //presunuti ikony na sachovnici  
                 TargetButton=(Button) event.getSource();
                 TargetButtonStyle=TargetButton.getStyle();
@@ -83,7 +85,7 @@ public class BoardController implements Initializable {
             }
             else
             {           
-                System.out.println("Move z "+VyberX+VyberY+" na :"+x+y+" failnul");
+                //System.out.println("Move z "+VyberX+VyberY+" na :"+x+y+" failnul");
             }
             
             VyberButton.setStyle(VyberButtonStyle); 

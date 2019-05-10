@@ -13,6 +13,7 @@ public interface Figure {
     public boolean move(Field moveTo);
     public boolean reverse_move(Field moveTo);
     public Board getBoard();
+    public int getType();
     public void put(Field field);
     public String getState();
     public void remove();
