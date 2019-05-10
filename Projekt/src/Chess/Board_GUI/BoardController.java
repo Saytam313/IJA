@@ -16,6 +16,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.fxml.Initializable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -29,10 +31,12 @@ public class BoardController implements Initializable {
     private static int VyberX; 
     private static int VyberY;
     private static Button VyberButton;
+    private static Button TargetButton;
     private static String VyberButtonStyle;
+    private static String TargetButtonStyle;
+    private static String VyberButtonFigurka;
     private static Board board;
     private static Game game;
-    private static Field fieldStart;
     private static Figure figureStart;
     
     @Override
@@ -49,15 +53,20 @@ public class BoardController implements Initializable {
         if(!board.getField(x, y).isEmpty()){    
             System.out.println(board.getField(x, y).get().getState());
             StartMove=true;
-        }else{  
+        }else{
             //System.out.println("prazdna pozice");   
         }
         if(VyberFigurky==0 && StartMove){
-            fieldStart=board.getField(x,y);
-            figureStart=fieldStart.get();
+            figureStart=board.getField(x,y).get();
             VyberButton=(Button) event.getSource();
             VyberButtonStyle=VyberButton.getStyle();
             VyberButton.setStyle(VyberButtonStyle+"-fx-border-color: #373737; -fx-border-width: 5px;");
+            String line = VyberButtonStyle;
+            String pattern = "-fx-background-image:.*";
+            Pattern regex = Pattern.compile(pattern);
+            Matcher match = regex.matcher(line);
+            match.find( );
+            VyberButtonFigurka=match.group(0);
             VyberFigurky=1;
             VyberX=x;
             VyberY=y;
@@ -66,14 +75,18 @@ public class BoardController implements Initializable {
             StartMove=false;
             if(game.move(figureStart, board.getField(x, y))){
                 System.out.println("Move z "+VyberX+VyberY+" na :"+x+y+" probehl uspesne");
+                //presunuti ikony na sachovnici  
+                TargetButton=(Button) event.getSource();
+                TargetButtonStyle=TargetButton.getStyle();
+                TargetButton.setStyle(TargetButtonStyle+VyberButtonFigurka);
+                VyberButtonStyle=VyberButtonStyle.replace(VyberButtonFigurka, "");
             }
             else
-            {  
-               
+            {           
                 System.out.println("Move z "+VyberX+VyberY+" na :"+x+y+" failnul");
             }
-            VyberButton.setStyle(VyberButtonStyle);
             
+            VyberButton.setStyle(VyberButtonStyle); 
         }
     }
     @FXML
