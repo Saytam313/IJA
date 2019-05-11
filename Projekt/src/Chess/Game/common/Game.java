@@ -10,4 +10,5 @@ public interface Game {
     public String move(Figure figure,Field field);
     public void undo();
     public String zapisCreator(Figure figurka,Field moveTo);
+    public String zapisReader(String zapis);
 }

@@ -155,11 +155,11 @@ public class GameClass extends java.lang.Object implements Game{
         }
         return 0;
     }
-    private String zapisReader(String zapis){
+    public String zapisReader(String zapis){
         int xFrom=-1;
-        int yFrom=-1;
+        char yFrom=' ';
         int xTo=-1;
-        int yTo=-1;
+        char yTo=' ';
         if(Character.isUpperCase(zapis.charAt(0))){
             zapis=zapis.substring(1);            
         }
@@ -167,16 +167,19 @@ public class GameClass extends java.lang.Object implements Game{
             if(Character.isLowerCase(zapis.charAt(i)) && zapis.charAt(i)!='x'){
                 if(xFrom==-1){
                     xFrom=colStrToNum(String.valueOf(zapis.charAt(i)));
-                    yFrom=Character.getNumericValue(zapis.charAt(i+1));
+                    yFrom=zapis.charAt(i+1);
                 }else{
                     xTo=colStrToNum(String.valueOf(zapis.charAt(i)));
-                    yTo=Character.getNumericValue(zapis.charAt(i+1));
+                    yTo=zapis.charAt(i+1);
                 }
             }
             
         }
-        
-        return "["+xFrom+","+yFrom+"]=>["+xTo+","+yTo+"]";
+        //System.out.println(xFrom);
+        //System.out.println(yFrom);
+        //System.out.println(xTo);
+        //System.out.println(yTo);
+        return Integer.toString(xFrom)+yFrom+"="+xTo+yTo;
     }
     private void From_addMove(Figure figurka,Field moveTo){
         from_Pos.push(figurka.myfield());

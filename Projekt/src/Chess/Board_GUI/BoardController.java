@@ -22,6 +22,8 @@ import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 
 /**
  *
@@ -43,12 +45,14 @@ public class BoardController implements Initializable {
     private static Figure figureStart;
     private static Field fieldStart;
     private static boolean PlayerSwitch=true;
+    private static Scene thisScene=null;
     @FXML
     private ListView<String> zaznamList=new ListView<String>();
     @Override
     public void initialize(URL url, ResourceBundle rb) {   
         board = new Board(8);
         game = GameFactory.createChessGame(board);
+        
     }  
  
     private void zaznamAdd(String zaznam){
@@ -66,6 +70,10 @@ public class BoardController implements Initializable {
     }
     @FXML
     private void fieldClick(ActionEvent event) {
+        if(thisScene==null){
+            Button asd=(Button) event.getSource();
+            thisScene=asd.getScene();
+        }
         int x=Character.getNumericValue(event.getSource().toString().charAt(15));
         int y=Character.getNumericValue(event.getSource().toString().charAt(16));
         if(!board.getField(x, y).isEmpty()&& board.getField(x, y).get().isWhite()==PlayerSwitch){    
@@ -146,4 +154,60 @@ public class BoardController implements Initializable {
         System.out.println("play");
     }
     
+    public void zaznamUndo(String zaznam){
+        String zapisForm=game.zapisReader(zaznam);
+        int xFrom=Character.getNumericValue(zapisForm.charAt(0));
+        int yFrom=Character.getNumericValue(zapisForm.charAt(1));
+        int xTo=Character.getNumericValue(zapisForm.charAt(3));
+        int yTo=Character.getNumericValue(zapisForm.charAt(4));
+        
+        
+        Button FromButton=(Button) thisScene.lookup("#field"+xFrom+yFrom);
+        Button ToButton=(Button) thisScene.lookup("#field"+xTo+yTo);
+        //System.out.println("field"+xFrom+yFrom+"=="+FromButton.toString());
+        //System.out.println("field"+xTo+yTo+"=="+ToButton.toString());
+        String line = ToButton.getStyle();
+        String pattern = "-fx-background-image:.*";
+        Pattern regex = Pattern.compile(pattern);
+        Matcher match = regex.matcher(line);
+        match.find( );
+        String ToButtonFigurka=match.group(0);
+            
+        Field from=board.getField(xFrom,yFrom);
+        Field to=board.getField(xTo,yTo);
+        Figure figurka=to.get();
+        figurka.reverse_move(from);
+        String FromStyle=FromButton.getStyle();
+        FromButton.setStyle(FromStyle+ToButtonFigurka);
+        
+        ToButton.setStyle(line.replace(ToButtonFigurka, ""));
+    }
+       
+    @FXML
+    private void readZaznam(MouseEvent event) {
+        String prvek=zaznamList.getSelectionModel().getSelectedItem();
+        if(prvek==null||prvek.isEmpty()){
+            System.out.println("nic nevybrany");
+        }else{
+            //algoritmus na prehrani zaznamu az na misto na ktery jsem kliknul
+            //System.out.println(prvek);
+            int zaznamSize=zaznamList.getItems().size();
+            for(int i=zaznamSize-1;i>=0;i--){
+                if(zaznamList.getItems().get(i)==prvek){
+                    String[] asd=zaznamList.getItems().get(i).split("         ");
+                    for(String a:asd){
+                        zaznamUndo(a);
+                    }
+                    break;
+                }else{
+                    String[] asd=zaznamList.getItems().get(i).split("         ");
+                    for(String a:asd){
+                        zaznamUndo(a);
+                    }
+                }
+                
+            }
+            
+        }
+    }
 }
