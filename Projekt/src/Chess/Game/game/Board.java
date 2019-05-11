@@ -18,8 +18,8 @@ public class Board extends java.lang.Object{
         }
         
         
-        for (int i=1;i<size;i++) {
-            for (int j=1;j<size;j++) {
+        for (int i=1;i<=size;i++) {
+            for (int j=1;j<=size;j++) {
                 field[i][j].addNextField(Field.Direction.D,  this.field[i+0][j-1]);
                 field[i][j].addNextField(Field.Direction.L,  this.field[i-1][j+0]);
                 field[i][j].addNextField(Field.Direction.LD, this.field[i-1][j-1]);
