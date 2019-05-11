@@ -14,7 +14,7 @@ public class Disk extends java.lang.Object implements Figure{
     //typ:4 Kralovna
     //typ:5 Kral
 
-    public Disk(int typ,Board board,boolean isWhite){
+    public Disk(int typ,Board board,boolean isWhite) {
         this.board=board;
         this.typ=typ;
         this.isWhite=isWhite;
@@ -22,44 +22,44 @@ public class Disk extends java.lang.Object implements Figure{
     }
     
     @Override
-    public Field myfield(){
+    public Field myfield() {
         return this.field;
     }
     
     @Override
-    public void remove(){
+    public void remove() {
         this.field=null;
     }
     
     @Override
-    public boolean isWhite(){
+    public boolean isWhite() {
         return this.isWhite;
     }
     
     @Override
-    public Board getBoard(){
+    public Board getBoard() {
         return this.board;
     }
     
     @Override
-    public int getType(){
+    public int getType() {
         return this.typ;
     }
     
     @Override
-    public void put(Field field){
+    public void put(Field field) {
         this.field=field;
     }
     
     @Override
-    public String getState(){
+    public String getState() {
         String color;
         String type;
-        if(isWhite()){
+        if(isWhite()) {
             color="W";
-        }else if(!isWhite()){
+        } else if(!isWhite()) {
             color="B";
-        }else{
+        } else {
             color="E";
         }
         switch (typ) {
@@ -160,6 +160,390 @@ public class Disk extends java.lang.Object implements Figure{
             ok++;
         }
         return ok;
+    }
+    
+    public int sachKR(Field next, Field kral, int ok) {
+        if(next.isEmpty()) {
+            ok++;
+        } else if(((next.get().getType() != 1) && (next.get().getType() != 4)) || (next.get().isWhite() == kral.get().isWhite())) {
+            ok++;
+        }
+        return ok;
+    }
+    
+    public int sachKD(Field next, Field kral, int ok) {
+        if(next.isEmpty()) {
+            ok++;
+        } else if(((next.get().getType() != 2) && (next.get().getType() != 4)) || (next.get().isWhite() == kral.get().isWhite())) {
+            ok++;
+        }
+        return ok;
+    }
+    
+    public int sachKP(Field next, Field kral, int ok) {
+        if(next.isEmpty()) {
+            ok++;
+        } else if(((next.get().getType() != 0)) || (next.get().isWhite() == kral.get().isWhite())) {
+            ok++;
+        }
+        return ok;
+    }
+    
+    public int sachKJ(Field next, Field kral, int ok) {
+        if(next.isEmpty()) {
+            ok++;
+        } else if(((next.get().getType() != 3)) || (next.get().isWhite() == kral.get().isWhite())) {
+            ok++;
+        }
+        return ok;
+    }
+    
+    public int sachKK(Field next, Field kral, int ok) {
+        if(next.isEmpty()) {
+            ok++;
+        } else if(((next.get().getType() != 5)) || (next.get().isWhite() == kral.get().isWhite())) {
+            ok++;
+        }
+        return ok;
+    }
+    
+    public int sach(Field kral) {
+        Field next = kral;
+        int endU = 8 - kral.getRow();
+        int ok = 0;
+        while(endU > 0) {
+            if(next.isEmpty()) {
+                next = next.nextField(Field.Direction.U);
+            } else {
+                break;
+            }
+            endU--;
+        }
+        ok = sachKR(next, kral, ok);
+
+        next = kral;
+        endU = kral.getRow() - 1;
+        while(endU > 0) {
+            if(next.isEmpty()) {
+                next = next.nextField(Field.Direction.D);
+            } else {
+                break;
+            }
+            endU--;
+        }
+        ok = sachKR(next, kral, ok);
+
+        next = kral;
+        endU = kral.getCol() - 1;
+        while(endU > 0) {
+            if(next.isEmpty()) {
+                next = next.nextField(Field.Direction.L);
+            } else {
+                break;
+            }
+            endU--;
+        }
+        ok = sachKR(next, kral, ok);
+
+        next = kral;
+        endU = 8 - kral.getCol();
+        while(endU > 0) {
+            if(next.isEmpty()) {
+                next = next.nextField(Field.Direction.R);
+            } else {
+                break;
+            }
+            endU--;
+        }
+        ok = sachKR(next, kral, ok);
+
+        next = kral;
+        if((kral.getCol() - 1) >= (8 - kral.getRow())) {
+            endU = 8 - kral.getRow();
+        } else {
+            endU = kral.getCol() - 1;
+        }
+        while(endU > 0) {
+            if(next.isEmpty()) {
+                next = next.nextField(Field.Direction.LU);
+            } else {
+                break;
+            }
+            endU--;
+        }
+        ok = sachKD(next, kral, ok);
+
+        next = kral;
+        if((kral.getCol() - 1) >= (kral.getRow() - 1)) {
+            endU = kral.getRow() - 1;
+        } else {
+            endU = kral.getCol() - 1;
+        }
+        while(endU > 0) {
+            if(next.isEmpty()) {
+                next = next.nextField(Field.Direction.LD);
+            } else {
+                break;
+            }
+            endU--;
+        }
+        ok = sachKD(next, kral, ok);
+
+        next = kral;
+        if((8 - kral.getCol()) >= (8 - kral.getRow())) {
+            endU = 8 - kral.getRow();
+        } else {
+            endU = 8 - kral.getCol();
+        }
+        while(endU > 0) {
+            if(next.isEmpty()) {
+                next = next.nextField(Field.Direction.RU);
+            } else {
+                break;
+            }
+            endU--;
+        }
+        ok = sachKD(next, kral, ok);
+
+        next = kral;
+        if((8 - kral.getCol()) >= (kral.getRow() - 1)) {
+            endU = kral.getRow() - 1;
+        } else {
+            endU = 8 - kral.getCol();
+        }
+        while(endU > 0) {
+            if(next.isEmpty()) {
+                next = next.nextField(Field.Direction.RD);
+            } else {
+                break;
+            }
+            endU--;
+        }
+        ok = sachKD(next, kral, ok);
+
+        if(this.isWhite) {
+            if((kral.getCol() > 1) && (kral.getRow() < 8)) {
+                next = kral.nextField(Field.Direction.LU);
+                ok = sachKP(next, kral, ok);
+            } else {
+                ok++;
+            }
+
+            if((kral.getCol() < 8) && (kral.getRow() < 8)){
+                next = kral.nextField(Field.Direction.RU);
+                ok = sachKP(next, kral, ok);
+            } else {
+                ok++;
+            }
+        } else {
+            if((kral.getCol() > 1) && (kral.getRow() > 1)) {
+                next = kral.nextField(Field.Direction.LD);
+                ok = sachKP(next, kral, ok);
+            } else {
+                ok++;
+            }
+
+            if((kral.getCol() < 8) && (kral.getRow() > 1)) {
+                next = kral.nextField(Field.Direction.RD);
+                ok = sachKP(next, kral, ok);
+            } else {
+                ok++;
+            }
+        }
+
+        if((kral.getCol() > 2) && (kral.getRow() < 8)) {
+            next = kral.nextField(Field.Direction.U).nextField(Field.Direction.L).nextField(Field.Direction.L);
+            ok = sachKJ(next, kral, ok);
+        } else {
+            ok++;
+        }
+
+        if((kral.getCol() > 2) && (kral.getRow() > 1)) {
+            next = kral.nextField(Field.Direction.D).nextField(Field.Direction.L).nextField(Field.Direction.L);
+            ok = sachKJ(next, kral, ok);
+        } else {
+            ok++;
+        }
+
+        if((kral.getCol() < 7) && (kral.getRow() < 8)) {
+            next = kral.nextField(Field.Direction.U).nextField(Field.Direction.R).nextField(Field.Direction.R);
+            ok = sachKJ(next, kral, ok);
+        } else {
+            ok++;
+        }
+
+        if((kral.getCol() < 7) && (kral.getRow() > 1)) {
+            next = kral.nextField(Field.Direction.D).nextField(Field.Direction.R).nextField(Field.Direction.R);
+            ok = sachKJ(next, kral, ok);
+        } else {
+            ok++;
+        }
+
+        if((kral.getCol() > 1) && (kral.getRow() < 7)) {
+            next = kral.nextField(Field.Direction.U).nextField(Field.Direction.U).nextField(Field.Direction.L);
+            ok = sachKJ(next, kral, ok);
+        } else {
+            ok++;
+        }
+
+        if((kral.getCol() > 1) && (kral.getRow() > 2)) {
+            next = kral.nextField(Field.Direction.D).nextField(Field.Direction.D).nextField(Field.Direction.L);
+            ok = sachKJ(next, kral, ok);
+        } else {
+            ok++;
+        }
+
+        if((kral.getCol() < 8) && (kral.getRow() < 7)) {
+            next = kral.nextField(Field.Direction.U).nextField(Field.Direction.U).nextField(Field.Direction.R);
+            ok = sachKJ(next, kral, ok);
+        } else {
+            ok++;
+        }
+
+        if((kral.getCol() < 8) && (kral.getRow() > 2)) {
+            next = kral.nextField(Field.Direction.D).nextField(Field.Direction.D).nextField(Field.Direction.R);
+            ok = sachKJ(next, kral, ok);
+        } else {
+            ok++;
+        }
+
+        if((kral.getCol() == 1) && (kral.getRow() == 8)) {
+            ok += 5;
+            next = kral.nextField(Field.Direction.R);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.RD);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.D);
+            ok = sachKK(next, kral, ok);
+        } else if((kral.getCol() == 8) && (kral.getRow() == 8)) {
+            ok += 5;
+            next = kral.nextField(Field.Direction.D);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.LD);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.L);
+            ok = sachKK(next, kral, ok);
+        } else if((kral.getCol() == 1) && (kral.getRow() == 1)) {
+            ok += 5;
+            next = kral.nextField(Field.Direction.U);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.RU);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.R); 
+            ok = sachKK(next, kral, ok);
+        } else if((kral.getCol() == 8) && (kral.getRow() == 1)) {
+            ok += 5;
+            next = kral.nextField(Field.Direction.L);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.LU);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.U);
+            ok = sachKK(next, kral, ok);
+        } else if(kral.getCol() == 1) {
+            ok += 3;
+            next = kral.nextField(Field.Direction.U);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.RU);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.R);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.RD);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.D);
+            ok = sachKK(next, kral, ok);
+        } else if(kral.getCol() == 8) {
+            ok += 3;
+            next = kral.nextField(Field.Direction.D);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.LD);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.L);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.LU);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.U);
+            ok = sachKK(next, kral, ok);
+        } else if(kral.getRow() == 8) {
+            ok += 3;
+            next = kral.nextField(Field.Direction.R);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.RD);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.D);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.LD);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.L);
+            ok = sachKK(next, kral, ok);
+        } else if(kral.getRow() == 1) {
+            ok += 3;
+            next = kral.nextField(Field.Direction.L);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.LU);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.U);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.RU);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.R);
+            ok = sachKK(next, kral, ok);
+        } else {
+            next = kral.nextField(Field.Direction.LU);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.U);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.RU);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.R);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.RD);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.D);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.LD);
+            ok = sachKK(next, kral, ok);
+
+            next = kral.nextField(Field.Direction.L);
+            ok = sachKK(next, kral, ok);
+        }
+
+        if(ok == 0) {
+            return 2;
+        } else if((ok > 0) && (ok < 26)) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
     
     @Override
@@ -804,8 +1188,7 @@ public class Disk extends java.lang.Object implements Figure{
     }
     
     @Override
-    public boolean equals(java.lang.Object obj)
-    {
+    public boolean equals(java.lang.Object obj) {
         if (obj instanceof Disk) {
             final Disk obj2=(Disk) obj;
             if (this.field==obj2.field){
@@ -818,8 +1201,7 @@ public class Disk extends java.lang.Object implements Figure{
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return super.hashCode(); //To change body of generated methods, choose Tools | Templates.
     }
 }
