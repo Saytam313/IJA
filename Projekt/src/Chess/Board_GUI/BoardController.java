@@ -19,14 +19,16 @@ import javafx.scene.control.*;
 import javafx.fxml.Initializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 
 /**
  *
  * @author Šimon
  */
 public class BoardController implements Initializable {
-
-    @FXML
+    ObservableList<String>   list=FXCollections.observableArrayList();
     private static int VyberFigurky=0;
     private static boolean StartMove=false;
     private static int VyberX; 
@@ -39,19 +41,34 @@ public class BoardController implements Initializable {
     private static Board board;
     private static Game game;
     private static Figure figureStart;
-    
+    private static Field fieldStart;
+    private static boolean PlayerSwitch=true;
+    @FXML
+    private ListView<String> zaznamList=new ListView<String>();
     @Override
     public void initialize(URL url, ResourceBundle rb) {   
         board = new Board(8);
         game = GameFactory.createChessGame(board);
     }  
-        
-
+ 
+    private void zaznamAdd(String zaznam){
+        //zaznamTable.getItems().addAll(zaznam);
+        zaznamList.getItems().addAll(zaznam);
+    }  
+ 
+    private void zaznamModify(String zaznam){
+        //zaznamTable.getItems().addAll(zaznam);
+        String LastZaznam=zaznamList.getItems().get(zaznamList.getItems().size() - 1);
+        //System.out.println(LastZaznam);
+        zaznam=LastZaznam+"         "+zaznam;
+        zaznamList.getItems().remove(zaznamList.getItems().size() - 1);
+        zaznamList.getItems().addAll(zaznam);
+    }
     @FXML
     private void fieldClick(ActionEvent event) {
         int x=Character.getNumericValue(event.getSource().toString().charAt(15));
         int y=Character.getNumericValue(event.getSource().toString().charAt(16));
-        if(!board.getField(x, y).isEmpty()){    
+        if(!board.getField(x, y).isEmpty()&& board.getField(x, y).get().isWhite()==PlayerSwitch){    
             //System.out.println(board.getField(x, y).get().getState());
             StartMove=true;
         }else{
@@ -59,6 +76,7 @@ public class BoardController implements Initializable {
         }
         if(VyberFigurky==0 && StartMove){
             figureStart=board.getField(x,y).get();
+            fieldStart=board.getField(x,y);
             VyberButton=(Button) event.getSource();
             VyberButtonStyle=VyberButton.getStyle();
             VyberButton.setStyle(VyberButtonStyle+"-fx-border-color: #373737; -fx-border-width: 5px;");
@@ -74,7 +92,13 @@ public class BoardController implements Initializable {
         }else if(StartMove){
             VyberFigurky=0;
             StartMove=false;
-            if(game.move(figureStart, board.getField(x, y))){
+            String zapis=game.move(figureStart, board.getField(x, y));
+            if(zapis!=""){
+                if(!PlayerSwitch){
+                    zaznamModify(zapis);
+                }else{
+                    zaznamAdd(zapis);                    
+                }
                 //System.out.println(GameClass.zapisCreator(figureStart,board.getField(x, y)));
                 //System.out.println("Move z "+VyberX+VyberY+" na :"+x+y+" probehl uspesne");
                 //presunuti ikony na sachovnici  
@@ -82,6 +106,8 @@ public class BoardController implements Initializable {
                 TargetButtonStyle=TargetButton.getStyle();
                 TargetButton.setStyle(TargetButtonStyle+VyberButtonFigurka);
                 VyberButtonStyle=VyberButtonStyle.replace(VyberButtonFigurka, "");
+                
+                PlayerSwitch=!PlayerSwitch;
             }
             else
             {           

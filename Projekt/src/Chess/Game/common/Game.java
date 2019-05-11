@@ -7,6 +7,7 @@ package Chess.Game.common;
 
 public interface Game {
     public void create(Figure Figurka,Field StartOn);
-    public boolean move(Figure figure,Field field);
+    public String move(Figure figure,Field field);
     public void undo();
+    public String zapisCreator(Figure figurka,Field moveTo);
 }
