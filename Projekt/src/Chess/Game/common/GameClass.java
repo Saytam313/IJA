@@ -48,11 +48,17 @@ public class GameClass extends java.lang.Object implements Game{
         }else{
             Remove_addMove(null);
         }
-        if(figurka.move(moveTo)){ 
-
+        
+        if(figurka.move(moveTo) == 0){ 
             To_addMove(figurka);
             return zapis; 
-        }else{
+        } else if(figurka.move(moveTo) == 1) {
+            To_addMove(figurka);
+            return zapis + "+";
+        } else if(figurka.move(moveTo) == 2) {
+            To_addMove(figurka);
+            return zapis + "#";
+        } else {
             from_Pos.pop();
             from_Fig.pop();
             return "";
