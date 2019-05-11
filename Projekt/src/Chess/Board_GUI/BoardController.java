@@ -13,6 +13,7 @@ import Chess.Game.common.GameClass;
 import Chess.Game.game.Board;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -44,11 +45,11 @@ public class BoardController implements Initializable {
     private static Game game;
     private static Figure figureStart;
     private static Field fieldStart;
-    private static boolean PlayerSwitch=true;
+    private static boolean PlayerWhite=true;
     private static Scene thisScene=null;
     private static String zaznamPos;
     private static int ZaznamCounter=1;
-    private static int ZaznamCounterPos=1;
+    private static boolean ZaznamMove=false;
     @FXML
     private ListView<String> zaznamList=new ListView<String>();
     @Override
@@ -79,7 +80,7 @@ public class BoardController implements Initializable {
         }
         int x=Character.getNumericValue(event.getSource().toString().charAt(15));
         int y=Character.getNumericValue(event.getSource().toString().charAt(16));
-        if(!board.getField(x, y).isEmpty()&& board.getField(x, y).get().isWhite()==PlayerSwitch){    
+        if(!board.getField(x, y).isEmpty()&& board.getField(x, y).get().isWhite()==PlayerWhite){    
             //System.out.println(board.getField(x, y).get().getState());
             StartMove=true;
         }else{
@@ -100,12 +101,13 @@ public class BoardController implements Initializable {
             VyberFigurky=1;
             VyberX=x;
             VyberY=y;
+
         }else if(StartMove){
             VyberFigurky=0;
             StartMove=false;
             String zapis=game.move(figureStart, board.getField(x, y));
             if(zapis!=""){
-                if(!PlayerSwitch){
+                if(!PlayerWhite){
                     zaznamModify(zapis);
                 }else{
                     zaznamAdd(ZaznamCounter+". "+zapis);
@@ -118,8 +120,17 @@ public class BoardController implements Initializable {
                 TargetButtonStyle=TargetButton.getStyle();
                 TargetButton.setStyle(TargetButtonStyle+VyberButtonFigurka);
                 VyberButtonStyle=VyberButtonStyle.replace(VyberButtonFigurka, "");
-                
-                PlayerSwitch=!PlayerSwitch;
+                PlayerWhite=!PlayerWhite;
+                if(ZaznamMove){
+                    //smazat zbytek zaznamu
+                    int zaznamSize=zaznamList.getItems().size();
+ 
+                    for(int i=zaznamSize-2;i>=ZaznamCounter-2;i--){
+                        zaznamList.getItems().remove(i);
+                    }
+                    zaznamSize=zaznamList.getItems().size();
+                    ZaznamMove=false;
+                }
             }
             else
             {           
@@ -135,7 +146,10 @@ public class BoardController implements Initializable {
     }
     @FXML
     private void resetGame(ActionEvent event) {
-        System.out.println("resetGame");
+        while(ZaznamCounter-1>0){
+            zpetButton(event);
+        }
+        
     }
     @FXML
     private void nahraniZaznamu(ActionEvent event) {
@@ -143,19 +157,55 @@ public class BoardController implements Initializable {
     }
     @FXML
     private void zpetButton(ActionEvent event) {
-        System.out.println("zpet");
+        if(ZaznamCounter-1>0){
+            int zaznamSize=zaznamList.getItems().size();
+            String[] Counter_zaznam=zaznamList.getItems().get(ZaznamCounter-2).split("\\.");
+            String[] Zaznam_parts=Counter_zaznam[1].split("          ");
+            for(String a:Zaznam_parts){
+                zaznamUndo(a);
+            }
+            //zaznamList.getItems().remove(i);
+            ZaznamCounter=Integer.parseInt(Counter_zaznam[0]);
+            PlayerWhite=true;                        
+            if(ZaznamCounter!=zaznamSize+1){
+                ZaznamMove=true;
+            }
+        }
     }
     @FXML
     private void vpredButton(ActionEvent event) {
-        System.out.println("vpred");
+        int zaznamSize=zaznamList.getItems().size();   
+        if(ZaznamCounter-1<zaznamSize){
+
+            String[] Counter_zaznam=zaznamList.getItems().get(ZaznamCounter-1).split("\\.");
+            String[] Zaznam_parts=Counter_zaznam[1].split("          ");
+
+            for(int j=Zaznam_parts.length-1;j>=0;j--){  
+                zaznamPrev(Zaznam_parts[j]); 
+            }
+            //zaznamList.getItems().remove(i);
+             if(zaznamList.getItems().get(zaznamSize-1).length()<15){
+                 PlayerWhite=false;
+            }
+
+             ZaznamCounter=Integer.parseInt(Counter_zaznam[0])+1;
+             if(ZaznamCounter!=zaznamSize+1){
+                 ZaznamMove=true;
+            }
+        }
+
     }
     @FXML
     private void stopButton(ActionEvent event) {
         System.out.println("stop");
     }
     @FXML
-    private void playButton(ActionEvent event) {
-        System.out.println("play");
+    private void playButton(ActionEvent event) throws InterruptedException {
+        
+        int zaznamSize=zaznamList.getItems().size();   
+        while(ZaznamCounter-1<zaznamSize){
+            vpredButton(event);
+        }
     }
     
     public void zaznamUndo(String zaznam){
@@ -168,8 +218,6 @@ public class BoardController implements Initializable {
         
         Button FromButton=(Button) thisScene.lookup("#field"+xFrom+yFrom);
         Button ToButton=(Button) thisScene.lookup("#field"+xTo+yTo);
-        //System.out.println("field"+xFrom+yFrom+"=="+FromButton.toString());
-        //System.out.println("field"+xTo+yTo+"=="+ToButton.toString());
         String line = ToButton.getStyle();
         String pattern = "-fx-background-image:.*";
         Pattern regex = Pattern.compile(pattern);
@@ -215,7 +263,6 @@ public class BoardController implements Initializable {
         
         ToButton.setStyle(line.replace(ToButtonFigurka, ""));
     }
-           
     
     @FXML
     private void readZaznam(MouseEvent event) {
@@ -237,8 +284,12 @@ public class BoardController implements Initializable {
                         }
                         //zaznamList.getItems().remove(i);
                         ZaznamCounter=Integer.parseInt(Counter_zaznam[0]);
-                        PlayerSwitch=true;
-                        break;
+                        PlayerWhite=true;                        
+                        if(ZaznamCounter!=zaznamSize+1){
+                            ZaznamMove=true;
+                        }
+                        
+                        break;                     
                     }else{
                         String[] Counter_zaznam=zaznamList.getItems().get(i).split("\\.");
                         String[] Zaznam_parts=Counter_zaznam[1].split("          ");
@@ -255,16 +306,25 @@ public class BoardController implements Initializable {
                         String[] Counter_zaznam=zaznamList.getItems().get(i).split("\\.");
                         String[] Zaznam_parts=Counter_zaznam[1].split("          ");
                         
-                        zaznamPrev(Zaznam_parts[1]);
-                        zaznamPrev(Zaznam_parts[0]);
+                        for(int j=Zaznam_parts.length-1;j>=0;j--){  
+                            zaznamPrev(Zaznam_parts[j]); 
+                        }
                         //zaznamList.getItems().remove(i);
-                        ZaznamCounter=Zaznam_pos-1;
+                        if(zaznamList.getItems().get(zaznamSize-1).length()<15){
+                            PlayerWhite=false;
+                        }
+                        
+                        ZaznamCounter=Integer.parseInt(Counter_zaznam[0])+1;
+                        if(ZaznamCounter!=zaznamSize+1){
+                            ZaznamMove=true;
+                        }
                         break;
                     }else{
                         String[] Counter_zaznam=zaznamList.getItems().get(i).split("\\.");
                         String[] Zaznam_parts=Counter_zaznam[1].split("          ");
-                        zaznamPrev(Zaznam_parts[1]);
-                        zaznamPrev(Zaznam_parts[0]);
+                        for(int j=Zaznam_parts.length-1;j>=0;j--){  
+                            zaznamPrev(Zaznam_parts[j]); 
+                        }
                         //zaznamList.getItems().remove(i);
                     }  
                 }
