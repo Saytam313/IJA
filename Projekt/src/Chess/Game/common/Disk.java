@@ -14,7 +14,7 @@ public class Disk extends java.lang.Object implements Figure{
     //typ:4 Kralovna
     //typ:5 Kral
 
-    public Disk(int typ,Board board,boolean isWhite){
+    public Disk(int typ,Board board,boolean isWhite) {
         this.board=board;
         this.typ=typ;
         this.isWhite=isWhite;
@@ -22,44 +22,44 @@ public class Disk extends java.lang.Object implements Figure{
     }
     
     @Override
-    public Field myfield(){
+    public Field myfield() {
         return this.field;
     }
     
     @Override
-    public void remove(){
+    public void remove() {
         this.field=null;
     }
     
     @Override
-    public boolean isWhite(){
+    public boolean isWhite() {
         return this.isWhite;
     }
     
     @Override
-    public Board getBoard(){
+    public Board getBoard() {
         return this.board;
     }
     
     @Override
-    public int getType(){
+    public int getType() {
         return this.typ;
     }
     
     @Override
-    public void put(Field field){
+    public void put(Field field) {
         this.field=field;
     }
     
     @Override
-    public String getState(){
+    public String getState() {
         String color;
         String type;
-        if(isWhite()){
+        if(isWhite()) {
             color="W";
-        }else if(!isWhite()){
+        } else if(!isWhite()) {
             color="B";
-        }else{
+        } else {
             color="E";
         }
         switch (typ) {
@@ -162,8 +162,335 @@ public class Disk extends java.lang.Object implements Figure{
         return ok;
     }
     
-    @Override
-    public boolean move(Field moveTo){
+    private int sachK(Field kral, Field figurka, int ok) {
+        if(kral.isEmpty()) {
+            return ok;
+        } else if((kral.get().getType() == 5) && (kral.get().isWhite() != figurka.get().isWhite())) {
+            ok++;
+        }
+        return ok;
+    }
+    
+    public int sach(Field figurka) {
+        
+        Field next = figurka;
+        int endU;
+        int ok = 0;
+        
+        if((figurka.get().getType() == 1) || (figurka.get().getType() == 4)) {
+            endU = 8 - figurka.getRow();
+            if(endU != 0) {
+                next = figurka.nextField(Field.Direction.U);
+            }
+            while(endU > 1) {
+                if(next.isEmpty()) {
+                    next = next.nextField(Field.Direction.U);
+                } else {
+                    break;
+                }
+                endU--;
+            }
+            ok = sachK(next, figurka, ok);
+
+            endU = figurka.getRow() - 1;
+            if(endU != 0) {
+                next = figurka.nextField(Field.Direction.D);
+            }
+            while(endU > 1) {
+                if(next.isEmpty()) {
+                    next = next.nextField(Field.Direction.D);
+                } else {
+                    break;
+                }
+                endU--;
+            }
+            ok = sachK(next, figurka, ok);
+
+            endU = figurka.getCol() - 1;
+            if(endU != 0) {
+                next = figurka.nextField(Field.Direction.L);
+            }
+            while(endU > 1) {
+                if(next.isEmpty()) {
+                    next = next.nextField(Field.Direction.L);
+                } else {
+                    break;
+                }
+                endU--;
+            }
+            ok = sachK(next, figurka, ok);
+
+            endU = 8 - figurka.getCol();
+            if(endU != 0) {
+                next = figurka.nextField(Field.Direction.R);
+            }
+            while(endU > 1) {
+                if(next.isEmpty()) {
+                    next = next.nextField(Field.Direction.R);
+                } else {
+                    break;
+                }
+                endU--;
+            }
+            ok = sachK(next, figurka, ok);
+        } else if((figurka.get().getType() == 2) || (figurka.get().getType() == 4)) {
+            next = figurka;
+            if((figurka.getCol() - 1) >= (8 - figurka.getRow())) {
+                endU = 8 - figurka.getRow();
+            } else {
+                endU = figurka.getCol() - 1;
+            }
+            while(endU > 0) {
+                if(next.isEmpty()) {
+                    next = next.nextField(Field.Direction.LU);
+                } else {
+                    break;
+                }
+                endU--;
+            }
+            ok = sachK(next, figurka, ok);
+
+            next = figurka;
+            if((figurka.getCol() - 1) >= (figurka.getRow() - 1)) {
+                endU = figurka.getRow() - 1;
+            } else {
+                endU = figurka.getCol() - 1;
+            }
+            while(endU > 0) {
+                if(next.isEmpty()) {
+                    next = next.nextField(Field.Direction.LD);
+                } else {
+                    break;
+                }
+                endU--;
+            }
+            ok = sachK(next, figurka, ok);
+
+            next = figurka;
+            if((8 - figurka.getCol()) >= (8 - figurka.getRow())) {
+                endU = 8 - figurka.getRow();
+            } else {
+                endU = 8 - figurka.getCol();
+            }
+            while(endU > 0) {
+                if(next.isEmpty()) {
+                    next = next.nextField(Field.Direction.RU);
+                } else {
+                    break;
+                }
+                endU--;
+            }
+            ok = sachK(next, figurka, ok);
+
+            next = figurka;
+            if((8 - figurka.getCol()) >= (figurka.getRow() - 1)) {
+                endU = figurka.getRow() - 1;
+            } else {
+                endU = 8 - figurka.getCol();
+            }
+            while(endU > 0) {
+                if(next.isEmpty()) {
+                    next = next.nextField(Field.Direction.RD);
+                } else {
+                    break;
+                }
+                endU--;
+            }
+            ok = sachK(next, figurka, ok);
+        } else if(figurka.get().getType() == 0) {
+            if(figurka.get().isWhite()) {
+                if((figurka.getCol() > 1) && (figurka.getRow() < 8)) {
+                    next = figurka.nextField(Field.Direction.LU);
+                    ok = sachK(next, figurka, ok);
+                }
+
+                if((figurka.getCol() < 8) && (figurka.getRow() < 8)){
+                    next = figurka.nextField(Field.Direction.RU);
+                    ok = sachK(next, figurka, ok);
+                }
+            } else {
+                if((figurka.getCol() > 1) && (figurka.getRow() > 1)) {
+                    next = figurka.nextField(Field.Direction.LD);
+                    ok = sachK(next, figurka, ok);
+                }
+
+                if((figurka.getCol() < 8) && (figurka.getRow() > 1)) {
+                    next = figurka.nextField(Field.Direction.RD);
+                    ok = sachK(next, figurka, ok);
+                }
+            }
+        } else if(figurka.get().getType() == 3) {
+            if((figurka.getCol() > 2) && (figurka.getRow() < 8)) {
+                next = figurka.nextField(Field.Direction.U).nextField(Field.Direction.L).nextField(Field.Direction.L);
+                ok = sachK(next, figurka, ok);
+            }
+
+            if((figurka.getCol() > 2) && (figurka.getRow() > 1)) {
+                next = figurka.nextField(Field.Direction.D).nextField(Field.Direction.L).nextField(Field.Direction.L);
+                ok = sachK(next, figurka, ok);
+            }
+
+            if((figurka.getCol() < 7) && (figurka.getRow() < 8)) {
+                next = figurka.nextField(Field.Direction.U).nextField(Field.Direction.R).nextField(Field.Direction.R);
+                ok = sachK(next, figurka, ok);
+            }
+
+            if((figurka.getCol() < 7) && (figurka.getRow() > 1)) {
+                next = figurka.nextField(Field.Direction.D).nextField(Field.Direction.R).nextField(Field.Direction.R);
+                ok = sachK(next, figurka, ok);
+            }
+
+            if((figurka.getCol() > 1) && (figurka.getRow() < 7)) {
+                next = figurka.nextField(Field.Direction.U).nextField(Field.Direction.U).nextField(Field.Direction.L);
+                ok = sachK(next, figurka, ok);
+            }
+
+            if((figurka.getCol() > 1) && (figurka.getRow() > 2)) {
+                next = figurka.nextField(Field.Direction.D).nextField(Field.Direction.D).nextField(Field.Direction.L);
+                ok = sachK(next, figurka, ok);
+            }
+
+            if((figurka.getCol() < 8) && (figurka.getRow() < 7)) {
+                next = figurka.nextField(Field.Direction.U).nextField(Field.Direction.U).nextField(Field.Direction.R);
+                ok = sachK(next, figurka, ok);
+            }
+
+            if((figurka.getCol() < 8) && (figurka.getRow() > 2)) {
+                next = figurka.nextField(Field.Direction.D).nextField(Field.Direction.D).nextField(Field.Direction.R);
+                ok = sachK(next, figurka, ok);
+            }
+        } else if(figurka.get().getType() == 5) {
+            if((figurka.getCol() == 1) && (figurka.getRow() == 8)) {
+                next = figurka.nextField(Field.Direction.R);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.RD);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.D);
+                ok = sachK(next, figurka, ok);
+            } else if((figurka.getCol() == 8) && (figurka.getRow() == 8)) {
+                next = figurka.nextField(Field.Direction.D);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.LD);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.L);
+                ok = sachK(next, figurka, ok);
+            } else if((figurka.getCol() == 1) && (figurka.getRow() == 1)) {
+                next = figurka.nextField(Field.Direction.U);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.RU);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.R); 
+                ok = sachK(next, figurka, ok);
+            } else if((figurka.getCol() == 8) && (figurka.getRow() == 1)) {
+                next = figurka.nextField(Field.Direction.L);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.LU);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.U);
+                ok = sachK(next, figurka, ok);
+            } else if(figurka.getCol() == 1) {
+                next = figurka.nextField(Field.Direction.U);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.RU);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.R);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.RD);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.D);
+                ok = sachK(next, figurka, ok);
+            } else if(figurka.getCol() == 8) {
+                next = figurka.nextField(Field.Direction.D);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.LD);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.L);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.LU);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.U);
+                ok = sachK(next, figurka, ok);
+            } else if(figurka.getRow() == 8) {
+                next = figurka.nextField(Field.Direction.R);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.RD);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.D);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.LD);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.L);
+                ok = sachK(next, figurka, ok);
+            } else if(figurka.getRow() == 1) {
+                next = figurka.nextField(Field.Direction.L);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.LU);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.U);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.RU);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.R);
+                ok = sachK(next, figurka, ok);
+            } else {
+                next = figurka.nextField(Field.Direction.LU);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.U);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.RU);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.R);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.RD);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.D);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.LD);
+                ok = sachK(next, figurka, ok);
+
+                next = figurka.nextField(Field.Direction.L);
+                ok = sachK(next, figurka, ok);
+            }
+        }
+        
+        if(ok > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    
+    public int move(Field moveTo){
         
         if(this.typ == 0) {
             if(this.field.getCol() == moveTo.getCol()) {
@@ -171,75 +498,99 @@ public class Disk extends java.lang.Object implements Figure{
                     if(Math.abs(this.field.getRow() - moveTo.getRow()) == 2 && (this.field.getRow() == 2) && moveTo.isEmpty()) {
                         Field next = moveTo.nextField(Field.Direction.D);
                         if(!next.isEmpty()) {
-                            return false;
+                            return -1;
                         }
-                        return this.movePesak1(moveTo);
+                        if(!this.movePesak1(moveTo)) {
+                            return -1;
+                        }
                     } else if((Math.abs(this.field.getRow() - moveTo.getRow()) == 1) && moveTo.isEmpty()) {
-                        return this.movePesak1(moveTo);
+                        if(!this.movePesak1(moveTo)) {
+                            return -1;
+                        }
                     } else {
-                        return false;
+                        return -1;
                     }
                 } else if((this.field.getRow() > moveTo.getRow()) && !isWhite()) {
                     if(Math.abs(this.field.getRow() - moveTo.getRow()) == 2 && (this.field.getRow() == 7) && moveTo.isEmpty()) {
                         Field next = moveTo.nextField(Field.Direction.U);
                         if(!next.isEmpty()) {
-                            return false;
+                            return -1;
                         }
-                        return this.movePesak1(moveTo);
+                        if(!this.movePesak1(moveTo)) {
+                            return -1;
+                        }
                     } else if((Math.abs(this.field.getRow() - moveTo.getRow()) == 1) && moveTo.isEmpty()) {
-                        return this.movePesak1(moveTo);
+                        if(!this.movePesak1(moveTo)) {
+                            return -1;
+                        }
                     } else {
-                        return false;
+                        return -1;
                     }
                 } else {
-                    return false;
+                    return -1;
                 }
             } else if((Math.abs(this.field.getCol() - moveTo.getCol()) == 1) && (Math.abs(this.field.getRow() - moveTo.getRow()) == 1) && !moveTo.isEmpty()) {
                 if(this.isWhite() && (this.field.getRow() < moveTo.getRow())) {
                     if(this.field.getCol() > moveTo.getCol()) {
                         if(this.isWhite && !moveTo.get().isWhite()) {
-                            return this.movePesak2(moveTo);
+                            if(!this.movePesak2(moveTo)) {
+                                return -1;
+                            }
                         } else if(!this.isWhite && moveTo.get().isWhite()) {
-                            return this.movePesak2(moveTo);
+                            if(!this.movePesak2(moveTo)) {
+                                return -1;
+                            }
                         } else {
-                            return false;
+                            return -1;
                         }
                     } else if(this.field.getCol() < moveTo.getCol()) {
                         if(this.isWhite && !moveTo.get().isWhite()) {
-                            return this.movePesak2(moveTo);
+                            if(!this.movePesak2(moveTo)) {
+                                return -1;
+                            }
                         } else if(!this.isWhite && moveTo.get().isWhite()) {
-                            return this.movePesak2(moveTo);
+                            if(!this.movePesak2(moveTo)) {
+                                return -1;
+                            }
                         } else {
-                            return false;
+                            return -1;
                         }
                     } else {
-                        return false;
+                        return -1;
                     } 
                 } else if(!this.isWhite() && (this.field.getRow() > moveTo.getRow())) {
                     if(this.field.getCol() > moveTo.getCol()) {
                         if(this.isWhite && !moveTo.get().isWhite()) {
-                            return this.movePesak2(moveTo);
+                            if(!this.movePesak2(moveTo)) {
+                                return -1;
+                            }
                         } else if(!this.isWhite && moveTo.get().isWhite()) {
-                            return this.movePesak2(moveTo);
+                            if(!this.movePesak2(moveTo)) {
+                                return -1;
+                            }
                         } else {
-                            return false;
+                            return -1;
                         }
                     } else if(this.field.getCol() < moveTo.getCol()) {
                         if(this.isWhite && !moveTo.get().isWhite()) {
-                            return this.movePesak2(moveTo);
+                            if(!this.movePesak2(moveTo)) {
+                                return -1;
+                            }
                         } else if(!this.isWhite && moveTo.get().isWhite()) {
-                            return this.movePesak2(moveTo);
+                            if(!this.movePesak2(moveTo)) {
+                                return -1;
+                            }
                         } else {
-                            return false;
+                            return -1;
                         }
                     } else {
-                        return false;
+                        return -1;
                     } 
                 } else {
-                    return false;
+                    return -1;
                 }
             } else {
-                return false;
+                return -1;
             }
             
         } else if(this.typ == 1) {
@@ -248,48 +599,56 @@ public class Disk extends java.lang.Object implements Figure{
                     Field next = moveTo;
                     for(int x = this.field.getRow(); x > moveTo.getRow(); x--) {
                         if(!next.isEmpty() && (next != moveTo)) {
-                            return false;
+                            return -1;
                         }
                         next = next.nextField(Field.Direction.U);
                     }
-                    return this.moveLong(moveTo);
+                    if(!this.moveLong(moveTo)) {
+                        return -1;
+                    }
                 } else if(this.field.getRow() < moveTo.getRow()) {
                     Field next = moveTo;
                     for(int x = moveTo.getRow(); x > this.field.getRow(); x--) {
                         if(!next.isEmpty() && (next != moveTo)) {
-                            return false;
+                            return -1;
                         }
                         
                         next = next.nextField(Field.Direction.D);
                     }
-                    return this.moveLong(moveTo);
+                    if(!this.moveLong(moveTo)) {
+                        return -1;
+                    }
                 } else {
-                    return false;
+                    return -1;
                 }
             } else if(this.field.getRow() == moveTo.getRow()) {
                 if(this.field.getCol() > moveTo.getCol()) {
                     Field next = moveTo;
                     for(int x = this.field.getCol(); x > moveTo.getCol(); x--) {
                         if(!next.isEmpty() && (next != moveTo)) {
-                            return false;
+                            return -1;
                         }
                         next = next.nextField(Field.Direction.R);
                     }
-                    return this.moveLong(moveTo);
+                    if(!this.moveLong(moveTo)) {
+                        return -1;
+                    }
                 } else if(this.field.getCol() < moveTo.getCol()) {
                     Field next = moveTo;
                     for(int x = moveTo.getCol(); x > this.field.getCol(); x--) {
                         if(!next.isEmpty() && (next != moveTo)) {
-                            return false;
+                            return -1;
                         }
                         next = next.nextField(Field.Direction.L);
                     }
-                    return this.moveLong(moveTo);
+                    if(!this.moveLong(moveTo)) {
+                        return -1;
+                    }
                 } else {
-                    return false;
+                    return -1;
                 }
             } else {
-                return false;
+                return -1;
             }
            
         } else if(this.typ == 2) {
@@ -298,64 +657,88 @@ public class Disk extends java.lang.Object implements Figure{
                     Field next = moveTo;
                     for(int x = this.field.getCol(); x > moveTo.getCol(); x--) {
                         if(!next.isEmpty() && (next != moveTo)) {
-                            return false;
+                            return -1;
                         }
                         next = next.nextField(Field.Direction.RD);
                     }
-                    return this.moveLong(moveTo);
+                    if(!this.moveLong(moveTo)) {
+                        return -1;
+                    }
                 } else if(((this.field.getCol() - moveTo.getCol()) > 0) && ((this.field.getRow() - moveTo.getRow()) > 0)) {
                     Field next = moveTo;
                     for(int x = this.field.getCol(); x > moveTo.getCol(); x--) {
                         if(!next.isEmpty() && (next != moveTo)) {
-                            return false;
+                            return -1;
                         }
                         next = next.nextField(Field.Direction.RU);
                     }
-                    return this.moveLong(moveTo);
+                    if(!this.moveLong(moveTo)) {
+                        return -1;
+                    }
                 } else if(((this.field.getCol() - moveTo.getCol()) < 0) && ((this.field.getRow() - moveTo.getRow()) < 0)) {
                     Field next = moveTo;
                     for(int x = moveTo.getCol(); x > this.field.getCol(); x--) {
                         if(!next.isEmpty() && (next != moveTo)) {
-                            return false;
+                            return -1;
                         }
                         next = next.nextField(Field.Direction.LD);
                     }
-                    return this.moveLong(moveTo);
+                    if(!this.moveLong(moveTo)) {
+                        return -1;
+                    }
                 } else if(((this.field.getCol() - moveTo.getCol()) < 0) && ((this.field.getRow() - moveTo.getRow()) > 0)) {
                     Field next = moveTo;
                     for(int x = moveTo.getCol(); x > this.field.getCol(); x--) {
                         if(!next.isEmpty() && (next != moveTo)) {
-                            return false;
+                            return -1;
                         }
                         next = next.nextField(Field.Direction.LU);
                     }
-                    return this.moveLong(moveTo);
+                    if(!this.moveLong(moveTo)) {
+                        return -1;
+                    }
                 } else {
-                    return false;
+                    return -1;
                 }
             } else {
-                return false;
+                return -1;
             }
             
         } else if(this.typ == 3) {
             if(((this.field.getCol() + 1) == moveTo.getCol()) && ((this.field.getRow() + 2) == moveTo.getRow())) {
-                return this.moveLong(moveTo);
+                if(!this.moveLong(moveTo)) {
+                    return -1;
+                }
             } else if(((this.field.getCol() + 2) == moveTo.getCol()) && ((this.field.getRow() + 1) == moveTo.getRow())) {
-                return this.moveLong(moveTo);
+                if(!this.moveLong(moveTo)) {
+                    return -1;
+                }
             } else if(((this.field.getCol() + 1) == moveTo.getCol()) && ((this.field.getRow() - 2) == moveTo.getRow())) {
-                return this.moveLong(moveTo);
+                if(!this.moveLong(moveTo)) {
+                    return -1;
+                }
             } else if(((this.field.getCol() + 2) == moveTo.getCol()) && ((this.field.getRow() - 1) == moveTo.getRow())) {
-                return this.moveLong(moveTo);
+                if(!this.moveLong(moveTo)) {
+                    return -1;
+                }
             } else if(((this.field.getCol() - 1) == moveTo.getCol()) && ((this.field.getRow() - 2) == moveTo.getRow())) {
-                return this.moveLong(moveTo);
+                if(!this.moveLong(moveTo)) {
+                    return -1;
+                }
             } else if(((this.field.getCol() - 2) == moveTo.getCol()) && ((this.field.getRow() - 1) == moveTo.getRow())) {
-                return this.moveLong(moveTo);
+                if(!this.moveLong(moveTo)) {
+                    return -1;
+                }
             } else if(((this.field.getCol() - 1) == moveTo.getCol()) && ((this.field.getRow() + 2) == moveTo.getRow())) {
-                return this.moveLong(moveTo);
+                if(!this.moveLong(moveTo)) {
+                    return -1;
+                }
             } else if(((this.field.getCol() - 2) == moveTo.getCol()) && ((this.field.getRow() + 1) == moveTo.getRow())) {
-                return this.moveLong(moveTo);
+                if(!this.moveLong(moveTo)) {
+                    return -1;
+                }
             } else {
-                return false;
+                return -1;
             }           
         } else if(this.typ == 4) {
             if(this.field.getCol() == moveTo.getCol()) {
@@ -363,89 +746,105 @@ public class Disk extends java.lang.Object implements Figure{
                     Field next = moveTo;
                     for(int x = this.field.getRow(); x > moveTo.getRow(); x--) {
                         if(!next.isEmpty() && (next != moveTo)) {
-                            return false;
+                            return -1;
                         }
                         next = next.nextField(Field.Direction.U);
                     }
-                    return this.moveLong(moveTo);
+                    if(!this.moveLong(moveTo)) {
+                        return -1;
+                    }
                 } else if(this.field.getRow() < moveTo.getRow()) {
                     Field next = moveTo;
                     for(int x = moveTo.getRow(); x > this.field.getRow(); x--) {
                         if(!next.isEmpty() && (next != moveTo)) {
-                            return false;
+                            return -1;
                         }
                         
                         next = next.nextField(Field.Direction.D);
                     }
-                    return this.moveLong(moveTo);
+                    if(!this.moveLong(moveTo)) {
+                        return -1;
+                    }
                 } else {
-                    return false;
+                    return -1;
                 }
             } else if(this.field.getRow() == moveTo.getRow()) {
                 if(this.field.getCol() > moveTo.getCol()) {
                     Field next = moveTo;
                     for(int x = this.field.getCol(); x > moveTo.getCol(); x--) {
                         if(!next.isEmpty() && (next != moveTo)) {
-                            return false;
+                            return -1;
                         }
                         next = next.nextField(Field.Direction.R);
                     }
-                    return this.moveLong(moveTo);
+                    if(!this.moveLong(moveTo)) {
+                        return -1;
+                    }
                 } else if(this.field.getCol() < moveTo.getCol()) {
                     Field next = moveTo;
                     for(int x = moveTo.getCol(); x > this.field.getCol(); x--) {
                         if(!next.isEmpty() && (next != moveTo)) {
-                            return false;
+                            return -1;
                         }
                         next = next.nextField(Field.Direction.L);
                     }
-                    return this.moveLong(moveTo);
+                    if(!this.moveLong(moveTo)) {
+                        return -1;
+                    }
                 } else {
-                    return false;
+                    return -1;
                 }
             } else if(Math.abs(this.field.getCol() - moveTo.getCol()) == Math.abs(this.field.getRow() - moveTo.getRow())) {
                 if(((this.field.getCol() - moveTo.getCol()) > 0) && ((this.field.getRow() - moveTo.getRow()) < 0)) {
                     Field next = moveTo;
                     for(int x = this.field.getCol(); x > moveTo.getCol(); x--) {
                         if(!next.isEmpty() && (next != moveTo)) {
-                            return false;
+                            return -1;
                         }
                         next = next.nextField(Field.Direction.RD);
                     }
-                    return this.moveLong(moveTo);
+                    if(!this.moveLong(moveTo)) {
+                        return -1;
+                    }
                 } else if(((this.field.getCol() - moveTo.getCol()) > 0) && ((this.field.getRow() - moveTo.getRow()) > 0)) {
                     Field next = moveTo;
                     for(int x = this.field.getCol(); x > moveTo.getCol(); x--) {
                         if(!next.isEmpty() && (next != moveTo)) {
-                            return false;
+                            return -1;
                         }
                         
                         next = next.nextField(Field.Direction.RU);
                     }
-                    return this.moveLong(moveTo);
+                    if(!this.moveLong(moveTo)) {
+                        return -1;
+                    }
                 } else if(((this.field.getCol() - moveTo.getCol()) < 0) && ((this.field.getRow() - moveTo.getRow()) < 0)) {
                     Field next = moveTo;
                     for(int x = moveTo.getCol(); x > this.field.getCol(); x--) {
                         if(!next.isEmpty() && (next != moveTo)) {
-                            return false;
+                            return -1;
                         }
                         next = next.nextField(Field.Direction.LD);
                     }
-                    return this.moveLong(moveTo);
+                    if(!this.moveLong(moveTo)) {
+                        return -1;
+                    }
                 } else if(((this.field.getCol() - moveTo.getCol()) < 0) && ((this.field.getRow() - moveTo.getRow()) > 0)) {
                     Field next = moveTo;
                     for(int x = moveTo.getCol(); x > this.field.getCol(); x--) {
                         if(!next.isEmpty() && (next != moveTo)) {
-                            return false;
+                            return -1;
                         }
                         next = next.nextField(Field.Direction.LU);
                     }
-                    return this.moveLong(moveTo);
+                    if(!this.moveLong(moveTo)) {
+                        return -1;
+                    }
                 } else {
-                    return false;
+                    return -1;
                 }
             } else {
-                return false;
+                return -1;
             }
         } else if(this.typ == 5) {
             if((Math.abs(this.field.getCol() - moveTo.getCol()) <= 1) && (Math.abs(this.field.getRow() - moveTo.getRow()) <= 1)) {
@@ -779,20 +1178,19 @@ public class Disk extends java.lang.Object implements Figure{
                 }
                 
                 if(ok == 26) {
-                    return this.moveLong(moveTo);
+                    if(!this.moveLong(moveTo)) {
+                        return -1;
+                    }
                 } else {
-                    return false;
+                    return -1;
                 }
                 
             } else {
-                return false;
+                return -1;
             }
         }
             
-        this.field.remove(this);
-        this.field = moveTo;
-        moveTo.put(this);
-        return true;
+        return sach(moveTo);
     }
     
     @Override
@@ -804,8 +1202,7 @@ public class Disk extends java.lang.Object implements Figure{
     }
     
     @Override
-    public boolean equals(java.lang.Object obj)
-    {
+    public boolean equals(java.lang.Object obj) {
         if (obj instanceof Disk) {
             final Disk obj2=(Disk) obj;
             if (this.field==obj2.field){
@@ -818,8 +1215,7 @@ public class Disk extends java.lang.Object implements Figure{
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return super.hashCode(); //To change body of generated methods, choose Tools | Templates.
     }
 }
