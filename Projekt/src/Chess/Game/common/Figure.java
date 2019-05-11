@@ -10,7 +10,7 @@ import Chess.Game.game.Board;
 public interface Figure {
 
     public boolean isWhite();
-    public boolean move(Field moveTo);
+    public int move(Field moveTo);
     public boolean reverse_move(Field moveTo);
     public Board getBoard();
     public int getType();
