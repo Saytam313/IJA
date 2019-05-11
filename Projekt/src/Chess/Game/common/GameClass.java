@@ -13,6 +13,7 @@ public class GameClass extends java.lang.Object implements Game{
     private Stack<Figure> zapis=new Stack<Figure>();
     private final Board board;
     private Game hra;
+    public boolean wTurn = true;
     
     //typ:0 Pesak
     //typ:1 Vez
@@ -37,11 +38,9 @@ public class GameClass extends java.lang.Object implements Game{
             StartOn.put(Figurka);
         }
     }
-    public String move(Figure figurka,Field  moveTo){
-        
-        String zapis=zapisCreator(figurka,moveTo);
-        //System.out.println(zapisCreator(figurka,moveTo));
-        //System.out.println(zapisReader(zapisCreator(figurka,moveTo)));
+    public boolean move(Figure figurka,Field  moveTo){
+        System.out.println(zapisCreator(figurka,moveTo));
+        System.out.println(zapisReader(zapisCreator(figurka,moveTo)));
         From_addMove(figurka,moveTo);
         if(moveTo.get()!=null && figurka.isWhite()!=moveTo.get().isWhite()){
             Remove_addMove(moveTo.get());
@@ -51,11 +50,11 @@ public class GameClass extends java.lang.Object implements Game{
         if(figurka.move(moveTo)){ 
 
             To_addMove(figurka);
-            return zapis; 
+            return true; 
         }else{
             from_Pos.pop();
             from_Fig.pop();
-            return "";
+            return false;
         }
     }
     
@@ -76,9 +75,7 @@ public class GameClass extends java.lang.Object implements Game{
         
     }
     public String zapisCreator(Figure figurka,Field  moveTo){
-        
         String type="";
-
         switch (figurka.getType()) {
             case 0:
                 type="";
@@ -101,16 +98,11 @@ public class GameClass extends java.lang.Object implements Game{
             default:
                 break;
         }
-        String sebrani;
-        if(!moveTo.isEmpty()){
-            sebrani="x";
-        }else{
-            sebrani="";
-        }
+        
         String ColFrom=colNumToStr(figurka.myfield().getCol());
         String ColTo=colNumToStr(moveTo.getCol());
         
-        String ret=type+ColFrom+figurka.myfield().getRow()+sebrani+ColTo+moveTo.getRow();
+        String ret=type+ColFrom+figurka.myfield().getRow()+ColTo+moveTo.getRow();
         return ret;
     }
     private String colNumToStr(int num){
