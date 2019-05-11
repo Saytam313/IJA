@@ -49,13 +49,14 @@ public class GameClass extends java.lang.Object implements Game{
             Remove_addMove(null);
         }
         
-        if(figurka.move(moveTo) == 0){ 
+        int m = figurka.move(moveTo);
+        if(m == 0){ 
             To_addMove(figurka);
             return zapis; 
-        } else if(figurka.move(moveTo) == 1) {
+        } else if(m == 1) {
             To_addMove(figurka);
             return zapis + "+";
-        } else if(figurka.move(moveTo) == 2) {
+        } else if(m == 2) {
             To_addMove(figurka);
             return zapis + "#";
         } else {
