@@ -124,6 +124,10 @@ public class Disk extends java.lang.Object implements Figure{
             if(this.field.getCol() == moveTo.getCol()) {
                 if((this.field.getRow() < moveTo.getRow()) && isWhite()) {
                     if(Math.abs(this.field.getRow() - moveTo.getRow()) == 2 && (this.field.getRow() == 2) && moveTo.isEmpty()) {
+                        Field next = moveTo.nextField(Field.Direction.D);
+                        if(!next.isEmpty()) {
+                            return false;
+                        }
                         return this.movePesak1(moveTo);
                     } else if((Math.abs(this.field.getRow() - moveTo.getRow()) == 1) && moveTo.isEmpty()) {
                         return this.movePesak1(moveTo);
@@ -132,6 +136,10 @@ public class Disk extends java.lang.Object implements Figure{
                     }
                 } else if((this.field.getRow() > moveTo.getRow()) && !isWhite()) {
                     if(Math.abs(this.field.getRow() - moveTo.getRow()) == 2 && (this.field.getRow() == 7) && moveTo.isEmpty()) {
+                        Field next = moveTo.nextField(Field.Direction.U);
+                        if(!next.isEmpty()) {
+                            return false;
+                        }
                         return this.movePesak1(moveTo);
                     } else if((Math.abs(this.field.getRow() - moveTo.getRow()) == 1) && moveTo.isEmpty()) {
                         return this.movePesak1(moveTo);
