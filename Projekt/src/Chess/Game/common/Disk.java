@@ -13,31 +13,45 @@ public class Disk extends java.lang.Object implements Figure{
     //typ:3 Kun
     //typ:4 Kralovna
     //typ:5 Kral
-    
+
     public Disk(int typ,Board board,boolean isWhite){
         this.board=board;
         this.typ=typ;
         this.isWhite=isWhite;
         this.field=null;
     }
+    
+    @Override
     public Field myfield(){
         return this.field;
     }
+    
+    @Override
     public void remove(){
         this.field=null;
     }
+    
+    @Override
     public boolean isWhite(){
         return this.isWhite;
     }
+    
+    @Override
     public Board getBoard(){
         return this.board;
     }
+    
+    @Override
     public int getType(){
         return this.typ;
     }
+    
+    @Override
     public void put(Field field){
         this.field=field;
     }
+    
+    @Override
     public String getState(){
         String color;
         String type;
@@ -75,35 +89,52 @@ public class Disk extends java.lang.Object implements Figure{
         return type+"["+ color +"]" + this.field.getCol()+":"+this.field.getRow();
     }
     
+    private boolean movePesak1(Field moveTo) {
+        this.field.remove(this);
+        this.field = moveTo;
+        moveTo.put(this);
+        return true;
+    }
+    
+    private boolean movePesak2(Field moveTo) {
+        this.field.remove(this);
+        moveTo.remove(moveTo.get());
+        this.field = moveTo;
+        moveTo.put(this);
+        return true;
+    }
+    
+    private boolean moveLong(Field moveTo) {
+        if(!moveTo.isEmpty()) {
+            if(this.isWhite == moveTo.get().isWhite()) {
+                return false;
+            }
+        }
+        this.field.remove(this);
+        moveTo.remove(moveTo.get());
+        this.field = moveTo;
+        moveTo.put(this);
+        return true;
+    }
+    
+    @Override
     public boolean move(Field moveTo){
         
         if(this.typ == 0) {
             if(this.field.getCol() == moveTo.getCol()) {
                 if((this.field.getRow() < moveTo.getRow()) && isWhite()) {
                     if(Math.abs(this.field.getRow() - moveTo.getRow()) == 2 && (this.field.getRow() == 2) && moveTo.isEmpty()) {
-                        this.field.remove(this);
-                        this.field = moveTo;
-                        moveTo.put(this);
-                        return true;
+                        return this.movePesak1(moveTo);
                     } else if((Math.abs(this.field.getRow() - moveTo.getRow()) == 1) && moveTo.isEmpty()) {
-                        this.field.remove(this);
-                        this.field = moveTo;
-                        moveTo.put(this);
-                        return true;
+                        return this.movePesak1(moveTo);
                     } else {
                         return false;
                     }
                 } else if((this.field.getRow() > moveTo.getRow()) && !isWhite()) {
                     if(Math.abs(this.field.getRow() - moveTo.getRow()) == 2 && (this.field.getRow() == 7) && moveTo.isEmpty()) {
-                        this.field.remove(this);
-                        this.field = moveTo;
-                        moveTo.put(this);
-                        return true;
+                        return this.movePesak1(moveTo);
                     } else if((Math.abs(this.field.getRow() - moveTo.getRow()) == 1) && moveTo.isEmpty()) {
-                        this.field.remove(this);
-                        this.field = moveTo;
-                        moveTo.put(this);
-                        return true;
+                        return this.movePesak1(moveTo);
                     } else {
                         return false;
                     }
@@ -114,33 +145,17 @@ public class Disk extends java.lang.Object implements Figure{
                 if(this.isWhite() && (this.field.getRow() < moveTo.getRow())) {
                     if(this.field.getCol() > moveTo.getCol()) {
                         if(this.isWhite && !moveTo.get().isWhite()) {
-                            this.field.remove(this);
-                            moveTo.remove(moveTo.get());
-                            this.field = moveTo;
-                            moveTo.put(this);
-                            return true;
+                            return this.movePesak2(moveTo);
                         } else if(!this.isWhite && moveTo.get().isWhite()) {
-                            this.field.remove(this);
-                            moveTo.remove(moveTo.get());
-                            this.field = moveTo;
-                            moveTo.put(this);
-                            return true;
+                            return this.movePesak2(moveTo);
                         } else {
                             return false;
                         }
                     } else if(this.field.getCol() < moveTo.getCol()) {
                         if(this.isWhite && !moveTo.get().isWhite()) {
-                            this.field.remove(this);
-                            moveTo.remove(moveTo.get());
-                            this.field = moveTo;
-                            moveTo.put(this);
-                            return true;
+                            return this.movePesak2(moveTo);
                         } else if(!this.isWhite && moveTo.get().isWhite()) {
-                            this.field.remove(this);
-                            moveTo.remove(moveTo.get());
-                            this.field = moveTo;
-                            moveTo.put(this);
-                            return true;
+                            return this.movePesak2(moveTo);
                         } else {
                             return false;
                         }
@@ -150,33 +165,17 @@ public class Disk extends java.lang.Object implements Figure{
                 } else if(!this.isWhite() && (this.field.getRow() > moveTo.getRow())) {
                     if(this.field.getCol() > moveTo.getCol()) {
                         if(this.isWhite && !moveTo.get().isWhite()) {
-                            this.field.remove(this);
-                            moveTo.remove(moveTo.get());
-                            this.field = moveTo;
-                            moveTo.put(this);
-                            return true;
+                            return this.movePesak2(moveTo);
                         } else if(!this.isWhite && moveTo.get().isWhite()) {
-                            this.field.remove(this);
-                            moveTo.remove(moveTo.get());
-                            this.field = moveTo;
-                            moveTo.put(this);
-                            return true;
+                            return this.movePesak2(moveTo);
                         } else {
                             return false;
                         }
                     } else if(this.field.getCol() < moveTo.getCol()) {
                         if(this.isWhite && !moveTo.get().isWhite()) {
-                            this.field.remove(this);
-                            moveTo.remove(moveTo.get());
-                            this.field = moveTo;
-                            moveTo.put(this);
-                            return true;
+                            return this.movePesak2(moveTo);
                         } else if(!this.isWhite && moveTo.get().isWhite()) {
-                            this.field.remove(this);
-                            moveTo.remove(moveTo.get());
-                            this.field = moveTo;
-                            moveTo.put(this);
-                            return true;
+                            return this.movePesak2(moveTo);
                         } else {
                             return false;
                         }
@@ -200,16 +199,7 @@ public class Disk extends java.lang.Object implements Figure{
                         }
                         next = next.nextField(Field.Direction.U);
                     }
-                    if(!moveTo.isEmpty()) {
-                        if(this.isWhite == moveTo.get().isWhite()) {
-                            return false;
-                        }
-                    }
-                    this.field.remove(this);
-                    moveTo.remove(moveTo.get());
-                    this.field = moveTo;
-                    moveTo.put(this);
-                    return true;
+                    return this.moveLong(moveTo);
                 } else if(this.field.getRow() < moveTo.getRow()) {
                     Field next = moveTo;
                     for(int x = moveTo.getRow(); x > this.field.getRow(); x--) {
@@ -219,16 +209,7 @@ public class Disk extends java.lang.Object implements Figure{
                         
                         next = next.nextField(Field.Direction.D);
                     }
-                    if(!moveTo.isEmpty()) {
-                        if(this.isWhite == moveTo.get().isWhite()) {
-                            return false;
-                        }
-                    }
-                    this.field.remove(this);
-                    moveTo.remove(moveTo.get());
-                    this.field = moveTo;
-                    moveTo.put(this);
-                    return true;
+                    return this.moveLong(moveTo);
                 } else {
                     return false;
                 }
@@ -241,16 +222,7 @@ public class Disk extends java.lang.Object implements Figure{
                         }
                         next = next.nextField(Field.Direction.R);
                     }
-                    if(!moveTo.isEmpty()) {
-                        if(this.isWhite == moveTo.get().isWhite()) {
-                            return false;
-                        }
-                    }
-                    this.field.remove(this);
-                    moveTo.remove(moveTo.get());
-                    this.field = moveTo;
-                    moveTo.put(this);
-                    return true;
+                    return this.moveLong(moveTo);
                 } else if(this.field.getCol() < moveTo.getCol()) {
                     Field next = moveTo;
                     for(int x = moveTo.getCol(); x > this.field.getCol(); x--) {
@@ -259,16 +231,7 @@ public class Disk extends java.lang.Object implements Figure{
                         }
                         next = next.nextField(Field.Direction.L);
                     }
-                    if(!moveTo.isEmpty()) {
-                        if(this.isWhite == moveTo.get().isWhite()) {
-                            return false;
-                        }
-                    }
-                    this.field.remove(this);
-                    moveTo.remove(moveTo.get());
-                    this.field = moveTo;
-                    moveTo.put(this);
-                    return true;
+                    return this.moveLong(moveTo);
                 } else {
                     return false;
                 }
@@ -286,16 +249,7 @@ public class Disk extends java.lang.Object implements Figure{
                         }
                         next = next.nextField(Field.Direction.RD);
                     }
-                    if(!moveTo.isEmpty()) {
-                        if(this.isWhite == moveTo.get().isWhite()) {
-                            return false;
-                        }
-                    }
-                    this.field.remove(this);
-                    moveTo.remove(moveTo.get());
-                    this.field = moveTo;
-                    moveTo.put(this);
-                    return true;
+                    return this.moveLong(moveTo);
                 } else if(((this.field.getCol() - moveTo.getCol()) > 0) && ((this.field.getRow() - moveTo.getRow()) > 0)) {
                     Field next = moveTo;
                     for(int x = this.field.getCol(); x > moveTo.getCol(); x--) {
@@ -304,16 +258,7 @@ public class Disk extends java.lang.Object implements Figure{
                         }
                         next = next.nextField(Field.Direction.RU);
                     }
-                    if(!moveTo.isEmpty()) {
-                        if(this.isWhite == moveTo.get().isWhite()) {
-                            return false;
-                        }
-                    }
-                    this.field.remove(this);
-                    moveTo.remove(moveTo.get());
-                    this.field = moveTo;
-                    moveTo.put(this);
-                    return true;
+                    return this.moveLong(moveTo);
                 } else if(((this.field.getCol() - moveTo.getCol()) < 0) && ((this.field.getRow() - moveTo.getRow()) < 0)) {
                     Field next = moveTo;
                     for(int x = moveTo.getCol(); x > this.field.getCol(); x--) {
@@ -322,16 +267,7 @@ public class Disk extends java.lang.Object implements Figure{
                         }
                         next = next.nextField(Field.Direction.LD);
                     }
-                    if(!moveTo.isEmpty()) {
-                        if(this.isWhite == moveTo.get().isWhite()) {
-                            return false;
-                        }
-                    }
-                    this.field.remove(this);
-                    moveTo.remove(moveTo.get());
-                    this.field = moveTo;
-                    moveTo.put(this);
-                    return true;
+                    return this.moveLong(moveTo);
                 } else if(((this.field.getCol() - moveTo.getCol()) < 0) && ((this.field.getRow() - moveTo.getRow()) > 0)) {
                     Field next = moveTo;
                     for(int x = moveTo.getCol(); x > this.field.getCol(); x--) {
@@ -340,16 +276,7 @@ public class Disk extends java.lang.Object implements Figure{
                         }
                         next = next.nextField(Field.Direction.LU);
                     }
-                    if(!moveTo.isEmpty()) {
-                        if(this.isWhite == moveTo.get().isWhite()) {
-                            return false;
-                        }
-                    }
-                    this.field.remove(this);
-                    moveTo.remove(moveTo.get());
-                    this.field = moveTo;
-                    moveTo.put(this);
-                    return true;
+                    return this.moveLong(moveTo);
                 } else {
                     return false;
                 }
@@ -359,93 +286,21 @@ public class Disk extends java.lang.Object implements Figure{
             
         } else if(this.typ == 3) {
             if(((this.field.getCol() + 1) == moveTo.getCol()) && ((this.field.getRow() + 2) == moveTo.getRow())) {
-                if(!moveTo.isEmpty()) {
-                    if(this.isWhite == moveTo.get().isWhite()) {
-                        return false;
-                    }
-                }
-                this.field.remove(this);
-                moveTo.remove(moveTo.get());
-                this.field = moveTo;
-                moveTo.put(this);
-                return true;
+                return this.moveLong(moveTo);
             } else if(((this.field.getCol() + 2) == moveTo.getCol()) && ((this.field.getRow() + 1) == moveTo.getRow())) {
-                if(!moveTo.isEmpty()) {
-                    if(this.isWhite == moveTo.get().isWhite()) {
-                        return false;
-                    }
-                }
-                this.field.remove(this);
-                moveTo.remove(moveTo.get());
-                this.field = moveTo;
-                moveTo.put(this);
-                return true;
+                return this.moveLong(moveTo);
             } else if(((this.field.getCol() + 1) == moveTo.getCol()) && ((this.field.getRow() - 2) == moveTo.getRow())) {
-                if(!moveTo.isEmpty()) {
-                    if(this.isWhite == moveTo.get().isWhite()) {
-                        return false;
-                    }
-                }
-                this.field.remove(this);
-                moveTo.remove(moveTo.get());
-                this.field = moveTo;
-                moveTo.put(this);
-                return true;
+                return this.moveLong(moveTo);
             } else if(((this.field.getCol() + 2) == moveTo.getCol()) && ((this.field.getRow() - 1) == moveTo.getRow())) {
-                if(!moveTo.isEmpty()) {
-                    if(this.isWhite == moveTo.get().isWhite()) {
-                        return false;
-                    }
-                }
-                this.field.remove(this);
-                moveTo.remove(moveTo.get());
-                this.field = moveTo;
-                moveTo.put(this);
-                return true;
+                return this.moveLong(moveTo);
             } else if(((this.field.getCol() - 1) == moveTo.getCol()) && ((this.field.getRow() - 2) == moveTo.getRow())) {
-                if(!moveTo.isEmpty()) {
-                    if(this.isWhite == moveTo.get().isWhite()) {
-                        return false;
-                    }
-                }
-                this.field.remove(this);
-                moveTo.remove(moveTo.get());
-                this.field = moveTo;
-                moveTo.put(this);
-                return true;
+                return this.moveLong(moveTo);
             } else if(((this.field.getCol() - 2) == moveTo.getCol()) && ((this.field.getRow() - 1) == moveTo.getRow())) {
-                if(!moveTo.isEmpty()) {
-                    if(this.isWhite == moveTo.get().isWhite()) {
-                        return false;
-                    }
-                }
-                this.field.remove(this);
-                moveTo.remove(moveTo.get());
-                this.field = moveTo;
-                moveTo.put(this);
-                return true;
+                return this.moveLong(moveTo);
             } else if(((this.field.getCol() - 1) == moveTo.getCol()) && ((this.field.getRow() + 2) == moveTo.getRow())) {
-                if(!moveTo.isEmpty()) {
-                    if(this.isWhite == moveTo.get().isWhite()) {
-                        return false;
-                    }
-                }
-                this.field.remove(this);
-                moveTo.remove(moveTo.get());
-                this.field = moveTo;
-                moveTo.put(this);
-                return true;
+                return this.moveLong(moveTo);
             } else if(((this.field.getCol() - 2) == moveTo.getCol()) && ((this.field.getRow() + 1) == moveTo.getRow())) {
-                if(!moveTo.isEmpty()) {
-                    if(this.isWhite == moveTo.get().isWhite()) {
-                        return false;
-                    }
-                }
-                this.field.remove(this);
-                moveTo.remove(moveTo.get());
-                this.field = moveTo;
-                moveTo.put(this);
-                return true;
+                return this.moveLong(moveTo);
             } else {
                 return false;
             }           
@@ -459,16 +314,7 @@ public class Disk extends java.lang.Object implements Figure{
                         }
                         next = next.nextField(Field.Direction.U);
                     }
-                    if(!moveTo.isEmpty()) {
-                        if(this.isWhite == moveTo.get().isWhite()) {
-                            return false;
-                        }
-                    }
-                    this.field.remove(this);
-                    moveTo.remove(moveTo.get());
-                    this.field = moveTo;
-                    moveTo.put(this);
-                    return true;
+                    return this.moveLong(moveTo);
                 } else if(this.field.getRow() < moveTo.getRow()) {
                     Field next = moveTo;
                     for(int x = moveTo.getRow(); x > this.field.getRow(); x--) {
@@ -478,16 +324,7 @@ public class Disk extends java.lang.Object implements Figure{
                         
                         next = next.nextField(Field.Direction.D);
                     }
-                    if(!moveTo.isEmpty()) {
-                        if(this.isWhite == moveTo.get().isWhite()) {
-                            return false;
-                        }
-                    }
-                    this.field.remove(this);
-                    moveTo.remove(moveTo.get());
-                    this.field = moveTo;
-                    moveTo.put(this);
-                    return true;
+                    return this.moveLong(moveTo);
                 } else {
                     return false;
                 }
@@ -500,16 +337,7 @@ public class Disk extends java.lang.Object implements Figure{
                         }
                         next = next.nextField(Field.Direction.R);
                     }
-                    if(!moveTo.isEmpty()) {
-                        if(this.isWhite == moveTo.get().isWhite()) {
-                            return false;
-                        }
-                    }
-                    this.field.remove(this);
-                    moveTo.remove(moveTo.get());
-                    this.field = moveTo;
-                    moveTo.put(this);
-                    return true;
+                    return this.moveLong(moveTo);
                 } else if(this.field.getCol() < moveTo.getCol()) {
                     Field next = moveTo;
                     for(int x = moveTo.getCol(); x > this.field.getCol(); x--) {
@@ -518,16 +346,7 @@ public class Disk extends java.lang.Object implements Figure{
                         }
                         next = next.nextField(Field.Direction.L);
                     }
-                    if(!moveTo.isEmpty()) {
-                        if(this.isWhite == moveTo.get().isWhite()) {
-                            return false;
-                        }
-                    }
-                    this.field.remove(this);
-                    moveTo.remove(moveTo.get());
-                    this.field = moveTo;
-                    moveTo.put(this);
-                    return true;
+                    return this.moveLong(moveTo);
                 } else {
                     return false;
                 }
@@ -540,16 +359,7 @@ public class Disk extends java.lang.Object implements Figure{
                         }
                         next = next.nextField(Field.Direction.RD);
                     }
-                    if(!moveTo.isEmpty()) {
-                        if(this.isWhite == moveTo.get().isWhite()) {
-                            return false;
-                        }
-                    }
-                    this.field.remove(this);
-                    moveTo.remove(moveTo.get());
-                    this.field = moveTo;
-                    moveTo.put(this);
-                    return true;
+                    return this.moveLong(moveTo);
                 } else if(((this.field.getCol() - moveTo.getCol()) > 0) && ((this.field.getRow() - moveTo.getRow()) > 0)) {
                     Field next = moveTo;
                     for(int x = this.field.getCol(); x > moveTo.getCol(); x--) {
@@ -559,16 +369,7 @@ public class Disk extends java.lang.Object implements Figure{
                         
                         next = next.nextField(Field.Direction.RU);
                     }
-                    if(!moveTo.isEmpty()) {
-                        if(this.isWhite == moveTo.get().isWhite()) {
-                            return false;
-                        }
-                    }
-                    this.field.remove(this);
-                    moveTo.remove(moveTo.get());
-                    this.field = moveTo;
-                    moveTo.put(this);
-                    return true;
+                    return this.moveLong(moveTo);
                 } else if(((this.field.getCol() - moveTo.getCol()) < 0) && ((this.field.getRow() - moveTo.getRow()) < 0)) {
                     Field next = moveTo;
                     for(int x = moveTo.getCol(); x > this.field.getCol(); x--) {
@@ -577,16 +378,7 @@ public class Disk extends java.lang.Object implements Figure{
                         }
                         next = next.nextField(Field.Direction.LD);
                     }
-                    if(!moveTo.isEmpty()) {
-                        if(this.isWhite == moveTo.get().isWhite()) {
-                            return false;
-                        }
-                    }
-                    this.field.remove(this);
-                    moveTo.remove(moveTo.get());
-                    this.field = moveTo;
-                    moveTo.put(this);
-                    return true;
+                    return this.moveLong(moveTo);
                 } else if(((this.field.getCol() - moveTo.getCol()) < 0) && ((this.field.getRow() - moveTo.getRow()) > 0)) {
                     Field next = moveTo;
                     for(int x = moveTo.getCol(); x > this.field.getCol(); x--) {
@@ -595,16 +387,7 @@ public class Disk extends java.lang.Object implements Figure{
                         }
                         next = next.nextField(Field.Direction.LU);
                     }
-                    if(!moveTo.isEmpty()) {
-                        if(this.isWhite == moveTo.get().isWhite()) {
-                            return false;
-                        }
-                    }
-                    this.field.remove(this);
-                    moveTo.remove(moveTo.get());
-                    this.field = moveTo;
-                    moveTo.put(this);
-                    return true;
+                    return this.moveLong(moveTo);
                 } else {
                     return false;
                 }
@@ -613,16 +396,7 @@ public class Disk extends java.lang.Object implements Figure{
             }
         } else if(this.typ == 5) {
             if((Math.abs(this.field.getCol() - moveTo.getCol()) <= 1) && (Math.abs(this.field.getRow() - moveTo.getRow()) <= 1)) {
-                if(!moveTo.isEmpty()) {
-                    if(this.isWhite == moveTo.get().isWhite()) {
-                        return false;
-                    }
-                }
-                this.field.remove(this);
-                moveTo.remove(moveTo.get());
-                this.field = moveTo;
-                moveTo.put(this);
-                return true;
+                return this.moveLong(moveTo);
             } else {
                 return false;
             }
@@ -634,98 +408,8 @@ public class Disk extends java.lang.Object implements Figure{
         return true;
     }
     
+    @Override
     public boolean reverse_move(Field moveTo) {
-        if(this.typ == 1) {
-            if(this.field.getCol() == moveTo.getCol()) {
-                if(this.field.getRow() >= moveTo.getRow()) {
-                    Field next = moveTo;
-                    for(int x = this.field.getRow(); x > moveTo.getRow(); x--) {
-                        if(!next.isEmpty()) {
-                            return false;
-                        }
-                        next = next.nextField(Field.Direction.R);
-                    }
-                    next.remove(this);
-                    moveTo.put(this);
-                    return true;
-                } else if(this.field.getRow() < moveTo.getRow()) {
-                    Field next = moveTo;
-                    for(int x = moveTo.getRow(); x > this.field.getRow(); x--) {
-                        if(!next.isEmpty()) {
-                            return false;
-                        }
-                        next = next.nextField(Field.Direction.L);
-                    }
-                    next.remove(this);
-                    moveTo.put(this);
-                    return true;
-                }
-        } else if(this.field.getRow() == moveTo.getRow()) {
-                if(this.field.getCol() >= moveTo.getCol()) {
-                    Field next = moveTo;
-                    for(int x = this.field.getCol(); x > moveTo.getCol(); x--) {
-                        if(!next.isEmpty()) {
-                            return false;
-                        }
-                        next = next.nextField(Field.Direction.U);
-                    }
-                    next.remove(this);
-                    moveTo.put(this);
-                    return true;
-                } else if(this.field.getCol() < moveTo.getCol()) {
-                    Field next = moveTo;
-                    for(int x = moveTo.getCol(); x > this.field.getCol(); x--) {
-                        if(!next.isEmpty()) {
-                            return false;
-                        }
-                        next = next.nextField(Field.Direction.D);
-                    }
-                    next.remove(this);
-                    moveTo.put(this);
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        } else if(this.typ == 0) {
-            if(this.field.getRow() == moveTo.getRow()) {
-                if((this.field.getCol() > moveTo.getCol()) && !isWhite()) {
-                    if(Math.abs(this.field.getCol() - moveTo.getCol()) == 2 && this.field.getRow() == 1) {
-                        Field next = moveTo;
-                        next.remove(this);
-                        moveTo.put(this);
-                        return true;
-                    } else if(Math.abs(this.field.getCol() - moveTo.getCol()) == 1) {
-                        Field next = moveTo;
-                        next.remove(this);
-                        moveTo.put(this);
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else if((this.field.getCol() < moveTo.getCol()) && isWhite()) {
-                    if(Math.abs(this.field.getCol() - moveTo.getCol()) == 2 && this.field.getRow() == 8) {
-                        Field next = moveTo;
-                        next.remove(this);
-                        moveTo.put(this);
-                        return true;
-                    } else if(Math.abs(this.field.getCol() - moveTo.getCol()) == 1) {
-                        Field next = moveTo;
-                        next.remove(this);
-                        moveTo.put(this);
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-            } else {
-                return false;
-            }
-           
-        } 
-        
         this.field.remove(this);
         this.field = moveTo;
         moveTo.put(this);
@@ -751,9 +435,4 @@ public class Disk extends java.lang.Object implements Figure{
     {
         return super.hashCode(); //To change body of generated methods, choose Tools | Templates.
     }
-
-
-
-
-
 }
