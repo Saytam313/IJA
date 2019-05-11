@@ -76,7 +76,6 @@ public class GameClass extends java.lang.Object implements Game{
         
     }
     public String zapisCreator(Figure figurka,Field  moveTo){
-        
         String type="";
 
         switch (figurka.getType()) {

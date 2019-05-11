@@ -46,6 +46,9 @@ public class BoardController implements Initializable {
     private static Field fieldStart;
     private static boolean PlayerSwitch=true;
     private static Scene thisScene=null;
+    private static String zaznamPos;
+    private static int ZaznamCounter=1;
+    private static int ZaznamCounterPos=1;
     @FXML
     private ListView<String> zaznamList=new ListView<String>();
     @Override
@@ -64,7 +67,7 @@ public class BoardController implements Initializable {
         //zaznamTable.getItems().addAll(zaznam);
         String LastZaznam=zaznamList.getItems().get(zaznamList.getItems().size() - 1);
         //System.out.println(LastZaznam);
-        zaznam=LastZaznam+"         "+zaznam;
+        zaznam=LastZaznam+"          "+zaznam;
         zaznamList.getItems().remove(zaznamList.getItems().size() - 1);
         zaznamList.getItems().addAll(zaznam);
     }
@@ -105,7 +108,8 @@ public class BoardController implements Initializable {
                 if(!PlayerSwitch){
                     zaznamModify(zapis);
                 }else{
-                    zaznamAdd(zapis);                    
+                    zaznamAdd(ZaznamCounter+". "+zapis);
+                    ZaznamCounter++;
                 }
                 //System.out.println(GameClass.zapisCreator(figureStart,board.getField(x, y)));
                 //System.out.println("Move z "+VyberX+VyberY+" na :"+x+y+" probehl uspesne");
@@ -183,31 +187,89 @@ public class BoardController implements Initializable {
         ToButton.setStyle(line.replace(ToButtonFigurka, ""));
     }
        
+    public void zaznamPrev(String zaznam){
+        String zapisForm=game.zapisReader(zaznam);
+        int xTo=Character.getNumericValue(zapisForm.charAt(0));
+        int yTo=Character.getNumericValue(zapisForm.charAt(1));
+        int xFrom=Character.getNumericValue(zapisForm.charAt(3));
+        int yFrom=Character.getNumericValue(zapisForm.charAt(4));
+        
+        
+        Button FromButton=(Button) thisScene.lookup("#field"+xFrom+yFrom);
+        Button ToButton=(Button) thisScene.lookup("#field"+xTo+yTo);
+        //System.out.println("field"+xFrom+yFrom+"=="+FromButton.toString());
+        //System.out.println("field"+xTo+yTo+"=="+ToButton.toString());
+        String line = ToButton.getStyle();
+        String pattern = "-fx-background-image:.*";
+        Pattern regex = Pattern.compile(pattern);
+        Matcher match = regex.matcher(line);
+        match.find( );
+        String ToButtonFigurka=match.group(0);
+            
+        Field from=board.getField(xFrom,yFrom);
+        Field to=board.getField(xTo,yTo);
+        Figure figurka=to.get();
+        figurka.reverse_move(from);
+        String FromStyle=FromButton.getStyle();
+        FromButton.setStyle(FromStyle+ToButtonFigurka);
+        
+        ToButton.setStyle(line.replace(ToButtonFigurka, ""));
+    }
+           
+    
     @FXML
     private void readZaznam(MouseEvent event) {
         String prvek=zaznamList.getSelectionModel().getSelectedItem();
+
         if(prvek==null||prvek.isEmpty()){
             System.out.println("nic nevybrany");
         }else{
-            //algoritmus na prehrani zaznamu az na misto na ktery jsem kliknul
-            //System.out.println(prvek);
-            int zaznamSize=zaznamList.getItems().size();
-            for(int i=zaznamSize-1;i>=0;i--){
-                if(zaznamList.getItems().get(i)==prvek){
-                    String[] asd=zaznamList.getItems().get(i).split("         ");
-                    for(String a:asd){
-                        zaznamUndo(a);
-                    }
-                    break;
-                }else{
-                    String[] asd=zaznamList.getItems().get(i).split("         ");
-                    for(String a:asd){
-                        zaznamUndo(a);
-                    }
+            String[] Prvek_split=prvek.split("\\.");
+            int Zaznam_pos=Integer.parseInt(Prvek_split[0]);
+            if(Zaznam_pos<ZaznamCounter){
+                int zaznamSize=zaznamList.getItems().size();
+                for(int i=ZaznamCounter-2;i>=0;i--){
+                    if(zaznamList.getItems().get(i)==prvek){
+                        String[] Counter_zaznam=zaznamList.getItems().get(i).split("\\.");
+                        String[] Zaznam_parts=Counter_zaznam[1].split("          ");
+                        for(String a:Zaznam_parts){
+                            zaznamUndo(a);
+                        }
+                        //zaznamList.getItems().remove(i);
+                        ZaznamCounter=Integer.parseInt(Counter_zaznam[0]);
+                        PlayerSwitch=true;
+                        break;
+                    }else{
+                        String[] Counter_zaznam=zaznamList.getItems().get(i).split("\\.");
+                        String[] Zaznam_parts=Counter_zaznam[1].split("          ");
+                        for(String a:Zaznam_parts){
+                            zaznamUndo(a);
+                        }
+                        //zaznamList.getItems().remove(i);
+                    }  
+                }
+            }else{
+                int zaznamSize=zaznamList.getItems().size();
+                for(int i=ZaznamCounter-1;i<=zaznamSize;i++){
+                    if(zaznamList.getItems().get(i)==prvek){
+                        String[] Counter_zaznam=zaznamList.getItems().get(i).split("\\.");
+                        String[] Zaznam_parts=Counter_zaznam[1].split("          ");
+                        
+                        zaznamPrev(Zaznam_parts[1]);
+                        zaznamPrev(Zaznam_parts[0]);
+                        //zaznamList.getItems().remove(i);
+                        ZaznamCounter=Zaznam_pos-1;
+                        break;
+                    }else{
+                        String[] Counter_zaznam=zaznamList.getItems().get(i).split("\\.");
+                        String[] Zaznam_parts=Counter_zaznam[1].split("          ");
+                        zaznamPrev(Zaznam_parts[1]);
+                        zaznamPrev(Zaznam_parts[0]);
+                        //zaznamList.getItems().remove(i);
+                    }  
                 }
                 
             }
-            
         }
     }
 }
