@@ -2,12 +2,22 @@ package Chess.Game.game;
 
 import Chess.Game.common.BoardField;
 import Chess.Game.common.Field;
-
+/**
+ * 
+ * @author xtetur01
+ */
 public class Board extends java.lang.Object{
     private final int size;
     public Field[][] field;
     public boolean hra;
+    public boolean wTurn = true;
 
+    /**
+     * Metoda generuje hrací desku.
+     * Metoda generuje hrací desku pomocí funkce addNextField(Field.Direction dirs, Field field).
+     * 
+     * @param size  velikost hrací desky
+     */
     public Board(int size){
         this.size = size;
         this.field=new Field[size+2][size+2];
@@ -16,7 +26,6 @@ public class Board extends java.lang.Object{
                 this.field[i][j]=new BoardField(i,j);
             }
         }
-        
         
         for (int i=1;i<=size;i++) {
             for (int j=1;j<=size;j++) {
@@ -32,6 +41,13 @@ public class Board extends java.lang.Object{
         }
     }
     
+    /**
+     * Metoda vrací pole na určité pozici.
+     * 
+     * @param col   pozice pole ve sloupci
+     * @param row   pozice pole v řádku
+     * @return      vrací pole
+     */
     public Field getField(int col,int row){
         if(col>this.size || row>this.size || col<1 || row<1 ){
             return null;
@@ -39,6 +55,12 @@ public class Board extends java.lang.Object{
             return this.field[col][row];
         }
     }
+    
+    /**
+     * Metoda vrací velikost hrací desky.
+     * 
+     * @return  velikost hrací desky
+     */
     public int getSize(){
         return this.size;
     }
