@@ -9,7 +9,7 @@ import Chess.Game.game.Board;
 /**
  * Rozhraní reprezentuje jednu figuru. Figurka může nabývat dvou barev - bílá nebo černá.
  * 
- * @author xtetur01
+ * @author Aleš Tetur Šimon Matyáš
  */
 public interface Figure {
 
@@ -50,7 +50,7 @@ public interface Figure {
     /**
      * Metoda vrací desku, na které se nachází figurka.
      * 
-     * @return 
+     * @return vrací desku
      */
     public Board getBoard();
     
@@ -62,9 +62,9 @@ public interface Figure {
     public int getType();
     
     /**
-     * Tato metoda vkládá do figurky políčko, na kterém se nachází.
+     * Tato metoda vkládá do figurky pole, na kterém se nachází.
      * 
-     * @param field 
+     * @param field pole
      */
     public void put(Field field);
     
@@ -81,9 +81,9 @@ public interface Figure {
     public void remove();
     
     /**
-     * Metoda vždy vrací políčko, na kterém se figurka právě nachází.
+     * Metoda vždy vrací pole, na kterém se figurka právě nachází.
      * 
-     * @return 
+     * @return vrací pole
      */
     public Field myfield();
 }
