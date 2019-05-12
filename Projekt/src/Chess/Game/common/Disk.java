@@ -8,7 +8,15 @@ import Chess.Game.game.Board;
 public class Disk extends java.lang.Object implements Figure{
     private final int typ;
     private final boolean isWhite;
+    
+    /**
+     * Proměnná s polem.
+     */
     public Field field;
+    
+    /**
+     * Proměnná s hrací deskou.
+     */
     public Board board;
     //typ:0 Pesak
     //typ:1 Vez
