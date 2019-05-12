@@ -3,7 +3,7 @@ package Chess.Game.common;
 import Chess.Game.game.Board;
 /**
  * 
- * @author xtetur01
+ * @author Aleš Tetur Šimon Matyáš
  */
 public class Disk extends java.lang.Object implements Figure{
     private final int typ;
@@ -40,9 +40,9 @@ public class Disk extends java.lang.Object implements Figure{
     }
     
     /**
-     * Metoda vždy vrací políčko, na kterém se figurka právě nachází.
+     * Metoda vždy vrací pole, na kterém se figurka právě nachází.
      * 
-     * @return 
+     * @return vrací pole
      */
     @Override
     public Field myfield() {
@@ -50,7 +50,7 @@ public class Disk extends java.lang.Object implements Figure{
     }
     
     /**
-     * Metoda odebírá figurku z políčka.
+     * Metoda odebírá figurku z pole.
      */
     @Override
     public void remove() {
@@ -70,7 +70,7 @@ public class Disk extends java.lang.Object implements Figure{
     /**
      * Metoda vrací desku, na které se nachází figurka.
      * 
-     * @return 
+     * @return vrací desku
      */
     @Override
     public Board getBoard() {
@@ -88,9 +88,9 @@ public class Disk extends java.lang.Object implements Figure{
     }
     
     /**
-     * Tato metoda vkládá do figurky políčko, na kterém se nachází.
+     * Tato metoda vkládá do figurky pole, na kterém se nachází.
      * 
-     * @param field 
+     * @param field pole
      */
     @Override
     public void put(Field field) {
@@ -146,7 +146,7 @@ public class Disk extends java.lang.Object implements Figure{
      * Nejdříve se odstraní figurka z původní pozice a potom se vloží na novou pozici.
      * 
      * @param moveTo    místo kam se pěšák posouvá
-     * @return 
+     * @return true
      */
     private boolean movePesak1(Field moveTo) {
         this.field.remove(this);
@@ -160,7 +160,7 @@ public class Disk extends java.lang.Object implements Figure{
      * Nejdříve se odstraní figurka z původní pozice, potom se odstraní vyhazovaná figurka a nakonec se figurka vloží na novou pozici.
      * 
      * @param moveTo    místo kam se pěšák posouvá
-     * @return 
+     * @return true
      */
     private boolean movePesak2(Field moveTo) {
         this.field.remove(this);

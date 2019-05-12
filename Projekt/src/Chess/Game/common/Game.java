@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package Chess.Game.common;
-
+/**
+ * 
+ * @author Aleš Tetur Šimon Matyáš
+ */
 public interface Game {
     /**
      * polozeni figurek na sachovnici pri zacatku hry

@@ -433,7 +433,7 @@ public class BoardController implements Initializable {
     }
     /**
      * funkce pro pokracovani v zaznamu
-     * @param zaznam 
+     * @param zaznam    záznam
      */   
     public void zaznamForw(String zaznam){
         String zapisForm=game.zapisReader(zaznam);

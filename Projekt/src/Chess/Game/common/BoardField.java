@@ -1,7 +1,7 @@
 package Chess.Game.common;
 /**
  * 
- * @author xtetur01
+ * @author Aleš Tetur Šimon Matyáš
  */
 public class BoardField extends java.lang.Object implements Field{
     /**
