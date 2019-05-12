@@ -1,240 +1,146 @@
-package Chess.Game.common;
+package Chess.Game;
 
+import Chess.Game.common.Field;
+import Chess.Game.common.Disk;
+import Chess.Game.common.Figure;
 import Chess.Game.common.Game;
+import Chess.Game.common.GameClass;
 import Chess.Game.game.Board;
-import java.util.Stack;
+
 /**
- *
- * @author Šimon Matyáš Aleš Tetur
- * Ovládá tvorbu zaznamu a zasobnik odebraných figurek
+ * 
+ * @author Aleš Tetur Šimon Matyáš
  */
-public class GameClass extends java.lang.Object implements Game{
-    private Stack<Figure> Remove_Fig=new Stack<>();
-    private Stack<Figure> zapis=new Stack<Figure>();
-    private final Board board;
-    private Game hra;
+/**
+ * Abstraktní třída pro vytvoření hry.
+ */
+public abstract class GameFactory extends java.lang.Object
+{
+    /**
+     * Metoda nainicializuje hru a figurky v základním postavení.
+     * 
+     * @param board hrací deska
+     * @return  vrací vytvořenou hru
+     */
+    public static Game createChessGame(Board board){
+        
+        Figure pW[] = new Figure[8];
+        Figure pB[] = new Figure[8];
+        Figure vW1 = null;
+        Figure vW2 = null;
+        Figure vB1 = null;
+        Figure vB2 = null;
+        Figure sW1 = null;
+        Figure sW2 = null;
+        Figure sB1 = null;
+        Figure sB2 = null;
+        Figure kW1 = null;
+        Figure kW2 = null;
+        Figure kB1 = null;
+        Figure kB2 = null;
+        Figure krW1 = null;
+        Figure qW1 = null;
+        Figure krB1 = null;
+        Figure qB1 = null;
+        Game hra=new GameClass(board);
+        
+        //nastavi board ze se na nem hraje hra
+        //vytvori a rozhaze figurky na boardu
+        for(int i=0;i<board.getSize();i++){
+            //White pesaci
+            pW[i]=new Disk(0,board,true);
+            Field f=board.getField(i+1, 2);
+            hra.create(pW[i],f);
+            //Black pesaci
+            pB[i]=new Disk(0,board,false) {};
+            f=board.getField(i+1,7);
+            hra.create(pB[i],f);
+        } 
+        
+        
+        //White vez         
+        vW1=new Disk(1,board,true); 
+        Field f=board.getField(1, 1);
+        hra.create(vW1,f);
+        
+        vW2=new Disk(1,board,true); 
+        f=board.getField(8, 1);
+        hra.create(vW2,f);
+                
+        //Black vez
+        vB1=new Disk(1,board,false); 
+        f=board.getField(1, 8);
+        hra.create(vB1,f);
+        
+        vB2=new Disk(1,board,false); 
+        f=board.getField(8, 8);
+        hra.create(vB2,f);
+        
+        
+        
+        //White strelec         
+        sW1=new Disk(2,board,true); 
+        f=board.getField(3, 1);
+        hra.create(sW1,f);
+        
+        sW2=new Disk(2,board,true); 
+        f=board.getField(6, 1);
+        hra.create(sW2,f);
+        
+        //Black strelec
+        sB1=new Disk(2,board,false); 
+        f=board.getField(3, 8);
+        hra.create(sB1,f);
+        
+        sB2=new Disk(2,board,false); 
+        f=board.getField(6, 8);
+        hra.create(sB2,f);
+        
+        
+        
+        //White Kun         
+        kW1=new Disk(3,board,true); 
+        f=board.getField(2, 1);
+        hra.create(kW1,f);
+        
+        kW2=new Disk(3,board,true); 
+        f=board.getField(7, 1);
+        hra.create(kW2,f);
+        
+        //Black Kun
+        kB1=new Disk(3,board,false); 
+        f=board.getField(2, 8);
+        hra.create(kB1,f);
+        
+        kB2=new Disk(3,board,false); 
+        f=board.getField(7, 8);
+        hra.create(kB2,f);
+        
+        
+        
+        //White Kralovna         
+        qW1=new Disk(4,board,true); 
+        f=board.getField(4, 1);
+        hra.create(qW1,f);
+        
+        //Black Kralovna
+        qB1=new Disk(4,board,false); 
+        f=board.getField(4, 8);
+        hra.create(qB1,f);
+        
+        
+        
+        //White Kral         
+        krW1=new Disk(5,board,true); 
+        f=board.getField(5, 1);
+        hra.create(krW1,f);
+        
+        //Black Kral
+        krB1=new Disk(5,board,false); 
+        f=board.getField(5, 8);
+        hra.create(krB1,f);
+
+        return hra;
     
-    //typ:0 Pesak
-    //typ:1 Vez
-    //typ:2 Strelec
-    //typ:3 Kun
-    //typ:4 Kralovna
-    //typ:5 Kral
-    public GameClass(Board board) {
-        this.Remove_Fig=new Stack<Figure>();
-        this.zapis=new Stack<Figure>();
-        this.board=board;
-    }
-    /**
-     * polozeni figurek na sachovnici pri zacatku hry
-     * @param Figurka Figurka kterou chci polozit
-     * @param StartOn Pole kam chci figurku polozit
-     */
-    public void create(Figure Figurka,Field StartOn){
-        
-
-        if(Figurka.getBoard()==this.board){
-            StartOn.put(Figurka);
-        }
-    }
-    /**
-     * Kontrola tahu v dane hre, vytvoreni zaznamu pro dany pohyb
-     * @param figurka Figurka kterou chci pohnout
-     * @param moveTo Pole na ktere figurkou hýbu
-     * @return string se zapisem
-     */
-    public String move(Figure figurka,Field  moveTo){
-        
-        String zapis=zapisCreator(figurka,moveTo);
-        //System.out.println(zapisCreator(figurka,moveTo));
-        //System.out.println(zapisReader(zapisCreator(figurka,moveTo)));
-        boolean removed=false;
-        if(moveTo.get()!=null && figurka.isWhite()!=moveTo.get().isWhite()){
-            removed=true;
-            Add_DeadFig(moveTo.get());
-        }
-        
-        int m = figurka.move(moveTo);
-        if(m == 0){ 
-            return zapis; 
-        } else if(m == 1) {
-            return zapis + "+";
-        } else if(m == 2) {
-            return zapis + "#";
-        } else {
-            if(removed){
-                Remove_DeadFig();
-            }
-            return "";
-        }
-    }
-    /**
-     * Tvorba zapisu
-     * @param figurka Figurka kterou chci pohnout
-     * @param moveTo Místo na které se ma figurka pohnout
-     * @return string se zapisem
-     */
-    public String zapisCreator(Figure figurka,Field  moveTo){
-        String type="";
-
-        switch (figurka.getType()) {
-            case 0:
-                type="";
-                break;
-            case 1:
-                type="V";
-                break;
-            case 2:
-                type="S";
-                break;
-            case 3:
-                type="J";
-                break;
-            case 4:
-                type="D";
-                break;
-            case 5:
-                type="K";
-                break;
-            default:
-                break;
-        }
-        String sebrani;
-        if(!moveTo.isEmpty()){
-            sebrani="x";
-        }else{
-            sebrani="";
-        }
-        String ColFrom=colNumToStr(figurka.myfield().getCol());
-        String ColTo=colNumToStr(moveTo.getCol());
-        
-        String ret=type+ColFrom+figurka.myfield().getRow()+sebrani+ColTo+moveTo.getRow();
-        return ret;
-    }
-    /**
-     * Prevod souradnice sloupce na pismeno na sachovnici
-     * @param num souradnice sloupce
-     * @return pismeno na sachovnici
-     */
-    private String colNumToStr(int num){
-        switch (num) {
-            case 1:
-                return "a";
-            case 2:
-                return "b";
-            case 3:
-                return "c";
-            case 4:
-                return "d";
-            case 5:
-                return "e";
-            case 6:
-                return "f";
-            case 7:
-                return "g";
-            case 8:
-                return "h";
-        }
-        return "";
-    }
-    /**
-     * Prevod pismena na sachovici na souradnici sloupce
-     * @param str pismeno na sachovnici
-     * @return souradnice sloupce
-     */
-    private int colStrToNum(String str){
-        switch (str) {
-            case "a":
-                return 1;
-            case "b":
-                return 2;
-            case "c":
-                return 3;
-            case "d":
-                return 4;
-            case "e":
-                return 5;
-            case "f":
-                return 6;
-            case "g":
-                return 7;
-            case "h":
-                return 8;
-        }
-        return 0;
-    }
-    /**
-     * Prevod zapisu na souradnice 
-     * @param zapis zapis
-     * @return souradnice odkud a kam se figurka pohla 
-     */
-    public String zapisReader(String zapis){
-        int xFrom=-1;
-        char yFrom=' ';
-        int xTo=-1;
-        char yTo=' ';
-        char brani='=';
-        if(Character.isUpperCase(zapis.charAt(0))){
-            zapis=zapis.substring(1);            
-        }
-        for(int i=0;i<zapis.length();i++){
-            if(Character.isLowerCase(zapis.charAt(i)) && zapis.charAt(i)!='x'){
-                if(xFrom==-1){
-                    xFrom=colStrToNum(String.valueOf(zapis.charAt(i)));
-                    yFrom=zapis.charAt(i+1);
-                }else{
-                    xTo=colStrToNum(String.valueOf(zapis.charAt(i)));
-                    yTo=zapis.charAt(i+1);
-                }
-            }else if(zapis.charAt(i)=='x'){
-                brani='x';
-            }
-            
-        }
-        return Integer.toString(xFrom)+yFrom+brani+xTo+yTo;
-    }
-    /**
-     * Pridani odebrane figurky na zasobnik
-     * @param figurka odebrana figurka
-     */
-    private void Add_DeadFig(Figure figurka){
-        Remove_Fig.push(figurka);
-    }
-    /**
-     * Odebrani posledni figurky ze zasobniku
-     */
-    private void Remove_DeadFig(){
-        Remove_Fig.pop();
-    }
-    /**
-     * Vrátí posledni odebranou figurku ze zasobniku a tu ze zasobniku smaže
-     * @return posledni figurku
-     */
-    public Figure Get_DeadFig(){
-        Figure posledni=Remove_Fig.pop();
-        return posledni;               
-    }
-    /**
-     * Vrátí predposledni figurku a smaze ji ze zasobniku
-     * @return predposledni figurka
-     */
-    public Figure Get_PredposledniDeadFig(){
-        if(Remove_Fig.size()>1){
-            Figure posledni=Remove_Fig.pop();
-            Figure predposledni=Remove_Fig.pop();
-            Remove_Fig.push(posledni);
-            return predposledni;   
-        }else{
-            return Get_DeadFig();
-        }
-    }
-    /**
-     * prohodi predposledni a posledni figurku v zasobniku odebranych figurek
-     */
-    public void Switch_PosledniAPredposledni(){
-        Figure predposledni=Get_PredposledniDeadFig();
-        Figure posledni=Get_DeadFig();
-        Remove_Fig.push(posledni);
-        Remove_Fig.push(predposledni);
     }
 }
