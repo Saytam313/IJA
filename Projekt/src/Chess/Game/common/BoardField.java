@@ -5,22 +5,22 @@ package Chess.Game.common;
  */
 public class BoardField extends java.lang.Object implements Field{
     /**
-     * Proměná pro řádek.
+     * Proměnná pro řádek.
      */
     public int row;
     
     /**
-     * Proměná pro sloupec.
+     * Proměnná pro sloupec.
      */
     public int col;
     
     /**
-     * Proměná pro figurku.
+     * Proměnná pro figurku.
      */
     public Figure disk;
     
     /**
-     * Proměná pro sousedy pole.
+     * Proměnná pro sousedy pole.
      */
     public Field nField[]=new Field[8];
     
