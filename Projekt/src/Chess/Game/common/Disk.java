@@ -26,10 +26,10 @@ public class Disk extends java.lang.Object implements Figure{
     //typ:5 Kral
     
     /**
-     * Tato metoda nastavuje vlastnosti disku.
+     * Tato metoda nastavuje vlastnosti figurky.
      * 
-     * @param typ       typ disku (0-Pěšák, 1-Věž, 2-Střelec, 3-Jezdec, 4-Královna, 5-Král)
-     * @param board     šachová deska, na které se disk nachází
+     * @param typ       typ figurky (0-Pěšák, 1-Věž, 2-Střelec, 3-Jezdec, 4-Královna, 5-Král)
+     * @param board     šachová deska, na které se figurka nachází
      * @param isWhite   figurka je bílá nebo černá
      */
     public Disk(int typ,Board board,boolean isWhite) {
@@ -40,7 +40,7 @@ public class Disk extends java.lang.Object implements Figure{
     }
     
     /**
-     * Metoda vždy vrací políčko, na kterém se disk právě nachází.
+     * Metoda vždy vrací políčko, na kterém se figurka právě nachází.
      * 
      * @return 
      */
@@ -50,7 +50,7 @@ public class Disk extends java.lang.Object implements Figure{
     }
     
     /**
-     * Metoda oebírá disk z políčka.
+     * Metoda odebírá figurku z políčka.
      */
     @Override
     public void remove() {
@@ -58,7 +58,7 @@ public class Disk extends java.lang.Object implements Figure{
     }
     
     /**
-     * Metoda vžky vrací je-li disk býlí nebo černý.
+     * Metoda vžky vrací je-li figurka býlá nebo černá.
      * 
      * @return (býlá-true, černá-false)
      */
@@ -68,7 +68,7 @@ public class Disk extends java.lang.Object implements Figure{
     }
     
     /**
-     * Metoda vrací desku, na které se nachází disk.
+     * Metoda vrací desku, na které se nachází figurka.
      * 
      * @return 
      */
@@ -78,7 +78,7 @@ public class Disk extends java.lang.Object implements Figure{
     }
     
     /**
-     *  Metoda vrací typ disku.
+     *  Metoda vrací typ figurky.
      * 
      * @return (0-Pěšák, 1-Věž, 2-Střelec, 3-Jezdec, 4-Královna, 5-Král)
      */
@@ -88,7 +88,7 @@ public class Disk extends java.lang.Object implements Figure{
     }
     
     /**
-     * Tato metoda vkládá do disku políčko, na kterém se nachází.
+     * Tato metoda vkládá do figurky políčko, na kterém se nachází.
      * 
      * @param field 
      */
@@ -98,7 +98,7 @@ public class Disk extends java.lang.Object implements Figure{
     }
     
     /**
-     * Tato metoda vrací řetězec, ve kterém je napsaná pozici disku, jeho typ a barva.
+     * Tato metoda vrací řetězec, ve kterém je napsaná pozici figurky, její typ a barva.
      * 
      * @return (typ["barva"]"pozice-sloupec:pozice-radek)
      */
@@ -1621,7 +1621,7 @@ public class Disk extends java.lang.Object implements Figure{
     
     /**
      * Matoda na zjištění dvou stejných Disků.
-     * Matoda zjistí zda se dva disky shodují.
+     * Matoda zjistí zda se dvě figurky shodují.
      * 
      * @param obj   objekt Disk
      * @return      vrací rovnost objektů
