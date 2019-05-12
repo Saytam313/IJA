@@ -3,7 +3,11 @@ package Chess.Game.common;
 import Chess.Game.common.Game;
 import Chess.Game.game.Board;
 import java.util.Stack;
-
+/**
+ *
+ * @author Šimon Matyáš Aleš Tetur
+ * Ovládá tvorbu zaznamu a zasobnik odebraných figurek
+ */
 public class GameClass extends java.lang.Object implements Game{
     private Stack<Figure> Remove_Fig=new Stack<>();
     private Stack<Figure> zapis=new Stack<Figure>();
@@ -21,7 +25,11 @@ public class GameClass extends java.lang.Object implements Game{
         this.zapis=new Stack<Figure>();
         this.board=board;
     }
-
+    /**
+     * polozeni figurek na sachovnici pri zacatku hry
+     * @param Figurka Figurka kterou chci polozit
+     * @param StartOn Pole kam chci figurku polozit
+     */
     public void create(Figure Figurka,Field StartOn){
         
 
@@ -29,6 +37,12 @@ public class GameClass extends java.lang.Object implements Game{
             StartOn.put(Figurka);
         }
     }
+    /**
+     * Kontrola tahu v dane hre, vytvoreni zaznamu pro dany pohyb
+     * @param figurka Figurka kterou chci pohnout
+     * @param moveTo Pole na ktere figurkou hýbu
+     * @return string se zapisem
+     */
     public String move(Figure figurka,Field  moveTo){
         
         String zapis=zapisCreator(figurka,moveTo);
@@ -54,7 +68,12 @@ public class GameClass extends java.lang.Object implements Game{
             return "";
         }
     }
-    
+    /**
+     * Tvorba zapisu
+     * @param figurka Figurka kterou chci pohnout
+     * @param moveTo Místo na které se ma figurka pohnout
+     * @return string se zapisem
+     */
     public String zapisCreator(Figure figurka,Field  moveTo){
         String type="";
 
@@ -92,6 +111,11 @@ public class GameClass extends java.lang.Object implements Game{
         String ret=type+ColFrom+figurka.myfield().getRow()+sebrani+ColTo+moveTo.getRow();
         return ret;
     }
+    /**
+     * Prevod souradnice sloupce na pismeno na sachovnici
+     * @param num souradnice sloupce
+     * @return pismeno na sachovnici
+     */
     private String colNumToStr(int num){
         switch (num) {
             case 1:
@@ -113,6 +137,11 @@ public class GameClass extends java.lang.Object implements Game{
         }
         return "";
     }
+    /**
+     * Prevod pismena na sachovici na souradnici sloupce
+     * @param str pismeno na sachovnici
+     * @return souradnice sloupce
+     */
     private int colStrToNum(String str){
         switch (str) {
             case "a":
@@ -134,6 +163,11 @@ public class GameClass extends java.lang.Object implements Game{
         }
         return 0;
     }
+    /**
+     * Prevod zapisu na souradnice 
+     * @param zapis zapis
+     * @return souradnice odkud a kam se figurka pohla 
+     */
     public String zapisReader(String zapis){
         int xFrom=-1;
         char yFrom=' ';
@@ -159,17 +193,31 @@ public class GameClass extends java.lang.Object implements Game{
         }
         return Integer.toString(xFrom)+yFrom+brani+xTo+yTo;
     }
-
+    /**
+     * Pridani odebrane figurky na zasobnik
+     * @param figurka odebrana figurka
+     */
     private void Add_DeadFig(Figure figurka){
         Remove_Fig.push(figurka);
     }
+    /**
+     * Odebrani posledni figurky ze zasobniku
+     */
     private void Remove_DeadFig(){
         Remove_Fig.pop();
     }
+    /**
+     * Vrátí posledni odebranou figurku ze zasobniku a tu ze zasobniku smaže
+     * @return posledni figurku
+     */
     public Figure Get_DeadFig(){
         Figure posledni=Remove_Fig.pop();
         return posledni;               
     }
+    /**
+     * Vrátí predposledni figurku a smaze ji ze zasobniku
+     * @return predposledni figurka
+     */
     public Figure Get_PredposledniDeadFig(){
         if(Remove_Fig.size()>1){
             Figure posledni=Remove_Fig.pop();
@@ -180,6 +228,9 @@ public class GameClass extends java.lang.Object implements Game{
             return Get_DeadFig();
         }
     }
+    /**
+     * prohodi predposledni a posledni figurku v zasobniku odebranych figurek
+     */
     public void Switch_PosledniAPredposledni(){
         Figure predposledni=Get_PredposledniDeadFig();
         Figure posledni=Get_DeadFig();

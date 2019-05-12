@@ -1,7 +1,7 @@
-1. d2d4          d7d5
-2. e2e4          e7e5
-3. f2f4          f7f5
-4. d4xe5          f5xe4
-5. Dd1g4          Dd8e7
-6. Dg4d7+          De7e6
-7. Dd7xe8#
+1. c2c4          c7c5
+2. d2d4          d7d5
+3. e2e4          e7e5
+4. Dd1f3          Dd8f6
+5. Df3xf6          g7g6
+6. Df6e6+          f7f6
+7. De6xe8#

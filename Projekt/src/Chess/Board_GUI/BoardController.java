@@ -270,10 +270,15 @@ public class BoardController implements Initializable {
             String[] Counter_zaznam=zaznamList.getItems().get(ZaznamCounter-2).split("\\.");
             String[] Zaznam_parts=Counter_zaznam[1].split("          ");
             ZaznamLineLen=Zaznam_parts.length;
-            for(String a:Zaznam_parts){
-                zaznamUndo(a);
+            for(int j=Zaznam_parts.length-1;j>=0;j--){
+                
+                zaznamUndo(Zaznam_parts[j]);
                 ZaznamLineLen--;
             }
+            //for(String a:Zaznam_parts){
+            //    zaznamUndo(a);
+            //    ZaznamLineLen--;
+            //}
             //zaznamList.getItems().remove(i);
             ZaznamCounter=Integer.parseInt(Counter_zaznam[0]);
             PlayerWhite=true;                        
@@ -299,7 +304,7 @@ public class BoardController implements Initializable {
             String[] Zaznam_parts=Counter_zaznam[1].split("          ");
             ZaznamLineLen=Zaznam_parts.length;
             ZaznamVpredBraniCounter=0;
-            for(int j=Zaznam_parts.length-1;j>=0;j--){  
+            for(int j=0;j<=Zaznam_parts.length-1;j++){  
                 zaznamForw(Zaznam_parts[j]);
                 ZaznamLineLen--;
             }
@@ -473,10 +478,14 @@ public class BoardController implements Initializable {
                         String[] Counter_zaznam=zaznamList.getItems().get(i).split("\\.");
                         String[] Zaznam_parts=Counter_zaznam[1].split("          ");
                         ZaznamLineLen=Zaznam_parts.length;
-                        for(String a:Zaznam_parts){
-                            zaznamUndo(a);
+                        for(int j=Zaznam_parts.length-1;j>=0;j--){
+                            zaznamUndo(Zaznam_parts[j]);
                             ZaznamLineLen--;
                         }
+                        //for(String a:Zaznam_parts){
+                        //    zaznamUndo(a);
+                        //    ZaznamLineLen--;
+                        //}
                         //zaznamList.getItems().remove(i);
                         ZaznamCounter=Integer.parseInt(Counter_zaznam[0]);
                         PlayerWhite=true;                        
@@ -489,10 +498,14 @@ public class BoardController implements Initializable {
                         String[] Counter_zaznam=zaznamList.getItems().get(i).split("\\.");
                         String[] Zaznam_parts=Counter_zaznam[1].split("          ");
                         ZaznamLineLen=Zaznam_parts.length;
-                        for(String a:Zaznam_parts){
-                            zaznamUndo(a);
+                        for(int j=Zaznam_parts.length-1;j>=0;j--){
+                            zaznamUndo(Zaznam_parts[j]);
                             ZaznamLineLen--;
                         }
+                        //for(String a:Zaznam_parts){
+                        //    zaznamUndo(a);
+                        //    ZaznamLineLen--;
+                        //}
                         //zaznamList.getItems().remove(i);
                     }  
                 }
@@ -502,9 +515,9 @@ public class BoardController implements Initializable {
                     if(zaznamList.getItems().get(i)==prvek){
                         String[] Counter_zaznam=zaznamList.getItems().get(i).split("\\.");
                         String[] Zaznam_parts=Counter_zaznam[1].split("          ");
-                        
-                        for(int j=Zaznam_parts.length-1;j>=0;j--){  
-                            zaznamForw(Zaznam_parts[j]); 
+                        for(int j=0;j<=Zaznam_parts.length-1;j++){  
+                            zaznamForw(Zaznam_parts[j]);
+                            ZaznamLineLen--;
                         }
                         //game.Switch_PosledniAPredposledni();
                         //zaznamList.getItems().remove(i);
@@ -520,8 +533,9 @@ public class BoardController implements Initializable {
                     }else{
                         String[] Counter_zaznam=zaznamList.getItems().get(i).split("\\.");
                         String[] Zaznam_parts=Counter_zaznam[1].split("          ");
-                        for(int j=Zaznam_parts.length-1;j>=0;j--){  
-                            zaznamForw(Zaznam_parts[j]); 
+                        for(int j=0;j<=Zaznam_parts.length-1;j++){  
+                            zaznamForw(Zaznam_parts[j]);
+                            ZaznamLineLen--;
                         }
                     }  
                 }
