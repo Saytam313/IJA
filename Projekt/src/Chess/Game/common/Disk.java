@@ -13,7 +13,14 @@ public class Disk extends java.lang.Object implements Figure{
     //typ:3 Kun
     //typ:4 Kralovna
     //typ:5 Kral
-
+    
+    /**
+     * Tato metoda nastavuje vlastnosti disku.
+     * 
+     * @param typ       typ disku (0-Pěšák, 1-Věž, 2-Střelec, 3-Jezdec, 4-Královna, 5-Král)
+     * @param board     šachová deska, na které se disk nachází
+     * @param isWhite   figurka je bílá nebo černá
+     */
     public Disk(int typ,Board board,boolean isWhite) {
         this.board=board;
         this.typ=typ;
@@ -21,36 +28,69 @@ public class Disk extends java.lang.Object implements Figure{
         this.field=null;
     }
     
+    /**
+     * Metoda vždy vrací políčko, na kterém se disk právě nachází.
+     * 
+     * @return 
+     */
     @Override
     public Field myfield() {
         return this.field;
     }
     
+    /**
+     * Metoda oebírá disk z políčka.
+     */
     @Override
     public void remove() {
         this.field=null;
     }
     
+    /**
+     * Metoda vžky vrací je-li disk býlí nebo černý.
+     * 
+     * @return (býlá-true, černá-false)
+     */
     @Override
     public boolean isWhite() {
         return this.isWhite;
     }
     
+    /**
+     * Metoda vrací desku, na které se nachází disk.
+     * 
+     * @return 
+     */
     @Override
     public Board getBoard() {
         return this.board;
     }
     
+    /**
+     *  Metoda vrací typ disku.
+     * 
+     * @return (0-Pěšák, 1-Věž, 2-Střelec, 3-Jezdec, 4-Královna, 5-Král)
+     */
     @Override
     public int getType() {
         return this.typ;
     }
     
+    /**
+     * Tato metoda vkládá do disku políčko, na kterém se nachází.
+     * 
+     * @param field 
+     */
     @Override
     public void put(Field field) {
         this.field=field;
     }
     
+    /**
+     * Tato metoda vrací řetězec, ve kterém je napsaná pozici disku, jeho typ a barva.
+     * 
+     * @return (typ["barva"]"pozice-sloupec:pozice-radek)
+     */
     @Override
     public String getState() {
         String color;
@@ -89,6 +129,14 @@ public class Disk extends java.lang.Object implements Figure{
         return type+"["+ color +"]" + this.field.getCol()+":"+this.field.getRow();
     }
     
+    
+    /**
+     * Tato metoda posouvá pěšáka při běžném pohybu vpřed. 
+     * Nejdříve se odstraní figurka z původní pozice a potom se vloží na novou pozici.
+     * 
+     * @param moveTo    místo kam se pěšák posouvá
+     * @return 
+     */
     private boolean movePesak1(Field moveTo) {
         this.field.remove(this);
         this.field = moveTo;
@@ -96,6 +144,13 @@ public class Disk extends java.lang.Object implements Figure{
         return true;
     }
     
+    /**
+     * Tato metoda posouvá pěšáka při vyhazování jiné figurky.
+     * Nejdříve se odstraní figurka z původní pozice, potom se odstraní vyhazovaná figurka a nakonec se figurka vloží na novou pozici.
+     * 
+     * @param moveTo    místo kam se pěšák posouvá
+     * @return 
+     */
     private boolean movePesak2(Field moveTo) {
         this.field.remove(this);
         moveTo.remove(moveTo.get());
@@ -104,6 +159,16 @@ public class Disk extends java.lang.Object implements Figure{
         return true;
     }
     
+    /**
+     * Tato metoda posouvá všechny figurky (kromě pěšáka) při vyhazování jiné figurky a při posouvání.
+     * Nejdříve se zkontroluje jestli jde o posouvání nebo vyhazování. Pokud se jedná o vyhazování, a vyhazuje se figurka jiné barvy, 
+     * odstraní se figurka z původní pozice, potom se odstraní vyhazovaná figurka a nakonec se figurka vloží na novou pozici.
+     * Pokud by se jednalo o vyhození vlastní figurky, vrátí se false.
+     * Pokud se jedná o obyčejný posun odstraní se figurka z původní pozice, potom se odstraní vyhazovaná figurka a nakonec se figurka vloží na novou pozici.
+     * 
+     * @param moveTo    místo kam se pěšák posouvá
+     * @return          úspěšnost přesunu
+     */
     private boolean moveLong(Field moveTo) {
         if(!moveTo.isEmpty()) {
             if(this.isWhite == moveTo.get().isWhite()) {
@@ -117,6 +182,16 @@ public class Disk extends java.lang.Object implements Figure{
         return true;
     }
     
+    /**
+     * Tato metoda je pouze pro figurky typu Král.
+     * Protože král se svým pohybem nesmí ohrozit, kontroluje tato matoda jeho pohyb v radiálním směru.
+     * Pokud 
+     * 
+     * @param next
+     * @param moveTo
+     * @param ok
+     * @return 
+     */
     private int moveKR(Field next, Field moveTo, int ok) {
         if(next.isEmpty()) {
             ok++;
@@ -465,6 +540,7 @@ public class Disk extends java.lang.Object implements Figure{
             }
             ok = sachK(next, figurka, ok);
             
+            next = figurka;
             if((figurka.getCol() - 1) >= (8 - figurka.getRow())) {
                 endU = 8 - figurka.getRow();
             } else {
@@ -684,6 +760,7 @@ public class Disk extends java.lang.Object implements Figure{
         }
     }
     
+    @Override
     public int move(Field moveTo) {
         
         int a = mat(moveTo);
