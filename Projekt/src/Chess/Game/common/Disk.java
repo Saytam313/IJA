@@ -176,15 +176,20 @@ public class Disk extends java.lang.Object implements Figure{
         Field next = figurka;
         int endU;
         int ok = 0;
+        boolean mat;
         
-        if((figurka.get().getType() == 1) || (figurka.get().getType() == 4)) {
+        if(figurka.get().getType() == 1) {
             endU = 8 - figurka.getRow();
             if(endU != 0) {
                 next = figurka.nextField(Field.Direction.U);
             }
+            mat = false;
             while(endU > 1) {
-                if(next.isEmpty()) {
+                if(!mat) {
                     next = next.nextField(Field.Direction.U);
+                    if(!next.isEmpty()) {
+                        mat = true;
+                    }
                 } else {
                     break;
                 }
@@ -196,9 +201,13 @@ public class Disk extends java.lang.Object implements Figure{
             if(endU != 0) {
                 next = figurka.nextField(Field.Direction.D);
             }
+            mat = false;
             while(endU > 1) {
-                if(next.isEmpty()) {
+                if(!mat) {
                     next = next.nextField(Field.Direction.D);
+                    if(!next.isEmpty()) {
+                        mat = true;
+                    }
                 } else {
                     break;
                 }
@@ -210,9 +219,13 @@ public class Disk extends java.lang.Object implements Figure{
             if(endU != 0) {
                 next = figurka.nextField(Field.Direction.L);
             }
+            mat = false;
             while(endU > 1) {
-                if(next.isEmpty()) {
+                if(!mat) {
                     next = next.nextField(Field.Direction.L);
+                    if(!next.isEmpty()) {
+                        mat = true;
+                    }
                 } else {
                     break;
                 }
@@ -224,25 +237,33 @@ public class Disk extends java.lang.Object implements Figure{
             if(endU != 0) {
                 next = figurka.nextField(Field.Direction.R);
             }
+            mat = false;
             while(endU > 1) {
-                if(next.isEmpty()) {
+                if(!mat) {
                     next = next.nextField(Field.Direction.R);
+                    if(!next.isEmpty()) {
+                        mat = true;
+                    }
                 } else {
                     break;
                 }
                 endU--;
             }
             ok = sachK(next, figurka, ok);
-        } else if((figurka.get().getType() == 2) || (figurka.get().getType() == 4)) {
+        } else if(figurka.get().getType() == 2) {
             next = figurka;
             if((figurka.getCol() - 1) >= (8 - figurka.getRow())) {
                 endU = 8 - figurka.getRow();
             } else {
                 endU = figurka.getCol() - 1;
             }
+            mat = false;
             while(endU > 0) {
-                if(next.isEmpty()) {
+                if(!mat) {
                     next = next.nextField(Field.Direction.LU);
+                    if(!next.isEmpty()) {
+                        mat = true;
+                    }
                 } else {
                     break;
                 }
@@ -256,9 +277,13 @@ public class Disk extends java.lang.Object implements Figure{
             } else {
                 endU = figurka.getCol() - 1;
             }
+            mat = false;
             while(endU > 0) {
-                if(next.isEmpty()) {
+                if(!mat) {
                     next = next.nextField(Field.Direction.LD);
+                    if(!next.isEmpty()) {
+                        mat = true;
+                    }
                 } else {
                     break;
                 }
@@ -272,9 +297,13 @@ public class Disk extends java.lang.Object implements Figure{
             } else {
                 endU = 8 - figurka.getCol();
             }
+            mat = false;
             while(endU > 0) {
-                if(next.isEmpty()) {
+                if(!mat) {
                     next = next.nextField(Field.Direction.RU);
+                    if(!next.isEmpty()) {
+                        mat = true;
+                    }
                 } else {
                     break;
                 }
@@ -288,9 +317,13 @@ public class Disk extends java.lang.Object implements Figure{
             } else {
                 endU = 8 - figurka.getCol();
             }
+            mat = false;
             while(endU > 0) {
-                if(next.isEmpty()) {
+                if(!mat) {
                     next = next.nextField(Field.Direction.RD);
+                    if(!next.isEmpty()) {
+                        mat = true;
+                    }
                 } else {
                     break;
                 }
@@ -359,6 +392,157 @@ public class Disk extends java.lang.Object implements Figure{
                 next = figurka.nextField(Field.Direction.D).nextField(Field.Direction.D).nextField(Field.Direction.R);
                 ok = sachK(next, figurka, ok);
             }
+        } else if(figurka.get().getType() == 4) {
+            endU = 8 - figurka.getRow();
+            if(endU != 0) {
+                next = figurka.nextField(Field.Direction.U);
+            }
+            mat = false;
+            while(endU > 1) {
+                if(!mat) {
+                    next = next.nextField(Field.Direction.U);
+                    if(!next.isEmpty()) {
+                        mat = true;
+                    }
+                } else {
+                    break;
+                }
+                endU--;
+            }
+            ok = sachK(next, figurka, ok);
+
+            endU = figurka.getRow() - 1;
+            if(endU != 0) {
+                next = figurka.nextField(Field.Direction.D);
+            }
+            mat = false;
+            while(endU > 1) {
+                if(!mat) {
+                    next = next.nextField(Field.Direction.D);
+                    if(!next.isEmpty()) {
+                        mat = true;
+                    }
+                } else {
+                    break;
+                }
+                endU--;
+            }
+            ok = sachK(next, figurka, ok);
+
+            endU = figurka.getCol() - 1;
+            if(endU != 0) {
+                next = figurka.nextField(Field.Direction.L);
+            }
+            mat = false;
+            while(endU > 1) {
+                if(!mat) {
+                    next = next.nextField(Field.Direction.L);
+                    if(!next.isEmpty()) {
+                        mat = true;
+                    }
+                } else {
+                    break;
+                }
+                endU--;
+            }
+            ok = sachK(next, figurka, ok);
+
+            endU = 8 - figurka.getCol();
+            if(endU != 0) {
+                next = figurka.nextField(Field.Direction.R);
+            }
+            mat = false;
+            while(endU > 1) {
+                if(!mat) {
+                    next = next.nextField(Field.Direction.R);
+                    if(!next.isEmpty()) {
+                        mat = true;
+                    }
+                } else {
+                    break;
+                }
+                endU--;
+            }
+            ok = sachK(next, figurka, ok);
+            
+            if((figurka.getCol() - 1) >= (8 - figurka.getRow())) {
+                endU = 8 - figurka.getRow();
+            } else {
+                endU = figurka.getCol() - 1;
+            }
+            mat = false;
+            while(endU > 0) {
+                if(!mat) {
+                    next = next.nextField(Field.Direction.LU);
+                    if(!next.isEmpty()) {
+                        mat = true;
+                    }
+                } else {
+                    break;
+                }
+                endU--;
+            }
+            ok = sachK(next, figurka, ok);
+
+            next = figurka;
+            if((figurka.getCol() - 1) >= (figurka.getRow() - 1)) {
+                endU = figurka.getRow() - 1;
+            } else {
+                endU = figurka.getCol() - 1;
+            }
+            mat = false;
+            while(endU > 0) {
+                if(!mat) {
+                    next = next.nextField(Field.Direction.LD);
+                    if(!next.isEmpty()) {
+                        mat = true;
+                    }
+                } else {
+                    break;
+                }
+                endU--;
+            }
+            ok = sachK(next, figurka, ok);
+
+            next = figurka;
+            if((8 - figurka.getCol()) >= (8 - figurka.getRow())) {
+                endU = 8 - figurka.getRow();
+            } else {
+                endU = 8 - figurka.getCol();
+            }
+            mat = false;
+            while(endU > 0) {
+                if(!mat) {
+                    next = next.nextField(Field.Direction.RU);
+                    if(!next.isEmpty()) {
+                        mat = true;
+                    }
+                } else {
+                    break;
+                }
+                endU--;
+            }
+            ok = sachK(next, figurka, ok);
+
+            next = figurka;
+            if((8 - figurka.getCol()) >= (figurka.getRow() - 1)) {
+                endU = figurka.getRow() - 1;
+            } else {
+                endU = 8 - figurka.getCol();
+            }
+            mat = false;
+            while(endU > 0) {
+                if(!mat) {
+                    next = next.nextField(Field.Direction.RD);
+                    if(!next.isEmpty()) {
+                        mat = true;
+                    }
+                } else {
+                    break;
+                }
+                endU--;
+            }
+            ok = sachK(next, figurka, ok);
         } else if(figurka.get().getType() == 5) {
             if((figurka.getCol() == 1) && (figurka.getRow() == 8)) {
                 next = figurka.nextField(Field.Direction.R);
@@ -490,7 +674,19 @@ public class Disk extends java.lang.Object implements Figure{
         }
     }
     
-    public int move(Field moveTo){
+    public int mat(Field figurka) {
+        if(figurka.isEmpty()) {
+            return 0;
+        } else if(figurka.get().getType() == 5) {
+            return 2;
+        } else {
+            return 1;
+        }
+    }
+    
+    public int move(Field moveTo) {
+        
+        int a = mat(moveTo);
         
         if(this.typ == 0) {
             if(this.field.getCol() == moveTo.getCol()) {
@@ -851,9 +1047,13 @@ public class Disk extends java.lang.Object implements Figure{
                 Field next = moveTo;
                 int endU = 8 - moveTo.getRow();
                 int ok = 0;
+                boolean mat = false;
                 while(endU > 0) {
-                    if(next.isEmpty()) {
+                    if(!mat) {
                         next = next.nextField(Field.Direction.U);
+                        if(!next.isEmpty()) {
+                            mat = true;
+                        }
                     } else {
                         break;
                     }
@@ -863,9 +1063,13 @@ public class Disk extends java.lang.Object implements Figure{
                 
                 next = moveTo;
                 endU = moveTo.getRow() - 1;
+                mat = false;
                 while(endU > 0) {
-                    if(next.isEmpty()) {
+                    if(!mat) {
                         next = next.nextField(Field.Direction.D);
+                        if(!next.isEmpty()) {
+                            mat = true;
+                        }
                     } else {
                         break;
                     }
@@ -875,9 +1079,13 @@ public class Disk extends java.lang.Object implements Figure{
                 
                 next = moveTo;
                 endU = moveTo.getCol() - 1;
+                mat = false;
                 while(endU > 0) {
-                    if(next.isEmpty()) {
+                    if(!mat) {
                         next = next.nextField(Field.Direction.L);
+                        if(!next.isEmpty()) {
+                            mat = true;
+                        }
                     } else {
                         break;
                     }
@@ -887,9 +1095,13 @@ public class Disk extends java.lang.Object implements Figure{
                 
                 next = moveTo;
                 endU = 8 - moveTo.getCol();
+                mat = false;
                 while(endU > 0) {
-                    if(next.isEmpty()) {
+                    if(!mat) {
                         next = next.nextField(Field.Direction.R);
+                        if(!next.isEmpty()) {
+                            mat = true;
+                        }
                     } else {
                         break;
                     }
@@ -903,9 +1115,13 @@ public class Disk extends java.lang.Object implements Figure{
                 } else {
                     endU = moveTo.getCol() - 1;
                 }
+                mat = false;
                 while(endU > 0) {
-                    if(next.isEmpty()) {
+                    if(!mat) {
                         next = next.nextField(Field.Direction.LU);
+                        if(!next.isEmpty()) {
+                            mat = true;
+                        }
                     } else {
                         break;
                     }
@@ -919,9 +1135,13 @@ public class Disk extends java.lang.Object implements Figure{
                 } else {
                     endU = moveTo.getCol() - 1;
                 }
+                mat = false;
                 while(endU > 0) {
-                    if(next.isEmpty()) {
+                    if(!mat) {
                         next = next.nextField(Field.Direction.LD);
+                        if(!next.isEmpty()) {
+                            mat = true;
+                        }
                     } else {
                         break;
                     }
@@ -935,9 +1155,13 @@ public class Disk extends java.lang.Object implements Figure{
                 } else {
                     endU = 8 - moveTo.getCol();
                 }
+                mat = false;
                 while(endU > 0) {
-                    if(next.isEmpty()) {
+                    if(!mat) {
                         next = next.nextField(Field.Direction.RU);
+                        if(!next.isEmpty()) {
+                            mat = true;
+                        }
                     } else {
                         break;
                     }
@@ -951,9 +1175,13 @@ public class Disk extends java.lang.Object implements Figure{
                 } else {
                     endU = 8 - moveTo.getCol();
                 }
+                mat = false;
                 while(endU > 0) {
-                    if(next.isEmpty()) {
+                    if(!mat) {
                         next = next.nextField(Field.Direction.RD);
+                        if(!next.isEmpty()) {
+                            mat = true;
+                        }
                     } else {
                         break;
                     }
@@ -1190,7 +1418,11 @@ public class Disk extends java.lang.Object implements Figure{
             }
         }
             
-        return sach(moveTo);
+        if(a == 2) {
+            return 2;
+        } else {
+            return sach(moveTo);
+        }
     }
     
     @Override
