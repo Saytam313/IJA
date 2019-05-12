@@ -8,8 +8,20 @@ import Chess.Game.common.Field;
  */
 public class Board extends java.lang.Object{
     private final int size;
+    
+    /**
+     * Pole obsahující hrací desku.
+     */
     public Field[][] field;
+    
+    /**
+     * Hra
+     */
     public boolean hra;
+    
+    /**
+     * Bílí hráč je na řadě.
+     */
     public boolean wTurn = true;
 
     /**
