@@ -7,10 +7,22 @@ import Chess.Game.common.Game;
 import Chess.Game.common.GameClass;
 import Chess.Game.game.Board;
 
+/**
+ * 
+ * @author xtetur01
+ */
+/**
+ * Abstraktní třída pro vytvoření hry.
+ */
 public abstract class GameFactory extends java.lang.Object
 {
+    /**
+     * Metoda nainicializuje hru a figurky v základním postavení.
+     * 
+     * @param board hrací deska
+     * @return  vrací vytvořenou hru
+     */
     public static Game createChessGame(Board board){
-        
         
         Figure pW[] = new Figure[8];
         Figure pB[] = new Figure[8];
