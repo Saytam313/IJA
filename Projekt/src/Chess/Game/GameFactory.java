@@ -9,7 +9,7 @@ import Chess.Game.game.Board;
 
 /**
  * 
- * @author xtetur01
+ * @author Aleš Tetur Šimon Matyáš
  */
 /**
  * Abstraktní třída pro vytvoření hry.
