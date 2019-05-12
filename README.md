@@ -12,10 +12,10 @@ https://wis.fit.vutbr.cz/FIT/st/cwk.php.cs?title=Zad%E1n%ED_projektu&csid=670528
 - ~Kostry funkci tlacitek~ 
 - Zapis zaznamu  
 #### Kod  
-- Spojit kod z homeworku2 s GUI  
-- Pohyb Figurek   
+- ~Spojit kod z homeworku2 s GUI  ~
+- ~Pohyb Figurek   ~
 - Funkce tlacitek  
-- Tvorba zaznamu  
+- ~Tvorba zaznamu ~ 
 - Nahrani zaznamu  
 - Ukladani zaznamu  
       
