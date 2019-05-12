@@ -1,7 +1,10 @@
 package Chess.Game.common;
 
 import Chess.Game.game.Board;
-
+/**
+ * 
+ * @author xtetur01
+ */
 public class Disk extends java.lang.Object implements Figure{
     private final int typ;
     private final boolean isWhite;
@@ -131,7 +134,7 @@ public class Disk extends java.lang.Object implements Figure{
     
     
     /**
-     * Tato metoda posouvá pěšáka při běžném pohybu vpřed. 
+     * Tato metoda posouvá Pěšáka při běžném pohybu vpřed. 
      * Nejdříve se odstraní figurka z původní pozice a potom se vloží na novou pozici.
      * 
      * @param moveTo    místo kam se pěšák posouvá
@@ -145,7 +148,7 @@ public class Disk extends java.lang.Object implements Figure{
     }
     
     /**
-     * Tato metoda posouvá pěšáka při vyhazování jiné figurky.
+     * Tato metoda posouvá Pěšáka při vyhazování jiné figurky.
      * Nejdříve se odstraní figurka z původní pozice, potom se odstraní vyhazovaná figurka a nakonec se figurka vloží na novou pozici.
      * 
      * @param moveTo    místo kam se pěšák posouvá
@@ -160,13 +163,13 @@ public class Disk extends java.lang.Object implements Figure{
     }
     
     /**
-     * Tato metoda posouvá všechny figurky (kromě pěšáka) při vyhazování jiné figurky a při posouvání.
+     * Tato metoda posouvá všechny figurky (kromě Pěšáka) při vyhazování jiné figurky a při posouvání.
      * Nejdříve se zkontroluje jestli jde o posouvání nebo vyhazování. Pokud se jedná o vyhazování, a vyhazuje se figurka jiné barvy, 
      * odstraní se figurka z původní pozice, potom se odstraní vyhazovaná figurka a nakonec se figurka vloží na novou pozici.
      * Pokud by se jednalo o vyhození vlastní figurky, vrátí se false.
      * Pokud se jedná o obyčejný posun odstraní se figurka z původní pozice, potom se odstraní vyhazovaná figurka a nakonec se figurka vloží na novou pozici.
      * 
-     * @param moveTo    místo kam se pěšák posouvá
+     * @param moveTo    místo kam se Pěšák posouvá
      * @return          úspěšnost přesunu
      */
     private boolean moveLong(Field moveTo) {
@@ -184,13 +187,15 @@ public class Disk extends java.lang.Object implements Figure{
     
     /**
      * Tato metoda je pouze pro figurky typu Král.
-     * Protože král se svým pohybem nesmí ohrozit, kontroluje tato matoda jeho pohyb v radiálním směru.
-     * Pokud 
+     * Protože Král se svým pohybem nesmí ohrozit, kontroluje tato matoda jeho pohyb ve vodorovném a ve svislém směru.
+     * Pokud by se Král neměl svým pohybem dostat vodorovně či svisle před Věž nebo Krýlovnu, přičte se k celkovému součtu 1.
+     * Pokud je Král v besprostřední blízkosti jiné figurky tak, že ji svým pohybem vyhodí a neohrozí se, přičte se k celkovému součtu 1.
+     * Pokud je vedle Krále vlastní figurka, přičte se k celkovému součtu 1.
      * 
-     * @param next
-     * @param moveTo
-     * @param ok
-     * @return 
+     * @param next      pozice, na kterou se král pohybuje
+     * @param moveTo    pozice figurky ve vodorovném nebo ve svislém směru
+     * @param ok        celkový součet
+     * @return          vrací celkový součet
      */
     private int moveKR(Field next, Field moveTo, int ok) {
         if(next.isEmpty()) {
@@ -201,6 +206,18 @@ public class Disk extends java.lang.Object implements Figure{
         return ok;
     }
     
+    /**
+     * Tato metoda je pouze pro figurky typu Král.
+     * Protože Král se svým pohybem nesmí ohrozit, kontroluje tato matoda jeho pohyb v diagonálních směrech.
+     * Pokud by se Král neměl svým pohybem dostat diagonálně před Střelce nebo Krýlovnu, přičte se k celkovému součtu 1.
+     * Pokud je Král v besprostřední blízkosti jiné figurky tak, že ji svým pohybem vyhodí a neohrozí se, přičte se k celkovému součtu 1.
+     * Pokud je vedle Krále vlastní figurka, přičte se k celkovému součtu 1.
+     * 
+     * @param next      pozice, na kterou se král pohybuje
+     * @param moveTo    pozice figurky v diagonálním směru
+     * @param ok        celkový součet
+     * @return          vrací celkový součet
+     */
     private int moveKD(Field next, Field moveTo, int ok) {
         if(next.isEmpty()) {
             ok++;
@@ -210,6 +227,18 @@ public class Disk extends java.lang.Object implements Figure{
         return ok;
     }
     
+    /**
+     * Tato metoda je pouze pro figurky typu Král.
+     * Protože Král se svým pohybem nesmí ohrozit, kontroluje tato matoda jeho pohyb ve směru Pěšců.
+     * Pokud by se Král neměl svým pohybem dostat před Pěšce tak, že by ho Pěšec mohl vyhodit, přičte se k celkovému součtu 1.
+     * Pokud je Král v besprostřední blízkosti jiné figurky tak, že ji svým pohybem vyhodí a neohrozí se, přičte se k celkovému součtu 1.
+     * Pokud je vedle Krále vlastní figurka, přičte se k celkovému součtu 1.
+     * 
+     * @param next      pozice, na kterou se král pohybuje
+     * @param moveTo    pozice figurky ve směru Pěšce
+     * @param ok        celkový součet
+     * @return          vrací celkový součet
+     */
     private int moveKP(Field next, Field moveTo, int ok) {
         if(next.isEmpty()) {
             ok++;
@@ -219,6 +248,18 @@ public class Disk extends java.lang.Object implements Figure{
         return ok;
     }
     
+    /**
+     * Tato metoda je pouze pro figurky typu Král.
+     * Protože Král se svým pohybem nesmí ohrozit, kontroluje tato matoda jeho pohyb ve směru Jezdce.
+     * Pokud by se Král neměl svým pohybem dostat před Jezdce tak, že by ho Jezdec mohl vyhodit, přičte se k celkovému součtu 1.
+     * Pokud je Král v besprostřední blízkosti jiné figurky tak, že ji svým pohybem vyhodí a neohrozí se, přičte se k celkovému součtu 1.
+     * Pokud je vedle Krále vlastní figurka, , přičte se k celkovému součtu 1.
+     * 
+     * @param next      pozice, na kterou se král pohybuje
+     * @param moveTo    pozice figurky ve směru Jezdce
+     * @param ok        celkový součet
+     * @return          vrací celkový součet
+     */
     private int moveKJ(Field next, Field moveTo, int ok) {
         if(next.isEmpty()) {
             ok++;
@@ -228,6 +269,18 @@ public class Disk extends java.lang.Object implements Figure{
         return ok;
     }
     
+    /**
+     * Tato metoda je pouze pro figurky typu Král.
+     * Protože Král se svým pohybem nesmí ohrozit, kontroluje tato matoda jeho pohyb ve směru dalšího Krále.
+     * Pokud by se Král neměl svým pohybem dostat před Krále tak, že by ho Král mohl vyhodit, přičte se k celkovému součtu 1.
+     * Pokud je Král v besprostřední blízkosti jiné figurky tak, že ji svým pohybem vyhodí a neohrozí se, přičte se k celkovému součtu 1.
+     * Pokud je vedle Krále vlastní figurka, , přičte se k celkovému součtu 1.
+     * 
+     * @param next      pozice, na kterou se král pohybuje
+     * @param moveTo    pozice figurky ve směru dalšího Krále
+     * @param ok        celkový součet
+     * @return          vrací celkový součet
+     */
     private int moveKK(Field next, Field moveTo, int ok) {
         if(next.isEmpty()) {
             ok++;
@@ -237,6 +290,15 @@ public class Disk extends java.lang.Object implements Figure{
         return ok;
     }
     
+    /**
+     * Tato metoda zjišťuje ohrožení Krále.
+     * Pokud je obdržena figurka Krále a figurka, který Krále ohrožuje má jinou barvu než Král, přučte se k celkovému ohrožení Krále 1.
+     * 
+     * @param kral      figurka typu Král
+     * @param figurka   figurka ohrožující Krále
+     * @param ok        kontrolní součet ohrožení Krále
+     * @return          vrací kontrolní součet ohrožení Krále
+     */
     private int sachK(Field kral, Field figurka, int ok) {
         if(kral.isEmpty()) {
             return ok;
@@ -246,6 +308,15 @@ public class Disk extends java.lang.Object implements Figure{
         return ok;
     }
     
+    /**
+     * Metoda zjišťující jestli nastal šach.
+     * Meoda dostane figurku, se kterou se právě hrálo. Dále nastaví součet celkového ohrožení krále ok na 0.
+     * Dále zjistí o jaký typ figurky se jedná. Potom projde všechny možné směry figurky a zjistí jestli neohrožuje Krále pomocí metody sachK(Field kral, Field figurka, int ok).
+     * Nakonec se podívá jestli je celkové ohrožení Krále ok větší jak 0. Pokud ano vrací se hodnota 1 jinak 0.
+     * 
+     * @param figurka   figurka, kterou se hrálo
+     * @return          vrací sach(1-sach, 0-nic)
+     */
     public int sach(Field figurka) {
         
         Field next = figurka;
@@ -750,6 +821,13 @@ public class Disk extends java.lang.Object implements Figure{
         }
     }
     
+    /**
+     * Metoda zjišťující jestli nastal mat.
+     * Pokud se táhne na místo kde je Král(vyhození Krále), vrátí se hodnota matu.
+     * 
+     * @param figurka   figurka nebo místo, na kterou se táhne
+     * @return          vrací mat(2-mat, 1-nic)
+     */
     public int mat(Field figurka) {
         if(figurka.isEmpty()) {
             return 0;
@@ -760,6 +838,22 @@ public class Disk extends java.lang.Object implements Figure{
         }
     }
     
+    /**
+     * Metoda zajišťující správný pohyb figurek.
+     * Nejdříve se zjistá, jestli se nejedná o vyhození Krále. Výsledek se uloží do a.
+     * Poté se zjistí o jaký typ figurky se jedná. Dále se zkontroluje směr pohybu pro daný typ figurky. Pokud je vše v pořádku,
+     * vrátí se hodnota úspěšnosti akce. Pokud během procesu nastane chyba, vrátí se hodnota -1 a proces se ukončí.
+     * <p>
+     * Správnost pohybu se kontroluje pomosí pomocných metod.
+     * <p>
+     * Pro Pěšáky při tahu je to funkce movePesak1(Field moveTo), při vyhazování je to funkce movePesak2(Field moveTo).
+     * Pro Jezdce se nevyužívá zvláštní funkce. Protože Jezcec se pohybuje pouze na izolovaná políčka, kontroluje se pohyb rovnou.
+     * Pro Krále je funkcí více, kvůli tomu, že se nesmí svím pohybem ohrozit. To kontrolují funkce moveKR(Field next, Field moveTo, int ok), 
+     * moveKD(Field next, Field moveTo, int ok), moveKP(Field next, Field moveTo, int ok), moveKJ(Field next, Field moveTo, int ok), moveKK(Field next, Field moveTo, int ok)
+     * Pro ostatní figurky to je funkce moveLong(Field moveTo).
+     * @param moveTo    místo kan se má táhnout
+     * @return          vrací úspěšnost akce (0-vpořádku, 1-šach, 2-mat, -1-nelze táhnout)
+     */
     @Override
     public int move(Field moveTo) {
         
@@ -1502,6 +1596,13 @@ public class Disk extends java.lang.Object implements Figure{
         }
     }
     
+    /**
+     * Metoda pro zpětný pohyb.
+     * Tato metoda nic nekontroluje, protože veškeré pohyby se kontrolují při pohybu vpřed.
+     * 
+     * @param moveTo    místo kan se má táhnout
+     * @return          vrací úspěšnost akce
+     */
     @Override
     public boolean reverse_move(Field moveTo) {
         this.field.remove(this);
@@ -1510,6 +1611,13 @@ public class Disk extends java.lang.Object implements Figure{
         return true;
     }
     
+    /**
+     * Matoda na zjištění dvou stejných Disků.
+     * Matoda zjistí zda se dva disky shodují.
+     * 
+     * @param obj   objekt Disk
+     * @return      vrací rovnost objektů
+     */
     @Override
     public boolean equals(java.lang.Object obj) {
         if (obj instanceof Disk) {
@@ -1523,6 +1631,11 @@ public class Disk extends java.lang.Object implements Figure{
         return (false);
     }
 
+    /**
+     * Metoda vrací hashCode.
+     * 
+     * @return  vrací hashCode
+     */
     @Override
     public int hashCode() {
         return super.hashCode(); //To change body of generated methods, choose Tools | Templates.
