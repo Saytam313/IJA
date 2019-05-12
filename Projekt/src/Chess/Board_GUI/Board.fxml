@@ -113,7 +113,7 @@
                   <Button fx:id="vpredButton" layoutX="997.0" layoutY="712.0" mnemonicParsing="false" onAction="#vpredButton" prefHeight="25.0" prefWidth="60.0" text="&gt;" />
                   <Button fx:id="zpetButton" layoutX="932.0" layoutY="712.0" mnemonicParsing="false" onAction="#zpetButton" prefHeight="25.0" prefWidth="60.0" text="&lt;" />
                   <Button fx:id="resetButton" layoutX="864.0" layoutY="709.0" mnemonicParsing="false" onAction="#resetGame" prefHeight="50.0" prefWidth="50.0" text="Restart" />
-                  <Button fx:id="nahraniZaznamu" layoutX="864.0" layoutY="780.0" mnemonicParsing="false" onAction="#nahraniZaznamu" prefHeight="49.0" prefWidth="50.0" text="Nahrání zaznamu" />
+                  <Button fx:id="nahraniZaznamu" layoutX="864.0" layoutY="779.0" mnemonicParsing="false" onAction="#nahraniZaznamu" prefHeight="23.0" prefWidth="50.0" text="Nahrání zaznamu" />
                   <Button fx:id="addTabButton" layoutX="8.0" layoutY="8.0" mnemonicParsing="false" onAction="#addTab" prefHeight="8.0" prefWidth="7.0" text="+" textAlignment="JUSTIFY" wrapText="true">
                      <font>
                         <Font size="14.0" />
@@ -201,6 +201,7 @@
                   </Label>
                   <TextField editable="false" layoutX="1029.0" layoutY="829.0" prefHeight="25.0" prefWidth="38.0" text="${speedSlider.value}" />
                   <TextField editable="false" layoutX="918.0" layoutY="829.0" prefHeight="25.0" prefWidth="109.0" text="Rychlost přehrání:" />
+                  <Button fx:id="ulozeniZaznamu" layoutX="864.0" layoutY="813.0" mnemonicParsing="false" onAction="#ulozeniZaznamu" prefHeight="23.0" prefWidth="50.0" text="Ulozeni zaznamu" />
                </children>
             </AnchorPane>
          </content>

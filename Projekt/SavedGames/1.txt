@@ -1,0 +1,6 @@
+1. c2c4          c7c5
+2. d2d4          d7d5
+3. Dd1a4+          e7e5
+4. e2e4          f7f5
+5. f2f4          b7b6
+6. Da4xe8#

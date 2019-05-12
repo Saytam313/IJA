@@ -11,9 +11,17 @@ import Chess.Game.common.Figure;
 import Chess.Game.common.Game;
 import Chess.Game.common.GameClass;
 import Chess.Game.game.Board;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -25,10 +33,13 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 
 /**
  *
- * @author Šimon
+ * @author Šimon Matyáš Aleš Tetur
+ * ovladani GUI
  */
 public class BoardController implements Initializable {
     ObservableList<String>   list=FXCollections.observableArrayList();
@@ -52,6 +63,7 @@ public class BoardController implements Initializable {
     private static boolean ZaznamMove=false;
     private static int ZaznamLineLen;
     private static int ZaznamVpredBraniCounter;
+    private static boolean SachMat=false;
     @FXML
     private ListView<String> zaznamList=new ListView<String>();
     @Override
@@ -60,12 +72,20 @@ public class BoardController implements Initializable {
         game = GameFactory.createChessGame(board);
         
     }  
- 
+    /**
+     * 
+     * @param zaznam 
+     * zaznam pro pridani do vypisu zaznamu
+     */
     private void zaznamAdd(String zaznam){
         //zaznamTable.getItems().addAll(zaznam);
         zaznamList.getItems().addAll(zaznam);
     }  
- 
+    /**
+     * 
+     * @param zaznam 
+     * uprava posledniho zaznamu ve vypisu, prida mezeru a potom parametr zaznam 
+     */
     private void zaznamModify(String zaznam){
         //zaznamTable.getItems().addAll(zaznam);
         String LastZaznam=zaznamList.getItems().get(zaznamList.getItems().size() - 1);
@@ -73,9 +93,15 @@ public class BoardController implements Initializable {
         zaznam=LastZaznam+"          "+zaznam;
         zaznamList.getItems().remove(zaznamList.getItems().size() - 1);
         zaznamList.getItems().addAll(zaznam);
-    }
+    }    
+    /**
+     * funkce pro tlacitka sachovnice
+     */
     @FXML
     private void fieldClick(ActionEvent event) {
+        if(SachMat){
+            return;
+        }
         if(thisScene==null){
             Button asd=(Button) event.getSource();
             thisScene=asd.getScene();
@@ -123,6 +149,9 @@ public class BoardController implements Initializable {
                 TargetButton.setStyle(TargetButtonStyle+VyberButtonFigurka);
                 VyberButtonStyle=VyberButtonStyle.replace(VyberButtonFigurka, "");
                 PlayerWhite=!PlayerWhite;
+                if(zapis.charAt(zapis.length()-1)=='#'){
+                    SachMat=true;
+                }
                 if(ZaznamMove){
                     //smazat zbytek zaznamu
                     int zaznamSize=zaznamList.getItems().size();
@@ -141,23 +170,101 @@ public class BoardController implements Initializable {
             VyberButton.setStyle(VyberButtonStyle); 
         }
     }
+    /**
+     * 
+     * funkce tlacitka pro pridani tabu 
+     */
     @FXML
     private void addTab(ActionEvent event) {
+        if(thisScene==null){
+            Button asd=(Button) event.getSource();
+            thisScene=asd.getScene();
+        }
         System.out.println("addTab");
     }
+    /**
+     * 
+     * tlacitko pro reset hry 
+     */
     @FXML
     private void resetGame(ActionEvent event) {
+        SachMat=false;
+        if(thisScene==null){
+            Button asd=(Button) event.getSource();
+            thisScene=asd.getScene();
+        }
         while(ZaznamCounter-1>0){
             zpetButton(event);
         }
         
     }
+    /**
+     * 
+     * tlacitko pro ulozeni zaznamu 
+     */
+    @FXML
+    private void ulozeniZaznamu(ActionEvent event) {
+        
+        if(thisScene==null){
+            Button asd=(Button) event.getSource();
+            thisScene=asd.getScene();
+        }
+        FileChooser saveFileChooser=new FileChooser();
+        saveFileChooser.setTitle("Soubor pro ulozeni zaznamu hry");
+        File DefaultSaveDirectory=new File("./SavedGames/");
+        saveFileChooser.setInitialDirectory(DefaultSaveDirectory);
+        File saveDir= saveFileChooser.showSaveDialog(thisScene.getWindow());        
+        String zaznam_string="";
+        for(int i=0;i<zaznamList.getItems().size();i++){
+            zaznam_string+=zaznamList.getItems().get(i)+"\n";
+        }
+        try {
+            FileOutputStream out = new FileOutputStream(saveDir);     
+            out.write(zaznam_string.getBytes());
+        } catch (FileNotFoundException ex) {
+            //
+        } catch (IOException ex) {
+            //
+        }
+    }
+    /**
+     * 
+     * funkce pro tlacitka nahraniZaznamu 
+     */
     @FXML
     private void nahraniZaznamu(ActionEvent event) {
-        System.out.println("nahraniZaznamu");
+        if(thisScene==null){
+            Button asd=(Button) event.getSource();
+            thisScene=asd.getScene();
+        }
+        FileChooser openFileChooser=new FileChooser();
+        openFileChooser.setTitle("Soubor pro nahrani zaznamu hry");
+        File DefaultSaveDirectory=new File("./SavedGames/");
+        openFileChooser.setInitialDirectory(DefaultSaveDirectory);
+        File openDir= openFileChooser.showOpenDialog(thisScene.getWindow());        
+        String zaznam_string="";
+        try {
+            zaznam_string=new  String(Files.readAllBytes(Paths.get(openDir.toString())));
+        } catch (IOException ex) {
+            Logger.getLogger(BoardController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        resetGame(event);
+        String[] zaznam_string_parts=zaznam_string.split("\n");
+        zaznamList.getItems().clear();
+        for(int i=0;zaznam_string_parts.length>i;i++){
+            zaznamAdd(zaznam_string_parts[i]);
+        }
     }
+    /**
+     * 
+     * funkce pro tlacitko zpetButton 
+     */
     @FXML
     private void zpetButton(ActionEvent event) {
+        if(thisScene==null){
+            Button asd=(Button) event.getSource();
+            thisScene=asd.getScene();
+        }
         if(ZaznamCounter-1>0){
             int zaznamSize=zaznamList.getItems().size();
             String[] Counter_zaznam=zaznamList.getItems().get(ZaznamCounter-2).split("\\.");
@@ -175,8 +282,16 @@ public class BoardController implements Initializable {
             }
         }
     }
+    /**
+     * 
+     * funkce pro tlacitko vpredButton
+     */
     @FXML
     private void vpredButton(ActionEvent event) {
+        if(thisScene==null){
+            Button asd=(Button) event.getSource();
+            thisScene=asd.getScene();
+        }
         int zaznamSize=zaznamList.getItems().size();   
         if(ZaznamCounter-1<zaznamSize){
 
@@ -204,20 +319,36 @@ public class BoardController implements Initializable {
         }
 
     }
+    /**
+     * 
+     * funkce pro tlacitko stopButton 
+     */
     @FXML
     private void stopButton(ActionEvent event) {
         System.out.println("stop");
     }
+    /**
+     * 
+     * funkce pro tlacitko playButton
+     * @throws InterruptedException 
+     */
     @FXML
     private void playButton(ActionEvent event) throws InterruptedException {
-        
+        if(thisScene==null){
+            Button asd=(Button) event.getSource();
+            thisScene=asd.getScene();
+        }
         int zaznamSize=zaznamList.getItems().size();   
         while(ZaznamCounter-1<zaznamSize){
             vpredButton(event);
         }
     }
-    
+    /**
+     * funkce pro vraceni se v zaznamu
+     * @param zaznam string po ktery se bude zaznam prehravat
+     */
     public void zaznamUndo(String zaznam){
+        SachMat=false;
         String zapisForm=game.zapisReader(zaznam);
         int xFrom=Character.getNumericValue(zapisForm.charAt(0));
         int yFrom=Character.getNumericValue(zapisForm.charAt(1));
@@ -286,7 +417,10 @@ public class BoardController implements Initializable {
             
         }
     }
-       
+    /**
+     * funkce pro pokracovani v zaznamu
+     * @param zaznam 
+     */   
     public void zaznamForw(String zaznam){
         String zapisForm=game.zapisReader(zaznam);
         int xTo=Character.getNumericValue(zapisForm.charAt(0));
@@ -312,11 +446,17 @@ public class BoardController implements Initializable {
         FromButton.setStyle(FromStyle+ToButtonFigurka);
         
         ToButton.setStyle(line.replace(ToButtonFigurka, ""));
+        if(zapisForm.charAt(zapisForm.length()-1)=='#'){
+            SachMat=true;
+        }
         if(zapisForm.charAt(2)=='x'){
             ZaznamVpredBraniCounter++;
         }
     }
-    
+    /**
+     * funkce pro ovladani tlacitek zaznamu
+     * @param event 
+     */
     @FXML
     private void readZaznam(MouseEvent event) {
         String prvek=zaznamList.getSelectionModel().getSelectedItem();
@@ -383,8 +523,6 @@ public class BoardController implements Initializable {
                         for(int j=Zaznam_parts.length-1;j>=0;j--){  
                             zaznamForw(Zaznam_parts[j]); 
                         }
-                        //game.Switch_PosledniAPredposledni();
-                        //zaznamList.getItems().remove(i);
                     }  
                 }
                 
