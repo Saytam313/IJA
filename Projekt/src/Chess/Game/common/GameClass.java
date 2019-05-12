@@ -5,10 +5,6 @@ import Chess.Game.game.Board;
 import java.util.Stack;
 
 public class GameClass extends java.lang.Object implements Game{
-    private Stack<Field> from_Pos=new Stack<>();
-    private Stack<Figure> from_Fig=new Stack<>();
-    private Stack<Field> to_Pos=new Stack<>();
-    private Stack<Figure> to_Fig=new Stack<>();
     private Stack<Figure> Remove_Fig=new Stack<>();
     private Stack<Figure> zapis=new Stack<Figure>();
     private final Board board;
@@ -21,10 +17,6 @@ public class GameClass extends java.lang.Object implements Game{
     //typ:4 Kralovna
     //typ:5 Kral
     public GameClass(Board board) {
-        this.from_Pos=new Stack<Field>();
-        this.from_Fig=new Stack<Figure>();
-        this.to_Pos=new Stack<Field>();
-        this.to_Fig=new Stack<Figure>();
         this.Remove_Fig=new Stack<Figure>();
         this.zapis=new Stack<Figure>();
         this.board=board;
@@ -42,46 +34,27 @@ public class GameClass extends java.lang.Object implements Game{
         String zapis=zapisCreator(figurka,moveTo);
         //System.out.println(zapisCreator(figurka,moveTo));
         //System.out.println(zapisReader(zapisCreator(figurka,moveTo)));
-        From_addMove(figurka,moveTo);
+        boolean removed=false;
         if(moveTo.get()!=null && figurka.isWhite()!=moveTo.get().isWhite()){
-            Remove_addMove(moveTo.get());
-        }else{
-            Remove_addMove(null);
+            removed=true;
+            Add_DeadFig(moveTo.get());
         }
         
         int m = figurka.move(moveTo);
         if(m == 0){ 
-            To_addMove(figurka);
             return zapis; 
         } else if(m == 1) {
-            To_addMove(figurka);
             return zapis + "+";
         } else if(m == 2) {
-            To_addMove(figurka);
             return zapis + "#";
         } else {
-            from_Pos.pop();
-            from_Fig.pop();
+            if(removed){
+                Remove_DeadFig();
+            }
             return "";
         }
     }
     
-    public void undo(){
-
-        Field back_to_Pos=to_Pos.pop();
-        Figure back_to_Fig=to_Fig.pop();
-        
-        Field back_from_Pos=from_Pos.pop();
-        Figure back_from_Fig=from_Fig.pop();
-        
-        Figure Revive=Remove_Fig.pop();
-
-        back_to_Fig.reverse_move(back_from_Pos);        
-        if(Revive!=null){
-            back_to_Pos.put(Revive);
-        }
-        
-    }
     public String zapisCreator(Figure figurka,Field  moveTo){
         String type="";
 
@@ -166,6 +139,7 @@ public class GameClass extends java.lang.Object implements Game{
         char yFrom=' ';
         int xTo=-1;
         char yTo=' ';
+        char brani='=';
         if(Character.isUpperCase(zapis.charAt(0))){
             zapis=zapis.substring(1);            
         }
@@ -178,29 +152,38 @@ public class GameClass extends java.lang.Object implements Game{
                     xTo=colStrToNum(String.valueOf(zapis.charAt(i)));
                     yTo=zapis.charAt(i+1);
                 }
+            }else if(zapis.charAt(i)=='x'){
+                brani='x';
             }
             
         }
-        //System.out.println(xFrom);
-        //System.out.println(yFrom);
-        //System.out.println(xTo);
-        //System.out.println(yTo);
-        return Integer.toString(xFrom)+yFrom+"="+xTo+yTo;
+        return Integer.toString(xFrom)+yFrom+brani+xTo+yTo;
     }
-    private void From_addMove(Figure figurka,Field moveTo){
-        from_Pos.push(figurka.myfield());
-        from_Fig.push(figurka);
-                
-        
-        
-    }
-    private void To_addMove(Figure figurka){
-        to_Pos.push(figurka.myfield());
-        to_Fig.push(figurka);
-        
-    }
-    private void Remove_addMove(Figure figurka){
+
+    private void Add_DeadFig(Figure figurka){
         Remove_Fig.push(figurka);
     }
-    
+    private void Remove_DeadFig(){
+        Remove_Fig.pop();
+    }
+    public Figure Get_DeadFig(){
+        Figure posledni=Remove_Fig.pop();
+        return posledni;               
+    }
+    public Figure Get_PredposledniDeadFig(){
+        if(Remove_Fig.size()>1){
+            Figure posledni=Remove_Fig.pop();
+            Figure predposledni=Remove_Fig.pop();
+            Remove_Fig.push(posledni);
+            return predposledni;   
+        }else{
+            return Get_DeadFig();
+        }
+    }
+    public void Switch_PosledniAPredposledni(){
+        Figure predposledni=Get_PredposledniDeadFig();
+        Figure posledni=Get_DeadFig();
+        Remove_Fig.push(posledni);
+        Remove_Fig.push(predposledni);
+    }
 }

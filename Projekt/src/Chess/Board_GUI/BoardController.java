@@ -50,6 +50,8 @@ public class BoardController implements Initializable {
     private static String zaznamPos;
     private static int ZaznamCounter=1;
     private static boolean ZaznamMove=false;
+    private static int ZaznamLineLen;
+    private static int ZaznamVpredBraniCounter;
     @FXML
     private ListView<String> zaznamList=new ListView<String>();
     @Override
@@ -136,7 +138,6 @@ public class BoardController implements Initializable {
             {           
                 //System.out.println("Move z "+VyberX+VyberY+" na :"+x+y+" failnul");
             }
-            
             VyberButton.setStyle(VyberButtonStyle); 
         }
     }
@@ -161,8 +162,10 @@ public class BoardController implements Initializable {
             int zaznamSize=zaznamList.getItems().size();
             String[] Counter_zaznam=zaznamList.getItems().get(ZaznamCounter-2).split("\\.");
             String[] Zaznam_parts=Counter_zaznam[1].split("          ");
+            ZaznamLineLen=Zaznam_parts.length;
             for(String a:Zaznam_parts){
                 zaznamUndo(a);
+                ZaznamLineLen--;
             }
             //zaznamList.getItems().remove(i);
             ZaznamCounter=Integer.parseInt(Counter_zaznam[0]);
@@ -179,10 +182,16 @@ public class BoardController implements Initializable {
 
             String[] Counter_zaznam=zaznamList.getItems().get(ZaznamCounter-1).split("\\.");
             String[] Zaznam_parts=Counter_zaznam[1].split("          ");
-
+            ZaznamLineLen=Zaznam_parts.length;
+            ZaznamVpredBraniCounter=0;
             for(int j=Zaznam_parts.length-1;j>=0;j--){  
-                zaznamPrev(Zaznam_parts[j]); 
+                zaznamForw(Zaznam_parts[j]);
+                ZaznamLineLen--;
             }
+            if(ZaznamVpredBraniCounter==2){
+                game.Switch_PosledniAPredposledni();
+            }
+            //game.Switch_PosledniAPredposledni();
             //zaznamList.getItems().remove(i);
              if(zaznamList.getItems().get(zaznamSize-1).length()<15){
                  PlayerWhite=false;
@@ -233,9 +242,52 @@ public class BoardController implements Initializable {
         FromButton.setStyle(FromStyle+ToButtonFigurka);
         
         ToButton.setStyle(line.replace(ToButtonFigurka, ""));
+        
+        if(zapisForm.charAt(2)=='x'){
+            Figure Revive;
+            if(ZaznamLineLen==2){
+                Revive=game.Get_PredposledniDeadFig();
+            }else{
+                Revive=game.Get_DeadFig();
+            }
+            String FigureStyle;
+            String FigColor;
+            if(Revive.isWhite()){
+                FigColor="White";
+            }else{
+                FigColor="Black";
+            }
+            switch(Revive.getType()){
+                case 0:
+                    FigureStyle="-fx-background-image: url('assets/"+FigColor+"/pesak.png');";
+                    break;
+                case 1:
+                    FigureStyle="-fx-background-image: url('assets/"+FigColor+"/vez.png');";
+                    break;
+                case 2:
+                    FigureStyle="-fx-background-image: url('assets/"+FigColor+"/strelec.png');";
+                    break;
+                case 3:
+                    FigureStyle="-fx-background-image: url('assets/"+FigColor+"/kun.png');";
+                    break;
+                case 4:
+                    FigureStyle="-fx-background-image: url('assets/"+FigColor+"/kralovna.png');";
+                    break;
+                case 5:
+                    FigureStyle="-fx-background-image: url('assets/"+FigColor+"/kral.png');";
+                    break; 
+                default:
+                    FigureStyle="";
+                    break;
+            }
+            ToButton.setStyle(ToButton.getStyle()+FigureStyle);
+            to.put(Revive);
+            Revive.put(to);
+            
+        }
     }
        
-    public void zaznamPrev(String zaznam){
+    public void zaznamForw(String zaznam){
         String zapisForm=game.zapisReader(zaznam);
         int xTo=Character.getNumericValue(zapisForm.charAt(0));
         int yTo=Character.getNumericValue(zapisForm.charAt(1));
@@ -245,8 +297,6 @@ public class BoardController implements Initializable {
         
         Button FromButton=(Button) thisScene.lookup("#field"+xFrom+yFrom);
         Button ToButton=(Button) thisScene.lookup("#field"+xTo+yTo);
-        //System.out.println("field"+xFrom+yFrom+"=="+FromButton.toString());
-        //System.out.println("field"+xTo+yTo+"=="+ToButton.toString());
         String line = ToButton.getStyle();
         String pattern = "-fx-background-image:.*";
         Pattern regex = Pattern.compile(pattern);
@@ -257,11 +307,14 @@ public class BoardController implements Initializable {
         Field from=board.getField(xFrom,yFrom);
         Field to=board.getField(xTo,yTo);
         Figure figurka=to.get();
-        figurka.reverse_move(from);
+        game.move(figurka,from);
         String FromStyle=FromButton.getStyle();
         FromButton.setStyle(FromStyle+ToButtonFigurka);
         
         ToButton.setStyle(line.replace(ToButtonFigurka, ""));
+        if(zapisForm.charAt(2)=='x'){
+            ZaznamVpredBraniCounter++;
+        }
     }
     
     @FXML
@@ -279,8 +332,10 @@ public class BoardController implements Initializable {
                     if(zaznamList.getItems().get(i)==prvek){
                         String[] Counter_zaznam=zaznamList.getItems().get(i).split("\\.");
                         String[] Zaznam_parts=Counter_zaznam[1].split("          ");
+                        ZaznamLineLen=Zaznam_parts.length;
                         for(String a:Zaznam_parts){
                             zaznamUndo(a);
+                            ZaznamLineLen--;
                         }
                         //zaznamList.getItems().remove(i);
                         ZaznamCounter=Integer.parseInt(Counter_zaznam[0]);
@@ -293,8 +348,10 @@ public class BoardController implements Initializable {
                     }else{
                         String[] Counter_zaznam=zaznamList.getItems().get(i).split("\\.");
                         String[] Zaznam_parts=Counter_zaznam[1].split("          ");
+                        ZaznamLineLen=Zaznam_parts.length;
                         for(String a:Zaznam_parts){
                             zaznamUndo(a);
+                            ZaznamLineLen--;
                         }
                         //zaznamList.getItems().remove(i);
                     }  
@@ -307,8 +364,9 @@ public class BoardController implements Initializable {
                         String[] Zaznam_parts=Counter_zaznam[1].split("          ");
                         
                         for(int j=Zaznam_parts.length-1;j>=0;j--){  
-                            zaznamPrev(Zaznam_parts[j]); 
+                            zaznamForw(Zaznam_parts[j]); 
                         }
+                        //game.Switch_PosledniAPredposledni();
                         //zaznamList.getItems().remove(i);
                         if(zaznamList.getItems().get(zaznamSize-1).length()<15){
                             PlayerWhite=false;
@@ -323,8 +381,9 @@ public class BoardController implements Initializable {
                         String[] Counter_zaznam=zaznamList.getItems().get(i).split("\\.");
                         String[] Zaznam_parts=Counter_zaznam[1].split("          ");
                         for(int j=Zaznam_parts.length-1;j>=0;j--){  
-                            zaznamPrev(Zaznam_parts[j]); 
+                            zaznamForw(Zaznam_parts[j]); 
                         }
+                        //game.Switch_PosledniAPredposledni();
                         //zaznamList.getItems().remove(i);
                     }  
                 }

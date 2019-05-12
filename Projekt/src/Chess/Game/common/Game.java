@@ -8,7 +8,9 @@ package Chess.Game.common;
 public interface Game {
     public void create(Figure Figurka,Field StartOn);
     public String move(Figure figure,Field field);
-    public void undo();
     public String zapisCreator(Figure figurka,Field moveTo);
     public String zapisReader(String zapis);
+    public Figure Get_DeadFig();
+    public Figure Get_PredposledniDeadFig();
+    public void Switch_PosledniAPredposledni();
 }
