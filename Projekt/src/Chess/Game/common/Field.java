@@ -7,7 +7,7 @@ package Chess.Game.common;
 
 /**
  *
- * @author Šimon
+ * @author Aleš Tetur Šimon Matyáš
  */
 /**
  * Rozhraní k polím, které lze umístit na hrací desku.
