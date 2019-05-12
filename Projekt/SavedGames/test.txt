@@ -1,7 +1,0 @@
-1. c2c4          c7c5
-2. d2d4          d7d5
-3. e2e4          e7e5
-4. Dd1f3          Dd8f6
-5. Df3xf6          g7g6
-6. Df6e6+          f7f6
-7. De6xe8#

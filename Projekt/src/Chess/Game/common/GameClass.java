@@ -232,6 +232,9 @@ public class GameClass extends java.lang.Object implements Game{
      * prohodi predposledni a posledni figurku v zasobniku odebranych figurek
      */
     public void Switch_PosledniAPredposledni(){
+        if(Remove_Fig.size()<2){
+            return;
+        }
         Figure predposledni=Get_PredposledniDeadFig();
         Figure posledni=Get_DeadFig();
         Remove_Fig.push(posledni);

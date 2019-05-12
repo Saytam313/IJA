@@ -64,6 +64,7 @@ public class BoardController implements Initializable {
     private static int ZaznamLineLen;
     private static int ZaznamVpredBraniCounter;
     private static boolean SachMat=false;
+    private static String asdf="";
     @FXML
     private ListView<String> zaznamList=new ListView<String>();
     @Override
@@ -211,7 +212,7 @@ public class BoardController implements Initializable {
         }
         FileChooser saveFileChooser=new FileChooser();
         saveFileChooser.setTitle("Soubor pro ulozeni zaznamu hry");
-        File DefaultSaveDirectory=new File("./SavedGames/");
+        File DefaultSaveDirectory=new File("./data/");
         saveFileChooser.setInitialDirectory(DefaultSaveDirectory);
         File saveDir= saveFileChooser.showSaveDialog(thisScene.getWindow());        
         String zaznam_string="";
@@ -239,7 +240,7 @@ public class BoardController implements Initializable {
         }
         FileChooser openFileChooser=new FileChooser();
         openFileChooser.setTitle("Soubor pro nahrani zaznamu hry");
-        File DefaultSaveDirectory=new File("./SavedGames/");
+        File DefaultSaveDirectory=new File("./data/");
         openFileChooser.setInitialDirectory(DefaultSaveDirectory);
         File openDir= openFileChooser.showOpenDialog(thisScene.getWindow());        
         String zaznam_string="";
@@ -304,13 +305,21 @@ public class BoardController implements Initializable {
             String[] Zaznam_parts=Counter_zaznam[1].split("          ");
             ZaznamLineLen=Zaznam_parts.length;
             ZaznamVpredBraniCounter=0;
+            asdf="";
             for(int j=0;j<=Zaznam_parts.length-1;j++){  
                 zaznamForw(Zaznam_parts[j]);
                 ZaznamLineLen--;
+                
             }
-            if(ZaznamVpredBraniCounter==2){
+            
+            if(asdf.length()==2&& asdf.charAt(1)=='x'){    
                 game.Switch_PosledniAPredposledni();
             }
+            //if(ZaznamVpredBraniCounter==2){
+            //    game.Switch_PosledniAPredposledni();
+            //}
+            
+            
             //game.Switch_PosledniAPredposledni();
             //zaznamList.getItems().remove(i);
              if(zaznamList.getItems().get(zaznamSize-1).length()<15){
@@ -451,11 +460,14 @@ public class BoardController implements Initializable {
         FromButton.setStyle(FromStyle+ToButtonFigurka);
         
         ToButton.setStyle(line.replace(ToButtonFigurka, ""));
-        if(zapisForm.charAt(zapisForm.length()-1)=='#'){
+        if(zaznam.charAt(zaznam.length()-1)=='#'){
             SachMat=true;
         }
         if(zapisForm.charAt(2)=='x'){
+            asdf+="x";
             ZaznamVpredBraniCounter++;
+        }else{
+            asdf+="_";
         }
     }
     /**
@@ -515,12 +527,15 @@ public class BoardController implements Initializable {
                     if(zaznamList.getItems().get(i)==prvek){
                         String[] Counter_zaznam=zaznamList.getItems().get(i).split("\\.");
                         String[] Zaznam_parts=Counter_zaznam[1].split("          ");
+                        asdf="";
                         for(int j=0;j<=Zaznam_parts.length-1;j++){  
                             zaznamForw(Zaznam_parts[j]);
                             ZaznamLineLen--;
+
                         }
-                        //game.Switch_PosledniAPredposledni();
-                        //zaznamList.getItems().remove(i);
+                        if(asdf.length()==2 && asdf.charAt(1)=='x'){    
+                            game.Switch_PosledniAPredposledni();
+                        }
                         if(zaznamList.getItems().get(zaznamSize-1).length()<15){
                             PlayerWhite=false;
                         }
@@ -533,9 +548,14 @@ public class BoardController implements Initializable {
                     }else{
                         String[] Counter_zaznam=zaznamList.getItems().get(i).split("\\.");
                         String[] Zaznam_parts=Counter_zaznam[1].split("          ");
+                        asdf="";
                         for(int j=0;j<=Zaznam_parts.length-1;j++){  
                             zaznamForw(Zaznam_parts[j]);
                             ZaznamLineLen--;
+
+                        }
+                        if(asdf.length()==2 && asdf.charAt(1)=='x'){    
+                            game.Switch_PosledniAPredposledni();
                         }
                     }  
                 }
