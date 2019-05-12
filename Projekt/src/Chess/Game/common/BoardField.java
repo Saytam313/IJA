@@ -1,9 +1,27 @@
 package Chess.Game.common;
-
+/**
+ * 
+ * @author xtetur01
+ */
 public class BoardField extends java.lang.Object implements Field{
+    /**
+     * Proměná pro řádek.
+     */
     public int row;
+    
+    /**
+     * Proměná pro sloupec.
+     */
     public int col;
+    
+    /**
+     * Proměná pro figurku.
+     */
     public Figure disk;
+    
+    /**
+     * Proměná pro sousedy pole.
+     */
     public Field nField[]=new Field[8];
     
     /**
