@@ -30,11 +30,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  *
@@ -65,6 +70,7 @@ public class BoardController implements Initializable {
     private static int ZaznamVpredBraniCounter;
     private static boolean SachMat=false;
     private static String asdf="";
+    //private AnchorPane rootPane;
     @FXML
     private ListView<String> zaznamList=new ListView<String>();
     @Override
@@ -563,4 +569,17 @@ public class BoardController implements Initializable {
             }
         }
     }
+    
+    @FXML
+    private void loadMenu(ActionEvent event) throws IOException {
+        PlayerWhite=true;
+        FXMLLoader secondPaneLoader = new FXMLLoader(getClass().getResource("Menu.fxml"));
+        Parent secondPane = secondPaneLoader.load();
+        Scene secondScene = new Scene(secondPane);
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        app_stage.setScene(secondScene);
+        app_stage.show();
+    }
+   
+    
 }
