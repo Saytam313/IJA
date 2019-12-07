@@ -13,18 +13,12 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Šimon
+ * @author Šimon Matyáš
  */
 public class fxml_board extends Application {
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //Parent root = FXMLLoader.load(getClass().getResource("Board.fxml"));
-        
-        //Scene scene = new Scene(root);
-        
-        //stage.setScene(scene);
-        //stage.show();
         
         // getting loader and a pane for the first scene. 
         // loader will then give a possibility to get related controller

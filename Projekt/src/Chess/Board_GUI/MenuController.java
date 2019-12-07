@@ -43,8 +43,7 @@ public class MenuController implements Initializable {
     
     @FXML
     private void loadBoard1(ActionEvent event) throws IOException {
-        //AnchorPane pane = FXMLLoader.load(getClass().getResource("Board.fxml"));
-       // menuPane.getChildren().setAll(pane);
+
         
         FXMLLoader firstPaneLoader = new FXMLLoader(getClass().getResource("Board.fxml"));
         Parent firstPane = firstPaneLoader.load();
@@ -55,8 +54,7 @@ public class MenuController implements Initializable {
     }
     @FXML
     private void loadBoard2(ActionEvent event) throws IOException {
-        //AnchorPane pane = FXMLLoader.load(getClass().getResource("Board.fxml"));
-       // menuPane.getChildren().setAll(pane);
+
         
         FXMLLoader firstPaneLoader = new FXMLLoader(getClass().getResource("Board_RedBlue.fxml"));
         Parent firstPane = firstPaneLoader.load();
@@ -67,8 +65,7 @@ public class MenuController implements Initializable {
     }
     @FXML
     private void loadBoard3(ActionEvent event) throws IOException {
-        //AnchorPane pane = FXMLLoader.load(getClass().getResource("Board.fxml"));
-       // menuPane.getChildren().setAll(pane);
+
         
         FXMLLoader firstPaneLoader = new FXMLLoader(getClass().getResource("Board_YellowBlue.fxml"));
         Parent firstPane = firstPaneLoader.load();
@@ -79,8 +76,7 @@ public class MenuController implements Initializable {
     }
     @FXML
     private void loadBoard4(ActionEvent event) throws IOException {
-        //AnchorPane pane = FXMLLoader.load(getClass().getResource("Board.fxml"));
-       // menuPane.getChildren().setAll(pane);
+
         
         FXMLLoader firstPaneLoader = new FXMLLoader(getClass().getResource("Board_GreenYellow.fxml"));
         Parent firstPane = firstPaneLoader.load();
