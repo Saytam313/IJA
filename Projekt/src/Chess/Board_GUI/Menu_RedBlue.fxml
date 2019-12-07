@@ -7,16 +7,16 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="menuPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #91DCFC;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Chess.Board_GUI.MenuController">
+<AnchorPane id="AnchorPane" fx:id="menuPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #91dcfc;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Chess.Board_GUI.MenuController">
   <children>
-    <Button id="" layoutX="51.0" layoutY="125.0" onAction="#loadBoard" prefHeight="53.0" prefWidth="182.0" style="-fx-background-color: #ed1c24; -fx-background-radius: 10;" text="Nová hra">
+    <Button id="" layoutX="51.0" layoutY="125.0" onAction="#loadBoard2" prefHeight="53.0" prefWidth="182.0" style="-fx-background-color: #ed1c24; -fx-background-radius: 10;" text="Nová hra">
       <font>
         <Font name="System Bold" size="20.0" fx:id="x1" />
       </font>
     </Button>
     <Button id="" font="$x1" layoutX="51.0" layoutY="190.0" prefHeight="53.0" prefWidth="182.0" style="-fx-background-color: #ed1c24; -fx-background-radius: 10;" text="Nahrát hru" />
     <Button id="" font="$x1" layoutX="51.0" layoutY="254.0" prefHeight="53.0" prefWidth="182.0" style="-fx-background-color: #ed1c24; -fx-background-radius: 10;" text="Nastavení" />
-    <Button id="" font="$x1" layoutX="51.0" layoutY="318.0" prefHeight="53.0" prefWidth="182.0" style="-fx-background-color: #ed1c24; -fx-background-radius: 10;" text="Konec hry" />
+    <Button id="end" font="$x1" layoutX="51.0" layoutY="318.0" prefHeight="53.0" prefWidth="182.0" onAction="#end" style="-fx-background-color: #ed1c24; -fx-background-radius: 10;" text="Konec hry" />
     <Text layoutX="65.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Šachy">
       <font>
         <Font size="60.0" />
@@ -31,8 +31,8 @@
           </font>
         </Button>
         <Button id="" font="$x2" layoutX="42.0" layoutY="93.0" minHeight="26.6015625" prefHeight="26.6015625" prefWidth="181.99990000000253" style="-fx-background-color: #ed1c24; -fx-background-radius: 10;" text="Protanopie" />
-        <Button id="" font="$x2" layoutX="42.0" layoutY="134.0" minHeight="26.6015625" prefHeight="26.6015625" prefWidth="181.99990000000253" style="-fx-background-color: #ed1c24; -fx-background-radius: 10;" text="Deuteranopie" />
-        <Button id="" font="$x2" layoutX="42.0" layoutY="170.0" minHeight="26.6015625" prefHeight="26.6015625" prefWidth="181.99990000000253" style="-fx-background-color: #ed1c24; -fx-background-radius: 10;" text="Tritanopie" />
+        <Button id="theme3" font="$x2" layoutX="42.0" layoutY="134.0" minHeight="26.6015625" onAction="#theme3" prefHeight="26.6015625" prefWidth="181.99990000000253" style="-fx-background-color: #ed1c24; -fx-background-radius: 10;" text="Deuteranopie" />
+        <Button id="theme4" font="$x2" layoutX="42.0" layoutY="170.0" minHeight="26.6015625" onAction="#theme4" prefHeight="26.6015625" prefWidth="181.99990000000253" style="-fx-background-color: #ed1c24; -fx-background-radius: 10;" text="Tritanopie" />
       </children>
     </Pane>
   </children>

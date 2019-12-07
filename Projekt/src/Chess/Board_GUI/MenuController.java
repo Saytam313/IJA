@@ -42,7 +42,7 @@ public class MenuController implements Initializable {
     } 
     
     @FXML
-    private void loadBoard(ActionEvent event) throws IOException {
+    private void loadBoard1(ActionEvent event) throws IOException {
         //AnchorPane pane = FXMLLoader.load(getClass().getResource("Board.fxml"));
        // menuPane.getChildren().setAll(pane);
         
@@ -52,6 +52,46 @@ public class MenuController implements Initializable {
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(firstScene);
         app_stage.show();
+    }
+    @FXML
+    private void loadBoard2(ActionEvent event) throws IOException {
+        //AnchorPane pane = FXMLLoader.load(getClass().getResource("Board.fxml"));
+       // menuPane.getChildren().setAll(pane);
+        
+        FXMLLoader firstPaneLoader = new FXMLLoader(getClass().getResource("Board_RedBlue.fxml"));
+        Parent firstPane = firstPaneLoader.load();
+        Scene firstScene = new Scene(firstPane);
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        app_stage.setScene(firstScene);
+        app_stage.show();
+    }
+    @FXML
+    private void loadBoard3(ActionEvent event) throws IOException {
+        //AnchorPane pane = FXMLLoader.load(getClass().getResource("Board.fxml"));
+       // menuPane.getChildren().setAll(pane);
+        
+        FXMLLoader firstPaneLoader = new FXMLLoader(getClass().getResource("Board_YellowBlue.fxml"));
+        Parent firstPane = firstPaneLoader.load();
+        Scene firstScene = new Scene(firstPane);
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        app_stage.setScene(firstScene);
+        app_stage.show();
+    }
+    @FXML
+    private void loadBoard4(ActionEvent event) throws IOException {
+        //AnchorPane pane = FXMLLoader.load(getClass().getResource("Board.fxml"));
+       // menuPane.getChildren().setAll(pane);
+        
+        FXMLLoader firstPaneLoader = new FXMLLoader(getClass().getResource("Board_GreenYellow.fxml"));
+        Parent firstPane = firstPaneLoader.load();
+        Scene firstScene = new Scene(firstPane);
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        app_stage.setScene(firstScene);
+        app_stage.show();
+    }
+    @FXML
+    private void end(ActionEvent event) throws IOException {
+       Runtime.getRuntime().exit(1);
     }
     @FXML
     private void theme1(ActionEvent event) throws IOException {
@@ -65,6 +105,24 @@ public class MenuController implements Initializable {
     @FXML
     private void theme2(ActionEvent event) throws IOException {
         FXMLLoader firstPaneLoaderRB = new FXMLLoader(getClass().getResource("Menu_RedBlue.fxml"));
+        Parent firstPaneRB = firstPaneLoaderRB.load();
+        Scene firstSceneRB = new Scene(firstPaneRB);
+        Stage app_stageRB = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        app_stageRB.setScene(firstSceneRB);
+        app_stageRB.show();
+    }
+    @FXML
+    private void theme3(ActionEvent event) throws IOException {
+        FXMLLoader firstPaneLoaderRB = new FXMLLoader(getClass().getResource("Menu_YellowBlue.fxml"));
+        Parent firstPaneRB = firstPaneLoaderRB.load();
+        Scene firstSceneRB = new Scene(firstPaneRB);
+        Stage app_stageRB = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        app_stageRB.setScene(firstSceneRB);
+        app_stageRB.show();
+    }
+    @FXML
+    private void theme4(ActionEvent event) throws IOException {
+        FXMLLoader firstPaneLoaderRB = new FXMLLoader(getClass().getResource("Menu_GreenYellow.fxml"));
         Parent firstPaneRB = firstPaneLoaderRB.load();
         Scene firstSceneRB = new Scene(firstPaneRB);
         Stage app_stageRB = (Stage) ((Node) event.getSource()).getScene().getWindow();

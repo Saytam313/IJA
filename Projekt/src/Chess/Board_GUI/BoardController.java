@@ -571,7 +571,7 @@ public class BoardController implements Initializable {
     }
     
     @FXML
-    private void loadMenu(ActionEvent event) throws IOException {
+    private void loadMenu1(ActionEvent event) throws IOException {
         PlayerWhite=true;
         FXMLLoader secondPaneLoader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent secondPane = secondPaneLoader.load();
@@ -580,6 +580,35 @@ public class BoardController implements Initializable {
         app_stage.setScene(secondScene);
         app_stage.show();
     }
-   
+    @FXML
+    private void loadMenu2(ActionEvent event) throws IOException {
+        PlayerWhite=true;
+        FXMLLoader secondPaneLoader = new FXMLLoader(getClass().getResource("Menu_RedBlue.fxml"));
+        Parent secondPane = secondPaneLoader.load();
+        Scene secondScene = new Scene(secondPane);
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        app_stage.setScene(secondScene);
+        app_stage.show();
+    }
+    @FXML
+    private void loadMenu3(ActionEvent event) throws IOException {
+        PlayerWhite=true;
+        FXMLLoader secondPaneLoader = new FXMLLoader(getClass().getResource("Menu_YellowBlue.fxml"));
+        Parent secondPane = secondPaneLoader.load();
+        Scene secondScene = new Scene(secondPane);
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        app_stage.setScene(secondScene);
+        app_stage.show();
+    }
+    @FXML
+    private void loadMenu4(ActionEvent event) throws IOException {
+        PlayerWhite=true;
+        FXMLLoader secondPaneLoader = new FXMLLoader(getClass().getResource("Menu_GreenYellow.fxml"));
+        Parent secondPane = secondPaneLoader.load();
+        Scene secondScene = new Scene(secondPane);
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        app_stage.setScene(secondScene);
+        app_stage.show();
+    }
     
 }
